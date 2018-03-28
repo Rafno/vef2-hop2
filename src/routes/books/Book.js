@@ -6,9 +6,7 @@ import { Route, Link, Switch } from 'react-router-dom';
 
 
 /**
- * Í þessum component ætti að vera mest um að vera og séð um að:
- * - Sækja gögn fyrir svið og birta
- * - Opna/loka deildum
+ * Hér mun þessi compnent sjá um alla listann af bókunum og getur valið spes bók.
  */
 
 class books extends Component {
@@ -28,6 +26,12 @@ class books extends Component {
     const data = await response.json();
     return data;
   }
+
+  eventHandler = (header) => {
+      return(e) => {
+       console.log(header)
+      }
+  }
   render(){
   const { data, loading, error, gogn } = this.state;
   if (loading) {
@@ -44,15 +48,14 @@ class books extends Component {
       </div>
     );
   }
-
   return (
     <div className="listForTitle">
   {data.items.map((i,index) => {
-    return (
-      <ul>
-        <li>{i.title}</li>
-        <li>{i.author}</li>
-      </ul>
+      return (
+          <ul key={index}>
+            <li onClick={this.eventHandler(index)}>{i.title}</li>
+            <li> {i.author}</li>
+        </ul>
     );
   })
   }
