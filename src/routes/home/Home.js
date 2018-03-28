@@ -3,21 +3,29 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 class Home extends Component {
-  state = {isLoggedIn:true};
+  state = {isLoggedIn:false};
+
+  onHeaderClick = (header) => {
+    return (e) => {
+      console.log('presses');
+    }
+  }
   render() {
     /* todo birta mismunandi upplýsingar ef innskráður notandi eða ekki */
     const visible = this.state.isLoggedIn ?
     <div className ="IsLoggedIn">
+    <h2> Velkominn á bókasafnið</h2>
       <p>Þú ert skráður notandi og getur því skráð bækur og breytt þeim sem til eru</p>
       <p> Einnig geturu skoðað aðra notendur </p>
     </div>:
     <div className="isNotLoggedIn">
-      <p> Til að njóta bókasafnsins til fullnustu mælum
-      við með að skrá sig inn. Þangað til getur þú skoðað allar bækurnar.</p>
+    <h2> Velkominn á bókasafnið</h2>
+      <p> Til að njóta bókasafnsins til fullnustu
+      við með að skrá sig inn. Þangað til getur þú skoðað</p>
+      <a href ="/books"> allar bækur </a>
     </div>
     return (
       <div>
-      <h2> Velkominn á bókasafnið</h2>
         {visible}
       </div>
     );
