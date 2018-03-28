@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { loginUser, logoutUser } from '../../actions/auth';
 
+import './Login.css';
+
 class Login extends Component {
   state = {
     username: '',

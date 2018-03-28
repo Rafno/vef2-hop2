@@ -8,7 +8,7 @@ async function get(endpoint) {
   const url = `${baseurl}${endpoint}`;
   const response = await fetch(url);
   const result = await response.json();
-  /* TODO, útfæra get betur.*/
+  /* TODO, útfæra get betur*/
   return { result, status: response.status };
 
   const options = {
