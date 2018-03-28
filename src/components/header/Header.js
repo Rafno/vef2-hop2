@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 import Button from '../button';
+import Search from '../search/search';
 
 import './Header.css';
 
@@ -19,8 +20,9 @@ class Header extends Component {
         <h1 className="header__heading"><Link to="/">Bókasafnið</Link></h1>
 
         {/* ætti samt frekar heima í sér component */}
-        <Button onClick={this.onClick}>Leita</Button>
-
+        <div className="header__searchBar">
+          <Search />
+        </div>
         <Link to="/login">Innskráning</Link>
       </header>
     );

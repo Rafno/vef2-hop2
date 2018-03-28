@@ -1,0 +1,8 @@
+input{
+    padding:0.4em;
+    margin-right:1em;
+}
+form{
+    margin:0.3em;
+    display:flex;
+}

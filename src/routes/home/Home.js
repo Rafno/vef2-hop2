@@ -21,8 +21,8 @@ class Home extends Component {
     <div className="isNotLoggedIn">
     <h2> Velkominn á bókasafnið</h2>
       <p> Til að njóta bókasafnsins til fullnustu
-      við með að skrá sig inn. Þangað til getur þú skoðað</p>
-      <a href ="/books"> allar bækur </a>
+      við með að skrá sig inn. Þangað til getur þú skoðað
+      <a href="/books"> allar bækur </a></p>
     </div>
     return (
       <div>

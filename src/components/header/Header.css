@@ -1,3 +1,15 @@
 .header {
   background-color: #dcbe87;
+  display:flex;
+  justify-content:space-between;
+  padding: 1em
+}
+.header__heading a{
+    text-decoration:none;
+}
+.header__searchBar{
+    display:inline-flex;
+}
+a{
+    margin-top:1%;
 }
