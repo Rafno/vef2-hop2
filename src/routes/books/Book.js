@@ -13,11 +13,19 @@ import { Route, Link, Switch } from 'react-router-dom';
 
 class books extends Component {
   state = { data: null, loading: true, error: false, linkur: null, gogn:null, checked:'', confirm:'+', visibleschool:null}
-  async componentDidMount() {
+  async componentWillMount() {
     try {
       const linkur ='https://vefforritun2-h1-synilausn.herokuapp.com/books';
       let data = await this.fetchData(linkur);
-      this.setState({data, loading:false});
+      let books = data.items.map((i, index) => {
+        return (
+          <ul>
+            <li>{i.title}</li>
+            <li>{i.author}</li>
+          </ul>
+        );
+      })
+      this.setState({data:books, loading:false});
     } catch (e) {
       console.error('Error fetching navigation', e);
       this.setState({ error: true, loading: false});
@@ -41,21 +49,14 @@ class books extends Component {
   if (error) {
     return (
       <div>
+        {this.state.data}
       </div>
     );
   }
 
   return (
     <div className="listForTitle">
-  {data.items.map((i,index) => {
-    return (
-      <ul>
-        <li>{i.title}</li>
-        <li>{i.author}</li>
-      </ul>
-    );
-  })
-  }
+
   </div>
  );
 

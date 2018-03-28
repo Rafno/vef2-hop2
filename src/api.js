@@ -1,7 +1,7 @@
 
 const baseurl = process.env.REACT_APP_SERVICE_URL;
 
-async function get(endpoint) {
+async function get(method, endpoint) {
 
   const token = window.localStorage.getItem('token');
 
