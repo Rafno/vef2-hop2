@@ -10,7 +10,11 @@ import { Route, Link, Switch } from 'react-router-dom';
  */
 
 class books extends Component {
-  state = { data: null, loading: true, error: false, linkur: null, gogn:null, checked:'', confirm:'+', visibleschool:null}
+  state = { data: null,
+            loading: true,
+            error: false,
+            clicked:false,
+            link: 'https://vefforritun2-h1-synilausn.herokuapp.com/' }
   async componentDidMount() {
     try {
       const linkur ='https://vefforritun2-h1-synilausn.herokuapp.com/books';
@@ -27,9 +31,11 @@ class books extends Component {
     return data;
   }
 
-  eventHandler = (header) => {
+  eventHandler = (audkenni) => {
       return(e) => {
-       console.log(header)
+        //const data = await this.fetchData(this.state.link+this.state.audkenni);
+      //  console.log(data);
+       this.setState({clicked:true, bookId:audkenni});
       }
   }
   render(){
@@ -48,19 +54,33 @@ class books extends Component {
       </div>
     );
   }
-  return (
-    <div className="listForTitle">
+  const visible = this.state.clicked ?
+  <div className="ShowOneBook">
+  </div>:
+  <div className="listForTitle">
   {data.items.map((i,index) => {
       return (
           <ul key={index}>
-            <li onClick={this.eventHandler(index)}>{i.title}</li>
+            <li onClick={this.eventHandler(i.id)}>{i.title}</li>
             <li> {i.author}</li>
         </ul>
     );
   })
   }
+  </div>;
+  return (
+  <div>
+    {visible}
   </div>
  );
+
+
+
+
+
+
+
+
 
 }
 }
