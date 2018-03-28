@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import Helmet from 'react-helmet';
 import { Route, Link, Switch } from 'react-router-dom';
 
-
+import { get } from '../../api';
 
 /**
  * Í þessum component ætti að vera mest um að vera og séð um að:
@@ -15,8 +15,8 @@ class books extends Component {
   state = { data: null, loading: true, error: false, linkur: null, gogn:null, checked:'', confirm:'+', visibleschool:null}
   async componentWillMount() {
     try {
-      const linkur ='https://vefforritun2-h1-synilausn.herokuapp.com/books';
-      let data = await this.fetchData(linkur);
+      const linkur = await this.get('https://vefforritun2-h1-synilausn.herokuapp.com/books');
+      /*
       let books = data.items.map((i, index) => {
         return (
           <ul>
@@ -25,16 +25,12 @@ class books extends Component {
           </ul>
         );
       })
+      */
       this.setState({data:books, loading:false});
     } catch (e) {
       console.error('Error fetching navigation', e);
       this.setState({ error: true, loading: false});
     }
-  }
-  async fetchData(url) {
-    const response = await fetch(url);
-    const data = await response.json();
-    return data;
   }
   render(){
   const { data, loading, error, gogn } = this.state;

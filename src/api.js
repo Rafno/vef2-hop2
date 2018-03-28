@@ -1,14 +1,16 @@
 
 const baseurl = process.env.REACT_APP_SERVICE_URL;
 
-async function get(method, endpoint) {
-
+async function get(endpoint) {
+  console.log('HS');
   const token = window.localStorage.getItem('token');
 
-  const url = `${baseurl}${endpoint}`;
+  /*const url = `${baseurl}${endpoint}`;*/
+  const url = `${endpoint}`;
   const response = await fetch(url);
   const result = await response.json();
   /* TODO, útfæra get betur*/
+  console.log('ree');
   return { result, status: response.status };
 
   const options = {
