@@ -1,5 +1,5 @@
 
-const baseurl = process.env.REACT_APP_SERVICE_URL;
+// const baseurl = process.env.REACT_APP_SERVICE_URL;
 
 async function get(endpoint) {
   console.log('HS');
