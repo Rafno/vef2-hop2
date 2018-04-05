@@ -1,5 +1,19 @@
-import { BOOK_REQUEST, BOOK_SUCCESS, BOOK_FAILURE } from '../actions/Book';
+import { FETCH_BOOKS, NEW_BOOK } from '../actions/types';
 
 const initialState = {
-  isFetching: false,
+  items: [],
+  item: {}
+
 };
+
+export default function (state = initialState, action) {
+  switch (action.type) {
+    case FETCH_BOOKS:
+      return {
+        ...state,
+        items: action.payload
+      };
+    default:
+      return state;
+  }
+}

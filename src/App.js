@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import { Provider, connect } from 'react-redux';
 import Helmet from 'react-helmet';
 import { Route, NavLink, Link, Switch, withRouter } from 'react-router-dom'
 
@@ -15,6 +15,7 @@ import updated from './routes/updateBook';
 /* todo fleiri routes */
 
 import './App.css';
+import store from './store';
 
 class App extends Component {
 
@@ -22,30 +23,31 @@ class App extends Component {
     const authenticated = false; /* vita hvort notandi sé innskráður */
 
     return (
-      <main className="main">
-        <Helmet defaultTitle="Bókasafnið" titleTemplate="%s – Bókasafnið" />
+      <Provider store={store} >
+        <main className="main">
+          <Helmet defaultTitle="Bókasafnið" titleTemplate="%s – Bókasafnið" />
 
-        <Header />
+          <Header />
 
-        <div className="main__content">
-          <Switch location={this.props.location}>
-            <Route path="/" exact component={Home} />
-            <Route path="/books" exact component={Book}/>
-            <Route path="/updateBook" ecact component={updated}/>
-            <Route path="/login" exact component={Login} />
-            <UserRoute path="/profile" authenticated={authenticated} component={Profile} />
-            {/* todo fleiri route */}
-            <Route component={NotFound} />
-          </Switch>
-        </div>
-
-      </main>
-    );
+          <div className="main__content">
+            <Switch location={this.props.location}>
+              <Route path="/" exact component={Home} />
+              <Route path="/books" exact component={Book} />
+              <Route path="/updateBook" ecact component={updated} />
+              <Route path="/login" exact component={Login} />
+              <UserRoute path="/profile" authenticated={authenticated} component={Profile} />
+              {/* todo fleiri route */}
+              <Route component={NotFound} />
+            </Switch>
+          </div>
+        </main>
+        </Provider>
+        );
   }
 }
 
 const mapStateToProps = (state) => {
-  /* todo stilla redux ef það er notað */
-}
+          /* todo stilla redux ef það er notað */
+        }
 
-export default withRouter(connect(mapStateToProps)(App));
+        export default withRouter(connect(mapStateToProps)(App));

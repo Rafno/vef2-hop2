@@ -10,7 +10,6 @@ async function get(endpoint) {
   const response = await fetch(url);
   const result = await response.json();
   /* TODO, útfæra get betur*/
-  console.log('ree');
   return { result, status: response.status };
 
   const options = {
