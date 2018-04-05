@@ -11,6 +11,7 @@ import Login from './routes/login';
 import Profile from './routes/profile';
 import NotFound from './routes/not-found';
 import Book from './routes/books';
+import updated from './routes/updateBook';
 /* todo fleiri routes */
 
 import './App.css';
@@ -30,6 +31,7 @@ class App extends Component {
           <Switch location={this.props.location}>
             <Route path="/" exact component={Home} />
             <Route path="/books" exact component={Book}/>
+            <Route path="/updateBook" ecact component={updated}/>
             <Route path="/login" exact component={Login} />
             <UserRoute path="/profile" authenticated={authenticated} component={Profile} />
             {/* todo fleiri route */}
