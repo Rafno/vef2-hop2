@@ -6,13 +6,31 @@ import { Route, Link, Switch } from 'react-router-dom';
 
 
 /**
- * Hér mun þessi compnent sjá um alla listann af bókunum og getur valið spes bók.
+ * Get skoðað eina bók
  */
 
 class viewBook extends Component {
-
   render(){
-      return (<p> hello</p>);
+    const files = {
+       items: {"id":10,"title":"195","author":"Geore Cow","description":"Rosalega skemmtilega bókinn sem er voða merkileg","isbn10":"451774934","isbn13":"9777451524935","category":2,"published":"","pagecount":"246","language":"en"},
+    };
+    const items = files.items;
+      return (
+        <div className="skodaBok">
+          <ul className="listinnfyirBok">
+            <li>{items.title} </li>
+            <li> {items.author}</li>
+            <li> {items.isbn13} </li>
+            <li>Alveg lost hvað fiction er semsagt category </li>
+            <li> {items.description}</li>
+            <li> {items.pagecount} Síður </li>
+            <li> Tungumál: {items.language} </li>
+          </ul>
+          <button>
+            <a href ="/books"> Til Baka</a>
+          </button>
+        </div>
+      );
     }
   }
 export default viewBook;

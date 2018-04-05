@@ -10,7 +10,7 @@ import { Route, Link, Switch } from 'react-router-dom';
  */
 
 class books extends Component {
-  state = { clicked:false, bookId:null,stat:0,back:false, forward:true }
+  state = { clicked:false, bookId:null,stat:1,back:false, forward:true }
   componentDidMount() {
     const files = {
       items:[
@@ -38,7 +38,6 @@ class books extends Component {
         {"id":62,"title":"A Crown of Swords (Wheel of Time, #7)","author":"Robert Jordan","description":"Reprint.","isbn10":"811550285","isbn13":"9780812250283","category":7,"published":"1997-11-15","pagecount":"896","language":"en"},
         {"id":67,"title":"the amazing book","author":"john michael","description":"Reprint the hell out of this.","isbn10":"811589785","isbn13":"9780818847883","category":7,"published":"1998-10-10","pagecount":"458","language":"en"},
         {"id":39,"title":"the amazing book","author":"john michael","description":"Reprintll out of this.","isbn10":"8121133585","isbn13":"9780459947883","category":7,"published":"1995-10-10","pagecount":"48","language":"en"},
-      
       ],
     }
     return files;
@@ -47,46 +46,50 @@ class books extends Component {
     console.log("jslue")
   }
   eventHandler = (book) => {
+    console.log("helli");
     return(e) => {
+      console.log("jnksdfknjsdfnjkfd");
       //const data = await this.fetchData(this.state.link+this.state.audkenni);
-     this.setState({clicked:true,
-      title:book.title,
-      author:book.author,
-      isbn13:book.isbn13,
-      category:book.category,
-      description:book.description,
-      pages:book.pagecount,
-      published:book.published,
-      language:book.language,
-    });
+    const slug = book.id;
+    const url ="/books/"+slug
+    {<a href={url}></a>}
     }
   }
   buttonHandler = () => {
     const {stat} = this.state;
     const temp = this.state.stat;
     const score = temp+1;
-    console.log(score)
     this.setState({clicked:false, stat:score});
   }
-  forwardHandeler =() => {
-    console.log("hallo éger ")
+  forwardHandler = () => {
+    const {stat} = this.state;
+    const temp = this.state.stat;
+    const score = temp+1;
+    console.log(score);
+    this.setState({stat:score});
 
+  }
+  backwardHandler = () => {
+    const {stat} = this.state;
+    const temp = this.state.stat;
+    const score = temp-1;
+    this.setState({stat:score});
   }
 
   render(){
     const {clicked, title, author, isbn13, category, description, pages, published, language, stat, back, forward} = this.state;
     const gogn = this.componentDidMount();
+    console.log(this.state.stat, ' þetta er teljarinn')
     const temp = [];
     let j = 0;
-    console.log(gogn.items.length)
     let frammari = false;
-    let teljari = this.state.stat;
+    let teljari = this.state.stat-1;
     let bakkari = false;
-    if(teljari>0){
+    if(this.state.stat>1){
       bakkari=true;
     }
-    console.log(gogn.items.length/teljari)
-    if(gogn.items.length/teljari >= 10|| gogn.items.length>= 10){
+    console.log(gogn.items.length/this.state.stat, ' þetta er reikningurinns')
+    if(gogn.items.length/this.state.stat > 10){
       frammari = true;
     }
     for(let i =teljari*10;i<teljari*10+10;i++){
@@ -102,17 +105,23 @@ class books extends Component {
     <div className="BookList">
       <h2>Bækur</h2>
       {temp.map((i, index) => {
+        const slug = i.id;
+        const url ="/books/"+slug
         return(
           <ul key = {index}>
-            <li className="heiti"onClick = {this.eventHandler(i)}>{i.title}</li>
-            <li>{i.author}</li>
+            <a href ={url}>
+              <li>{i.title}</li>
+            </a>
+              <li>{i.author}</li>
           </ul>
         );
       }
       )
       }
       <div takkarnir className="takkar">
-      {view1}{"Síða númer: "+teljari}{ <div className="heiti"onClick = {this.forwardHandeler}>hello/>{view2}</div>}
+      {<div className="backButton" onClick = {this.backwardHandler}>{view1} </div>}
+      {"Síða númer: "+teljari}
+      {<div className="forwardButton"onClick = {this.forwardHandler}>{view2}</div>}
       </div>
     </div>
     );

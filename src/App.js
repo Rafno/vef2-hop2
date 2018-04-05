@@ -15,6 +15,7 @@ import updated from './routes/updateBook';
 /* todo fleiri routes */
 
 import './App.css';
+import viewBook from './routes/viewbook/viewBook';
 
 class App extends Component {
 
@@ -29,12 +30,12 @@ class App extends Component {
 
         <div className="main__content">
           <Switch location={this.props.location}>
-            <Route path="/" exact component={Home} />
+            <Route path="/" exact component={Home}/>
             <Route path="/books" exact component={Book}/>
-            <Route path="/updateBook" ecact component={updated}/>
-            <Route path="/login" exact component={Login} />
-            <UserRoute path="/profile" authenticated={authenticated} component={Profile} />
-            {/* todo fleiri route */}
+            <Route path="/books/:id" exact component={viewBook}/>
+            <Route path="/updateBook" exact component={updated}/>
+            <Route path="/login" exact component={Login}/>
+            <UserRoute path="/profile" authenticated={authenticated} component={Profile}/>
             <Route component={NotFound} />
           </Switch>
         </div>
