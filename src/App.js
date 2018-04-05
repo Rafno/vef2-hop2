@@ -16,6 +16,7 @@ import updated from './routes/updateBook';
 
 import './App.css';
 import store from './store';
+import viewBook from './routes/viewbook/viewBook';
 
 class App extends Component {
 
@@ -33,21 +34,22 @@ class App extends Component {
             <Switch location={this.props.location}>
               <Route path="/" exact component={Home} />
               <Route path="/books" exact component={Book} />
-              <Route path="/updateBook" ecact component={updated} />
+              <Route path="/books/:id" exact component={viewBook} />
+              <Route path="/updateBook" exact component={updated} />
               <Route path="/login" exact component={Login} />
               <UserRoute path="/profile" authenticated={authenticated} component={Profile} />
-              {/* todo fleiri route */}
               <Route component={NotFound} />
             </Switch>
           </div>
+
         </main>
-        </Provider>
-        );
+      </Provider>
+    );
   }
 }
 
 const mapStateToProps = (state) => {
-          /* todo stilla redux ef það er notað */
-        }
+  /* todo stilla redux ef það er notað */
+}
 
-        export default withRouter(connect(mapStateToProps)(App));
+export default withRouter(connect(mapStateToProps)(App));

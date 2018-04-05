@@ -1,6 +1,7 @@
-.heiti{
+heiti{
     padding-top: 20px;
-    font-size: 20px;
+    font-size: 5em;
+    
 }
 .takkar {
     display: flex;
