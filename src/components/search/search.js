@@ -9,6 +9,7 @@ class Search extends Component {
     results:[]
   }
   handleInputChange = () => {
+    console.log(this.search.value);
     this.setState({
       query:this.search.value
     })
@@ -16,8 +17,8 @@ class Search extends Component {
   render() {
     return (
       <form>
-        <input 
-        placeholder="Bokaleit"
+        <input
+        placeholder="Bókaleit"
         ref={input => this.search = input}
         onChange={this.handleInputChange}
         />
