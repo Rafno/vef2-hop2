@@ -16,6 +16,7 @@ import updated from './routes/updateBook';
 
 import './App.css';
 import viewBook from './routes/viewbook/viewBook';
+import Registration from './routes/registration';
 
 class App extends Component {
 
@@ -35,6 +36,7 @@ class App extends Component {
             <Route path="/books/:id" exact component={viewBook}/>
             <Route path="/updateBook" exact component={updated}/>
             <Route path="/login" exact component={Login}/>
+            <Route path="/registration" exact component={Registration}/>
             <UserRoute path="/profile" authenticated={authenticated} component={Profile}/>
             <Route component={NotFound} />
           </Switch>
