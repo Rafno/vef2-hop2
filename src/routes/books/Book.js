@@ -12,7 +12,15 @@ import { get } from '../../api';
  */
 
 class Books extends Component {
-  componentWillMount() {
+  constructor(props) {
+    super(props);
+    this.state = {
+      books: null,
+      loading: true,
+    }
+
+  }
+  componentDidMount() {
     this.props.fetchBooks();
   }
 
@@ -23,10 +31,11 @@ class Books extends Component {
   }
 
   render() {
-    console.log(this.props);
-    const postItems = this.props.books.map(post => (
-      console.log(post)
-    ));
+    if (this.props.books.items === undefined) {
+      console.log("Gripið!");
+    } else {
+      console.log(this.props.books.items);
+    }
     return (
       <div>
         <h1>Posts</h1>
@@ -38,7 +47,7 @@ class Books extends Component {
 
 Books.propTypes = {
   fetchBooks: PropTypes.func.isRequired,
-  books: PropTypes.array.isRequired,
+  books: PropTypes.object.isRequired,
 };
 const mapStateToProps = state => ({
   books: state.books.items

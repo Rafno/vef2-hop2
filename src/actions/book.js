@@ -2,8 +2,7 @@ import api from '../api';
 import { FETCH_BOOKS, NEW_BOOK } from './types';
 
 export const fetchBooks = () => dispatch => {
-  const baseUrl = 'http://127.0.0.1:3002/';
-  console.log(process.env);
+  const baseUrl = 'https://verkefni2server.herokuapp.com/';
   fetch(`${baseUrl}books`)
     .then(res => res.json())
     .then(books =>
