@@ -8,17 +8,26 @@
 import api from '../api';
 import { LOGIN_REQUEST, LOGIN_FAILURE, LOGIN_LOGOUT, LOGIN_SUCCESS } from './types';
 
-export const requestLogin = () => dispatch => {
-  console.log("logging in");
-  dispatch({
-    type: LOGIN_REQUEST,
-    isFetching: true,
-    isAuthenticated: false,
-    payload: null,
-  })
-};
+export const checkLogin = () => dispatch => {
+  fetch('https://verkefni2server.herokuapp.com/books', {
+    method: 'POST',
+    headers: {
+      'content-type': 'application/json',
+      'authorization': `bearer ${localStorage.getItem("Token")}`
+    }
+    })
+    .then(res => res.json())
+    .then(login =>
+      dispatch({
+        type: LOGIN_REQUEST,
+        isFetching: false,
+        isAuthenticated: true,
+        user: username,
+        payload: localStorage.getItem("Token"),
+      }))
+}
 export const receiveLogin = (username, password) => dispatch => {
-  const testing = fetch('https://verkefni2server.herokuapp.com/login', {
+  fetch('https://verkefni2server.herokuapp.com/login', {
     method: 'POST',
     headers: {
       'content-type': 'application/json'
@@ -36,7 +45,7 @@ export const receiveLogin = (username, password) => dispatch => {
       }))
 };
 export const CreateBook = (title, author, about, isbn10, isbn13, published, pagecount, language, category) => async dispatch => {
-  const testing = await fetch('https://verkefni2server.herokuapp.com/books', {
+    fetch('https://verkefni2server.herokuapp.com/books', {
     method: 'POST',
     headers: {
       'content-type': 'application/json',

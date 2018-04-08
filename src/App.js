@@ -23,7 +23,7 @@ class App extends Component {
 
   render() {
     const authenticated = false; /* vita hvort notandi sé innskráður */
-
+    if (localStorage.getItem("Token")) console.log("Innskráður!");
     return (
       <Provider store={store} >
       <main className="main">

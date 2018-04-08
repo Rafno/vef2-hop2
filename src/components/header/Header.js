@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-
+import { receiveLogin, requestLogin, loginOut } from '../../actions/auth';
 import { Link } from 'react-router-dom';
 
 import Button from '../button';
@@ -15,6 +15,8 @@ class Header extends Component {
   }
 
   render() {
+    const { isAuthenticated } = this.props;
+    console.log(isAuthenticated);
     return (
       <header className="header">
         <h1 className="header__heading"><Link to="/">Bókasafnið</Link></h1>
@@ -32,7 +34,8 @@ class Header extends Component {
 const mapStateToProps = (state) => {
   return {
     auth: state.auth,
+    isAuthenticated: state.auth.isAuthenticated,
   }
 }
 
-export default connect(mapStateToProps)(Header);
+export default connect(mapStateToProps, { receiveLogin, loginOut })(Header);

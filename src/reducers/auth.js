@@ -14,6 +14,8 @@ export default (state = initialState, action) => {
         ...state,
         isFetching: action.isFetching,
         isAuthenticated: action.isAuthenticated,
+        user: action.user,
+        message: action.payload,
       };
     case LOGIN_SUCCESS:
       localStorage.setItem("Token", `${action.payload}`);
