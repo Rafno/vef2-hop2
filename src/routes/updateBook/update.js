@@ -20,13 +20,10 @@ class update extends Component {
             const str = window.location.pathname;
             const hlutur = str.split('/');
             const url = 'https://verkefni2server.herokuapp.com/'+hlutur[1]+'/'+hlutur[2];
-
-
             console.log(url);
             const data = await this.fetchData(url);
             console.log(data);
             console.log(data.gogn[0].category)
-            const flokkur = this.checkWichCat(data);
             this.setState({
                 data, loading: false,
                 title: data.gogn[0].title,
