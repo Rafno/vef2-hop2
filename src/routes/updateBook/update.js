@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { CreateBook } from '../../actions/auth';
+import {UpdateBookById} from '../../actions/auth';
 import { connect } from 'react-redux';
 
 
@@ -57,7 +58,6 @@ class update extends Component {
                 this.setState({ error: true, loading: false});
             }
         }
-        
       }
       async fetchData(url) {
         const {linkur} = this.state;
@@ -105,9 +105,8 @@ class update extends Component {
         if (action === "Ný bók") {
             this.props.CreateBook(title, author, about, parseInt(isbn10,10), parseInt(isbn13,10), released, parseInt(pageCount,10), language, category);
         } else if (action === "Breyta") {
-            // BEYTA BOK
+            this.props.UpdateBookById(title, author, about, parseInt(isbn10,10), parseInt(isbn13,10), released, parseInt(pageCount,10), language, category, sluggid);
         }
-        
     }
     generateOptions(categories, currentCategory) {
         return categories.map( (x, i) => {
@@ -181,4 +180,4 @@ const mapStateToProps = (state) => {
   }
 
 /* todo setja upp tengingu við redux til að vita stöðu notanda */
-export default connect (mapStateToProps, {CreateBook})(update);
+export default connect (mapStateToProps, {CreateBook, UpdateBookById})(update);
