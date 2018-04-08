@@ -10,12 +10,48 @@ import { Route, Link, Switch } from 'react-router-dom';
  */
 
 class viewBook extends Component {
-  render(){
-    const files = {
-       items: {"id":10,"title":"195","author":"Geore Cow","description":"Rosalega skemmtilega bókinn sem er voða merkileg","isbn10":"451774934","isbn13":"9777451524935","category":2,"published":"","pagecount":"246","language":"en"},
+  constructor(props) {
+    super(props);
+    this.state = {
+      gogn:null,
+      loading:true,
+      error:null,
     };
-    const items = files.items;
+}
+  async componentDidMount(){
+    const str = window.location.pathname;
+    const hlutur = str.split('/');
+    const url = 'https://verkefni2server.herokuapp.com/'+hlutur[1]+'/'+hlutur[2];
+    console.log(url);
+    const data = await this.fetchData(url);
+    this.setState({ gogn:data, loading: false });
+  }
+  async fetchData(url) {
+    const link = url;
+    const response = await fetch(link);
+    const data = await response.json();
+    return data;
+  }
+  render(){
+    const {gogn, loading, error, teljari} = this.state;
+    if (loading) {
       return (
+        <div>
+          <p>Sæki gögn...</p>
+        </div>
+      );
+    }
+    if (error) {
+      return (
+        <div>
+            <p> villa kom upp </p>
+        </div>
+      );
+    }
+    const items = this.state.gogn.gogn[0];
+    console.log(items);
+   // console.log(this.state.gogn.gogn[0].id)
+     return (
         <div className="skodaBok">
           <ul className="listinnfyirBok">
             <li>{items.title} </li>
@@ -26,7 +62,7 @@ class viewBook extends Component {
             <li> {items.pagecount} Síður </li>
             <li> Tungumál: {items.language} </li>
           </ul>
-          <button> 
+          <button>
             <Link to = {`/books/${items.id}/edit`}> Breyta bók </Link>
             </button>
           <button>

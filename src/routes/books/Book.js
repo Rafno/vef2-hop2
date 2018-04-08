@@ -10,12 +10,12 @@ class books extends Component {
 
   constructor(props) {
       super(props);
-      this.state = { 
-        back:false, 
+      this.state = {
+        back:false,
         forward:false,
-        data:null, 
-        loading:true, 
-        error:null, 
+        data:null,
+        loading:true,
+        error:null,
         linkur:null,
         next:null,
         count:1,
