@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { CreateBook, changeName } from '../../actions/auth';
+import { CreateBook, changeName, changePassword } from '../../actions/auth';
 import { connect } from 'react-redux';
 
 
@@ -8,15 +8,16 @@ class Profile extends Component {
   handleNameChange = (e) => {
     e.preventDefault();
     const { name } = this.state;
-    console.log(`change name to ${name}`);
+    localStorage.setItem("username", name);
     this.props.changeName(name);
   }
 
   handlePassChange = (e) => {
     e.preventDefault();
     const { pass, confirmPass } = this.state;
-    if(pass === confirmPass){
-      this.props.UpdatePassword(pass);
+    if (pass === confirmPass) {
+      localStorage.setItem("password", pass);
+      this.props.changePassword(pass);
     }
   }
 
@@ -57,4 +58,4 @@ const mapStateToProps = (state) => {
 }
 
 /* todo setja upp tengingu við redux til að vita stöðu notanda */
-export default connect (mapStateToProps, { changeName })(Profile);
+export default connect(mapStateToProps, { changeName, changePassword })(Profile);

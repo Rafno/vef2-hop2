@@ -115,7 +115,10 @@ export const loginOut = () => dispatch => {
     user: null,
   })
 };
-
+/**
+ * *changeName og changePassword skemma "name" hlutann eins og er. TODO. þarf að útfæra name í localstorage.
+ * @param {any} name
+ */
   export const changeName = (name) => dispatch => {
     const testing = fetch(`https://verkefni2server.herokuapp.com/users/me`, {
       method: 'PATCH',
@@ -132,10 +135,31 @@ export const loginOut = () => dispatch => {
       .then(res => res.json())
       .then(login =>
         dispatch({
-          type: LOGIN_SUCCESS,
+          type: NAMECHANGE_SUCCESS,
           isFetching: false,
           isAuthenticated: true,
           payload: localStorage.getItem("Token"),
         }))
     };
-  
+export const changePassword = (password) => dispatch => {
+  const testing = fetch(`https://verkefni2server.herokuapp.com/users/me`, {
+    method: 'PATCH',
+    headers: {
+      'content-type': 'application/json',
+      'authorization': `bearer ${localStorage.getItem("Token")}`
+    },
+    body: JSON.stringify({
+      "username": localStorage.getItem("username"),
+      "password": localStorage.getItem("password"),
+      "name": "testing"
+    })
+  })
+    .then(res => res.json())
+    .then(login =>
+      dispatch({
+        type: NAMECHANGE_SUCCESS,
+        isFetching: false,
+        isAuthenticated: true,
+        payload: localStorage.getItem("Token"),
+      }))
+};
