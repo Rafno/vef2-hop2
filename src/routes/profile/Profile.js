@@ -1,11 +1,16 @@
 import React, { Component } from 'react';
+import { CreateBook } from '../../actions/auth';
+import { connect } from 'react-redux';
 
-export default class Profile extends Component {
+
+class Profile extends Component {
 
   handlePassChange = (e) => {
     e.preventDefault();
     const { pass, confirmPass } = this.state;
-    console.log(pass===confirmPass);
+    if(pass === confirmPass){
+      this.props.UpdatePassword(pass);
+    }
   }
 
   handleInputChange = (e) => {
@@ -30,3 +35,4 @@ export default class Profile extends Component {
     );
   }
 }
+export default connect (mapStateToProps, {UpdatePassword})(Profile);
