@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import { Provider, connect } from 'react-redux';
 import Helmet from 'react-helmet';
 import { Route, NavLink, Link, Switch, withRouter } from 'react-router-dom'
 
@@ -15,6 +15,7 @@ import updated from './routes/updateBook';
 /* todo fleiri routes */
 
 import './App.css';
+import store from './store';
 import viewBook from './routes/viewbook/viewBook';
 import Registration from './routes/registration';
 
@@ -24,6 +25,7 @@ class App extends Component {
     const authenticated = false; /* vita hvort notandi sé innskráður */
 
     return (
+      <Provider store={store} >
       <main className="main">
         <Helmet defaultTitle="Bókasafnið" titleTemplate="%s – Bókasafnið" />
 
@@ -42,7 +44,8 @@ class App extends Component {
           </Switch>
         </div>
 
-      </main>
+        </main>
+      </Provider>
     );
   }
 }
