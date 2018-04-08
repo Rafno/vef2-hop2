@@ -6,77 +6,52 @@
  */
 /*TODO skoða afhverju það er message í RequestLogin og sjá hvort það vanti á hina. */
 import api from '../api';
+import { LOGIN_REQUEST, LOGIN_FAILURE, LOGIN_LOGOUT, LOGIN_SUCCESS } from './types';
 
-export const LOGIN_REQUEST = 'LOGIN_REQUEST';
-export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
-export const LOGIN_FAILURE = 'LOGIN_FAILURE';
-export const LOGIN_LOGOUT = 'LOGIN_LOGOUT';
-
-function requestLogin() {
-  return {
+export const requestLogin = () => dispatch => {
+  console.log("logging in");
+  dispatch({
     type: LOGIN_REQUEST,
     isFetching: true,
     isAuthenticated: false,
-    message: null,
-  }
-}
-
-function receiveLogin(user) {
-  return {
-    type: LOGIN_SUCCESS,
-    isFetching: false,
-    isAuthenticated: true,
-    user,
-    message: null,
-  }
-}
-
-function loginError(message) {
-  return {
+    payload: null,
+  })
+};
+export const receiveLogin = (username, password) => dispatch => {
+  const testing = fetch('https://verkefni2server.herokuapp.com/login', {
+    method: 'POST',
+    headers: {
+      'content-type': 'application/json'
+    },
+    body: JSON.stringify({ "username": username, "password": password })
+  })
+    .then(res => res.json())
+    .then(login =>
+      dispatch({
+        type: LOGIN_SUCCESS,
+        isFetching: false,
+        isAuthenticated: true,
+        user: username,
+        payload: login.token,
+      }))
+  console.log(testing);
+};
+export const loginError = message => dispatch => {
+  console.log("login failed");
+  dispatch({
     type: LOGIN_FAILURE,
     isFetching: false,
     isAuthenticated: false,
-    message
-  }
-}
-
-function logout() {
-  return {
+    payload: null,
+  })
+};
+export const loginOut = () => dispatch => {
+  console.log("logged out");
+  dispatch({
     type: LOGIN_LOGOUT,
     isFetching: false,
     isAuthenticated: false,
     user: null,
-  }
-}
+  })
+};
 
-// Thunk!
-/* SKOÐA API.LOGIN. Gripið frá Óla sem er ekki tengt heroku. */ 
-export const loginUser = (username, password) => {
-  return async (dispatch) => {
-    dispatch(requestLogin());
-
-    let login;
-    try {
-      login = await api.login(username, password);
-    } catch (e) {
-      return dispatch(loginError(e))
-    }
-
-    if (!login.loggedin) {
-      dispatch(loginError(login.error))
-    }
-
-    if (login.loggedin) {
-      const { user } = login;
-      localStorage.setItem('user', JSON.stringify(user));
-      dispatch(receiveLogin(user));
-    }
-  }
-}
-
-export const logoutUser = () => {
-  return async (dispatch) => {
-    localStorage.removeItem('user');
-    dispatch(logout());
-  }
-}

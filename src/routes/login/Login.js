@@ -1,15 +1,17 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { loginUser, logoutUser } from '../../actions/auth';
-
+import { receiveLogin, requestLogin, loginOut } from '../../actions/auth';
+import { fetchBooks, getbookByID } from '../../actions/book';
 import './Login.css';
 
 class Login extends Component {
-  state = {
-    username: '',
-    password: '',
+  constructor(props) {
+    super(props);
+    this.state = {
+      username: '',
+      password: '',
+    };
   }
-
   handleInputChange = (e) => {
     const { name, value } = e.target;
 
@@ -20,22 +22,18 @@ class Login extends Component {
 
   handleSubmit = async (e) => {
     e.preventDefault();
-
-    const { dispatch } = this.props;
     const { username, password } = this.state;
-
-    dispatch(loginUser(username, password));
+    const user = { username, password };
+    this.props.receiveLogin(username, password);
   }
 
   handleLogout = (e) => {
-    const { dispatch } = this.props;
-    dispatch(logoutUser());
+    this.props.loginOut();
   }
 
   render() {
     const { username, password } = this.state;
     const { isFetching, isAuthenticated, message } = this.props;
-
     if (isAuthenticated) {
       return (
         <button onClick={this.handleLogout}>Útskrá</button>
@@ -81,4 +79,4 @@ const mapStateToProps = (state) => {
   }
 }
 
-export default connect(mapStateToProps)(Login);
+export default connect(mapStateToProps, { receiveLogin, loginOut })(Login);

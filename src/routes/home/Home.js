@@ -2,9 +2,8 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
-
 class Home extends Component {
-  state = {isLoggedIn:true,hello:52};
+  state = {isLoggedIn:false,hello:52};
 
   onHeaderClick = (header) => {
     return (e) => {
