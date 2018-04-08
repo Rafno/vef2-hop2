@@ -7,32 +7,38 @@ import { Route, Link, Switch } from 'react-router-dom';
  */
 
 class books extends Component {
-  state = { back:false, forward:false,data:null, loading:true, error:null, linkur:null}
+
+  constructor(props) {
+      super(props);
+      this.state = { 
+        back:false, 
+        forward:false,
+        data:null, 
+        loading:true, 
+        error:null, 
+        linkur:null,
+        next:null,
+        count:1,
+      };
+
+      this.forwardHandler = this.forwardHandler.bind(this);
+      this.backwardHandler = this.backwardHandler.bind(this);
+  }
+  
   async componentDidMount() {
     try {
       const url = 'https://verkefni2server.herokuapp.com/books?offset=0&limit=10&books';
       const data = await this.fetchData(url);
-      this.setState({ data, loading: false});
+      this.setState({ data, loading: false });
+
     } catch (e) {
       console.error('Error fetching navigation', e);
       this.setState({ error: true, loading: false});
     }
   }
- async componentWillUpdate (prevProps) {
-    const {back, forward,data, linkur} = this.state;
-    console.log("Linkur ?"+ prevProps);
-    if(linkur){
-      console.log(linkur.href);
-      const gogn = await this.fetchData(linkur);
-      console.log(gogn,"heeleellel");
-
-      await this.setState({ data: gogn, loading: false});
-    }
-
-  }
+ 
   async fetchData(url) {
     const {linkur} = this.state;
-    console.log(url, 'ello');
     const link = url;
     let data = null;
     const response = await fetch(link);
@@ -41,38 +47,38 @@ class books extends Component {
     } else {
      data = response;
     }
-    console.log(data);
     return data;
   }
-  eventHandler = (book) => {
-    console.log("helli");
-    return(e) => {
-      //const data = await this.fetchData(this.state.link+this.state.audkenni);
-    const slug = book.id;
-    const url ="/books/"+slug
-    {<a href={url}></a>}
-    }
-  }
-  buttonHandler = () => {
-    const {stat} = this.state;
-    const temp = this.state.stat;
-    const score = temp+1;
-    this.setState({clicked:false, stat:score});
-  }
-  forwardHandler = (url) => {
-    return(e) => {
-      this.setState({linkur:url})
-    }
-    //this.componentDidMount();
 
+  async forwardHandler(event) {
+    const {back, forward, data, count} = this.state;
+    const linkur = data.links.next.href.toString();
+    if(linkur){
+      console.log(linkur.href);
+      const gogn = await this.fetchData(linkur);
+      const inc = count+1;
+
+      await this.setState({ data: gogn, loading: false, count:inc });
+    }
   }
-  backwardHandler = () => {
-    //this.setState({back:true});
+
+  async backwardHandler(event) {
+    const {back, forward, data, count} = this.state;
+    const linkur = data.links.prev.href.toString();
+    if(linkur){
+      console.log(linkur.href);
+      const gogn = await this.fetchData(linkur);
+      const dec = count-1;
+
+      await this.setState({ data: gogn, loading: false, count:dec});
+    }
   }
+
   render(){
     let bakkari = true;
     let frammari = true;
     const {data, loading, error, teljari} = this.state;
+
     if (loading) {
       return (
         <div>
@@ -87,13 +93,12 @@ class books extends Component {
         </div>
       );
     }
-    console.log("Data.link res :" + data);
-    const next = data.links.next;
+
     const view1 = bakkari ? <div><button>Aftur um síðu</button></div>:null;
     const view2 = frammari ? <div> <button>Áfram um síðu</button></div>:null
     return (
       <div className="BookList">
-        <h2> Bæækur </h2>
+        <h2> Bækur </h2>
         {data.items.map((i, index) => {
           const slug = i.id
           const url = "/book/"+slug
@@ -106,10 +111,10 @@ class books extends Component {
             </ul>
           );
         })}
-        <div takkarnir className="takkar">
-          {<div className="backButton" onClick = {this.backwardHandler}>{view1} </div>}
-          {"Síða númer: "+teljari}
-          {<div className="forwardButton"onClick = {this.forwardHandler(next)}>{view2}</div>}
+        <div className="takkar">
+          {<button className="backButton" onClick = {this.backwardHandler}>{view1}</button>}
+          {"Síða númer: "+this.state.count}
+          {<button className="forwardButton" onClick = {this.forwardHandler}>{view2}</button>}
         </div>
       </div>
     );
