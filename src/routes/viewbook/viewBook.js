@@ -16,6 +16,7 @@ class viewBook extends Component {
       gogn:null,
       loading:true,
       error:null,
+      clicked:null,
     };
 }
   async componentDidMount(){
@@ -32,8 +33,12 @@ class viewBook extends Component {
     const data = await response.json();
     return data;
   }
+  buttonHandler = (e) => {
+    const {clicked} = this.state;
+    this.setState({clicked:true});
+  }
   render(){
-    const {gogn, loading, error, teljari} = this.state;
+    const {gogn, loading, error, teljari, tala} = this.state;
     if (loading) {
       return (
         <div>
@@ -63,12 +68,12 @@ class viewBook extends Component {
             <li> Tungumál: {items.language} </li>
           </ul>
           <button>
-            <Link to = {`/books/${items.id}/edit`}> Breyta bók á að fara í lesinn bók </Link>
+            <Link to = {`/books/${items.id}/edit`}> Breyta bók</Link>
           </button>
           <button>
             <Link to="/books"> Til Baka</Link>
           </button>
-          
+          <button onClick = {this.buttonHandler}> Lesinn Bók </button>
         </div>
       );
     }
