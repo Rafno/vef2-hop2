@@ -26,15 +26,14 @@ class books extends Component {
   }
 
   getQueryVariable(variable) {
-       var query = window.location.search.substring(1);
-       var vars = query.split("&");
+       const query = window.location.search.substring(1);
+       const vars = query.split("&");
        for (var i=0;i<vars.length;i++) {
-               var pair = vars[i].split("=");
+               let pair = vars[i].split("=");
                if(pair[0] == variable){return pair[1];}
        }
        return(false);
   }
-  
   async componentDidMount() {
     const searchParam = this.getQueryVariable("query");
     let url = 'https://verkefni2server.herokuapp.com/books?offset=0&limit=10&books'

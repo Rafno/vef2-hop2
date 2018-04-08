@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 
 
 class Home extends Component {
-  state = {isLoggedIn:false,hello:52};
+  state = {isLoggedIn:true,hello:52};
 
   onHeaderClick = (header) => {
     return (e) => {

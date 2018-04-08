@@ -63,11 +63,12 @@ class viewBook extends Component {
             <li> Tungumál: {items.language} </li>
           </ul>
           <button>
-            <Link to = {`/books/${items.id}/edit`}> Breyta bók </Link>
-            </button>
+            <Link to = {`/books/${items.id}/edit`}> Breyta bók á að fara í lesinn bók </Link>
+          </button>
           <button>
             <Link to="/books"> Til Baka</Link>
           </button>
+          
         </div>
       );
     }
