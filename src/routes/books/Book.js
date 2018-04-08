@@ -10,7 +10,7 @@ class books extends Component {
   state = { back:false, forward:false,data:null, loading:true, error:null, linkur:null}
   async componentDidMount() {
     try {
-      const url = 'https://verkefni2server.herokuapp.com/books';
+      const url = 'https://verkefni2server.herokuapp.com/books?offset=0&limit=10&books';
       const data = await this.fetchData(url);
       this.setState({ data, loading: false});
     } catch (e) {
@@ -18,20 +18,29 @@ class books extends Component {
       this.setState({ error: true, loading: false});
     }
   }
- async componentDidUpdate () {
+ async componentWillUpdate (prevProps) {
     const {back, forward,data, linkur} = this.state;
+    console.log("Linkur ?"+ prevProps);
     if(linkur){
       console.log(linkur.href);
       const gogn = await this.fetchData(linkur);
-      this.setState({ data, loading: false});
+      console.log(gogn,"heeleellel");
+
+      await this.setState({ data: gogn, loading: false});
     }
 
   }
   async fetchData(url) {
-    console.log(url);
-    const response = await fetch('https://verkefni2server.herokuapp.com/books');
-    console.log(response);
-    const data = await response.json();
+    const {linkur} = this.state;
+    console.log(url, 'ello');
+    const link = url;
+    let data = null;
+    const response = await fetch(link);
+    if(!linkur){
+       data = await response.json();
+    } else {
+     data = response;
+    }
     console.log(data);
     return data;
   }
@@ -54,7 +63,7 @@ class books extends Component {
     return(e) => {
       this.setState({linkur:url})
     }
-   // this.componentDidMount(url);
+    //this.componentDidMount();
 
   }
   backwardHandler = () => {
@@ -78,7 +87,8 @@ class books extends Component {
         </div>
       );
     }
-    const next = data.links.next
+    console.log("Data.link res :" + data);
+    const next = data.links.next;
     const view1 = bakkari ? <div><button>Aftur um síðu</button></div>:null;
     const view2 = frammari ? <div> <button>Áfram um síðu</button></div>:null
     return (
