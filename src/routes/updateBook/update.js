@@ -5,7 +5,6 @@ import { CreateBook } from '../../actions/auth';
 import {UpdateBookById} from '../../actions/auth';
 import { connect } from 'react-redux';
 
-
 class update extends Component {
     state = {
         title: '',
