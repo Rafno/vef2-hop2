@@ -34,15 +34,13 @@ export const receiveLogin = (username, password) => dispatch => {
         user: username,
         payload: login.token,
       }))
-  console.log(testing);
 };
 export const CreateBook = (title, author, about, isbn10, isbn13, published, pagecount, language, category) => async dispatch => {
   const testing = await fetch('https://verkefni2server.herokuapp.com/books', {
     method: 'POST',
     headers: {
       'content-type': 'application/json',
-      'authorization':`Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NywiaWF0IjoxNTIzMjE2ODM0LCJleHAiOjE1MjMyMTgwMzR9.ZhoUi8MlPw_xnM71NgEX5HxexCTtVDYu5GPn4U568e0`
-    },
+      'authorization': `bearer ${localStorage.getItem("Token")}`},
     body: JSON.stringify({"title":title,
     "author":author,
     "description":about,
@@ -59,16 +57,16 @@ export const CreateBook = (title, author, about, isbn10, isbn13, published, page
         type: LOGIN_SUCCESS,
         isFetching: false,
         isAuthenticated: true,
-        payload: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NywiaWF0IjoxNTIzMjE2ODM0LCJleHAiOjE1MjMyMTgwMzR9.ZhoUi8MlPw_xnM71NgEX5HxexCTtVDYu5GPn4U568e0',
+        payload: localStorage.getItem("Token"),
       }))
-  console.log(testing);
+  console.log(localStorage.getItem("Token"));
 };
 export const UpdateBookById = (title, author, about, isbn10, isbn13, published, pagecount, language, category, id) => async dispatch => {
   const testing = await fetch(`https://verkefni2server.herokuapp.com/books/${id}`, {
     method: 'POST',
     headers: {
       'content-type': 'application/json',
-      'authorization':`Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NywiaWF0IjoxNTIzMjE2ODM0LCJleHAiOjE1MjMyMTgwMzR9.ZhoUi8MlPw_xnM71NgEX5HxexCTtVDYu5GPn4U568e0`
+      'authorization': localStorage.getItem("Token"),
     },
     body: JSON.stringify({"title":title,
     "author":author,
@@ -86,7 +84,7 @@ export const UpdateBookById = (title, author, about, isbn10, isbn13, published, 
         type: LOGIN_SUCCESS,
         isFetching: false,
         isAuthenticated: true,
-        payload: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NywiaWF0IjoxNTIzMjE2ODM0LCJleHAiOjE1MjMyMTgwMzR9.ZhoUi8MlPw_xnM71NgEX5HxexCTtVDYu5GPn4U568e0',
+        payload: localStorage.getItem("Token"),
       }))
   console.log(testing);
 };
