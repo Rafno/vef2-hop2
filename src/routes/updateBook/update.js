@@ -105,7 +105,7 @@ class update extends Component {
     const { title, author, category, isbn10, isbn13, released, pageCount, language, description} = this.state;
     // TODO FALL SÆKJA ÖLL CATEGORIES
     const allCategories = ['Science Fiction', 'Fantasy', 'Fiction', 'Computer Science', 'Comic', 'Nonfiction', 'Business',
-                            'Psychology', 'Psychology', 'Horror', 'Design', 'Economics', 'Graphic Novel'];
+                            'Psychology', 'Horror', 'Design', 'Economics', 'Graphic Novel'];
     const options = this.generateOptions(allCategories, category);
     return(
         <div>
