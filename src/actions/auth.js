@@ -22,7 +22,7 @@ export const checkLogin = () => dispatch => {
         type: LOGIN_REQUEST,
         isFetching: false,
         isAuthenticated: true,
-        user: username,
+        user: login.username,
         payload: localStorage.getItem("Token"),
       }))
 }
