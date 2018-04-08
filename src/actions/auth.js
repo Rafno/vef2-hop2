@@ -61,12 +61,12 @@ export const CreateBook = (title, author, about, isbn10, isbn13, published, page
       }))
   console.log(localStorage.getItem("Token"));
 };
-export const CreateBookById = (title, author, about, isbn10, isbn13, published, pagecount, language, category, id) => async dispatch => {
+export const UpdateBookById = (title, author, about, isbn10, isbn13, published, pagecount, language, category, id) => async dispatch => {
   const testing = await fetch(`https://verkefni2server.herokuapp.com/books/${id}`, {
-    method: 'POST',
+    method: 'PATCH',
     headers: {
       'content-type': 'application/json',
-      'authorization': localStorage.getItem("Token"),
+      'authorization': `bearer ${localStorage.getItem("Token")}`
     },
     body: JSON.stringify({"title":title,
     "author":author,

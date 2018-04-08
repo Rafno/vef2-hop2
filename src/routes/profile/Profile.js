@@ -35,4 +35,4 @@ class Profile extends Component {
     );
   }
 }
-export default connect (mapStateToProps, {UpdatePassword})(Profile);
+export default Profile;
