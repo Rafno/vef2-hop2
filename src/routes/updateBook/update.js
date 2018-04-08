@@ -18,31 +18,46 @@ class update extends Component {
         language:'',
     }
       async componentDidMount() {
-        try {
-            const str = window.location.pathname;
-            const hlutur = str.split('/');
-            const url = 'https://verkefni2server.herokuapp.com/'+hlutur[1]+'/'+hlutur[2];
-            console.log(url);
-            const data = await this.fetchData(url);
-            console.log(data);
-            console.log(data.gogn[0].category)
-            this.setState({
-                data, loading: false,
-                title: data.gogn[0].title,
-                author: data.gogn[0].author,
-                category:data.gogn[0].category,
-                isbn10: data.gogn[0].isbn10,
-                isbn13: data.gogn[0].isbn13,
-                released: data.gogn[0].published,
-                pageCount: data.gogn[0].pagecount,
-                language: data.gogn[0].language,
-                description: data.gogn[0].description,
-                sluggid:hlutur[2],
-            });
-        } catch (e) {
-            console.error('Error fetching navigation', e);
-            this.setState({ error: true, loading: false});
+        const path = this.props.location.pathname;
+        if (path.includes('edit')){
+            console.log("im altering");
+            await this.setState( { action:"Breyta" });
+        } else if (path.includes('new')) {
+            console.log("changing stuff for new");
+            await this.setState( { loading: false, action:'Ný bók'});
         }
+        const { action } = this.state;
+        console.log('action is');
+        console.log(action);
+        if (action==="Breyta") {
+            console.log("chagingin");
+            try {
+                const str = window.location.pathname;
+                const hlutur = str.split('/');
+                const url = 'https://verkefni2server.herokuapp.com/'+hlutur[1]+'/'+hlutur[2];
+                console.log(url);
+                const data = await this.fetchData(url);
+                console.log(data);
+                console.log(data.gogn[0].category)
+                this.setState({
+                    data, loading: false,
+                    title: data.gogn[0].title,
+                    author: data.gogn[0].author,
+                    category:data.gogn[0].category,
+                    isbn10: data.gogn[0].isbn10,
+                    isbn13: data.gogn[0].isbn13,
+                    released: data.gogn[0].published,
+                    pageCount: data.gogn[0].pagecount,
+                    language: data.gogn[0].language,
+                    description: data.gogn[0].description,
+                    sluggid:hlutur[2],
+                });
+            } catch (e) {
+                console.error('Error fetching navigation', e);
+                this.setState({ error: true, loading: false});
+            }
+        }
+        
       }
       async fetchData(url) {
         const {linkur} = this.state;
@@ -86,17 +101,13 @@ class update extends Component {
         }
     }
     buttonHandler = (e) => {
-        const {title, author, about, category, isbn10, isbn13, released, pageCount, language, sluggid } = this.state;
-        console.log(`title is ${title}
-                    author ${author}
-                    about ${about}
-                    category ${category}
-                    isbn10 ${isbn10}
-                    isbn13 ${isbn13}
-                    released ${released}
-                    pagecount ${pageCount}
-                    language ${language}`);
-        this.props.CreateBook(title, author, about, parseInt(isbn10,10), parseInt(isbn13,10), released, parseInt(pageCount,10), language, category);
+        const {title, author, about, category, isbn10, isbn13, released, pageCount, language, sluggid, action } = this.state;
+        if (action === "Ný bók") {
+            this.props.CreateBook(title, author, about, parseInt(isbn10,10), parseInt(isbn13,10), released, parseInt(pageCount,10), language, category);
+        } else if (action === "Breyta") {
+            // BEYTA BOK
+        }
+        
     }
     generateOptions(categories, currentCategory) {
         return categories.map( (x, i) => {
@@ -105,14 +116,14 @@ class update extends Component {
     }
     
   render() {
-    const { title, author, category, isbn10, isbn13, released, pageCount, language, description} = this.state;
+    const { title, author, category, isbn10, isbn13, released, pageCount, language, description, action} = this.state;
     // TODO FALL SÆKJA ÖLL CATEGORIES
     const allCategories = ['Science Fiction', 'Fantasy', 'Fiction', 'Computer Science', 'Comic', 'Nonfiction', 'Business',
                             'Psychology', 'Horror', 'Design', 'Economics', 'Graphic Novel'];
     const options = this.generateOptions(allCategories, category);
     return(
         <div>
-            <h2> Breyta bók </h2>
+            <h2>{action}</h2>
             <div>
                 <label htmlFor="username">Titill:</label>
                 <input id="title" type="text" name="title" value={title} onChange={this.handleInputChange} />
