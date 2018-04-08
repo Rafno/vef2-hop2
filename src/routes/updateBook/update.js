@@ -181,4 +181,4 @@ const mapStateToProps = (state) => {
   }
 
 /* todo setja upp tengingu við redux til að vita stöðu notanda */
-export default connect (mapStateToProps, {CreateBook,CreateBookById})(update);
+export default connect (mapStateToProps, {CreateBook})(update);
