@@ -38,7 +38,8 @@ class App extends Component {
             <Route path="/books/:id" exact component={viewBook}/>
             <Route path="/books/:id/edit" exact component={updated}/>
             <Route path="/login" exact component={Login}/>
-            <Route path="/registration" exact component={Registration}/>
+            <Route path="/register" exact component={Registration}/>
+            <Route path="/profile" exact component={Profile}/>
             <UserRoute path="/profile" authenticated={authenticated} component={Profile}/>
             <Route component={NotFound} />
           </Switch>
