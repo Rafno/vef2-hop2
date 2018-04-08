@@ -128,7 +128,7 @@ class books extends Component {
         <h2> Bækur </h2>
         {data.items.map((i, index) => {
           const slug = i.id
-          const url = "/book/"+slug
+          const url = "/books/"+slug
           return(
             <ul className ="listarnir">
             <Link to = {url}>

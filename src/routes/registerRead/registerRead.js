@@ -14,14 +14,15 @@ class registerRead extends Component {
     render(){
         const gognin = this.props.check;
         const visible = this.props.read;
-        console.log(visible, ' dhbjdshbjsdhjbdsfhbj');
+        const lesaBok = this.props.lesa;
+        console.log(lesaBok, ' dhbjdshbjsdhjbdsfhbj');
         let tableClass = null;
         if(visible === false  || visible === null){
             tableClass='none ';
         }else{
             tableClass = 'ListinnFyrirBok';
         }
-        const allCategories = ['fiction', 'mistery', 'horror', 'thriller', 'drama', 'romance'];
+        const allCategories = ['1', '2', '3', '4', '5'];
         const options = this.generateOptions(allCategories);
         return(
             <div className={tableClass}>
@@ -29,7 +30,7 @@ class registerRead extends Component {
                     <legend htmlFor="about">um Bók</legend>
                     <textarea rows="5" cols="50" type="text" name="about" onChange={this.handleInputChange}></textarea>
                 </div>
-                <lable htmlFor="category" >Flokkur:</lable>
+                <lable htmlFor="category" >Einkunn:</lable>
                 <select name="category" onChange={this.handleInputChange}>
                     {options}
                 </select>

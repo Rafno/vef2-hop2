@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import { CreateBook } from '../../actions/auth';
+import { connect } from 'react-redux';
 
 
 class update extends Component {
@@ -94,6 +96,7 @@ class update extends Component {
                     released ${released}
                     pagecount ${pageCount}
                     language ${language}`);
+        this.props.CreateBook(title, author, about, parseInt(isbn10,10), parseInt(isbn13,10), released, parseInt(pageCount,10), language, category);
     }
     generateOptions(categories, currentCategory) {
         return categories.map( (x, i) => {
@@ -158,6 +161,13 @@ class update extends Component {
     );
   }
 }
+const mapStateToProps = (state) => {
+    return {
+      isFetching: state.auth.isFetching,
+      isAuthenticated: state.auth.isAuthenticated,
+      message: state.auth.message,
+    }
+  }
 
 /* todo setja upp tengingu við redux til að vita stöðu notanda */
-export default update;
+export default connect (mapStateToProps, {CreateBook})(update);

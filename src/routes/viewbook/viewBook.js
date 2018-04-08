@@ -38,6 +38,9 @@ class viewBook extends Component {
     const {clicked} = this.state;
     this.setState({clicked:true});
   }
+  StoppHandler = (e) => {
+    this.setState({clicked:false});
+  }
   render(){
     const {gogn, loading, error, teljari, tala,clicked} = this.state;
     if (loading) {
@@ -56,8 +59,18 @@ class viewBook extends Component {
     }
     const items = this.state.gogn.gogn[0];
     console.log(items);
-   // console.log(this.state.gogn.gogn[0].id)
    const check = null;
+   let tableClass = null;
+   let name = null;
+   //const BookRead = null;
+   const BookRead = true;
+    if(this.state.clicked === false  || this.state.clicked === null){
+      tableClass = 'lesTakkinn';
+      name = 'none';
+    }else{
+      tableClass='none';
+      name='lesa';
+    }
      return (
         <div className="skodaBok">
             <ul className="listinnfyirBok">
@@ -73,10 +86,17 @@ class viewBook extends Component {
             <Link to = {`/books/${items.id}/edit`}> Breyta bók</Link>
           </button>
           <Registerread
+          lesa = {BookRead}
           read = {this.state.clicked}
           check = {items}
           />
-        {<button className="buttonHandler" onClick={this.buttonHandler}>Lesinn</button>}
+        {<button className={tableClass} onClick={this.buttonHandler}>Lesinn</button>}
+        <div className={name}>
+          <button>
+            vista
+          </button>
+          <button onClick={this.StoppHandler}> Hætta</button>
+        </div>
 
         </div>
       );
