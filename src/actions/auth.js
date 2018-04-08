@@ -9,14 +9,13 @@ import api from '../api';
 import { LOGIN_REQUEST, LOGIN_FAILURE, LOGIN_LOGOUT, LOGIN_SUCCESS } from './types';
 
 export const checkLogin = () => dispatch => {
-  fetch('https://verkefni2server.herokuapp.com/books', {
-    method: 'POST',
+  const testing = fetch('https://verkefni2server.herokuapp.com/users/me', {
+    method: 'GET',
     headers: {
-      'content-type': 'application/json',
       'authorization': `bearer ${localStorage.getItem("Token")}`
     }
     })
-    .then(res => res.json())
+    .then(res =>res.json())
     .then(login =>
       dispatch({
         type: LOGIN_REQUEST,

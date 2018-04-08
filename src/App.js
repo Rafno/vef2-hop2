@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Provider, connect } from 'react-redux';
 import Helmet from 'react-helmet';
 import { Route, NavLink, Link, Switch, withRouter } from 'react-router-dom'
-// import { checkLogin } from '../../actions/auth';
+import { checkLogin } from './actions/auth';
 import UserRoute from './components/user-route';
 import Header from './components/header';
 
@@ -20,10 +20,15 @@ import viewBook from './routes/viewbook/viewBook';
 import Registration from './routes/registration';
 
 class App extends Component {
+  state = { authenticated: false };
 
   render() {
-    const authenticated = false; /* vita hvort notandi sé innskráður */
-    if (localStorage.getItem("Token")) console.log("Innskráður!");
+    if (localStorage.getItem("Token")){
+      this.props.checkLogin();
+      const { user } = this.props;
+      console.log(user);
+    }
+    const authenticated = false;
     return (
       <Provider store={store} >
       <main className="main">
@@ -53,7 +58,10 @@ class App extends Component {
 }
 
 const mapStateToProps = (state) => {
-  /* todo stilla redux ef það er notað */
+  return {
+    isAuthenticated: state.auth.isAuthenticated,
+    user: state.auth.user
+  }
 }
 
-export default withRouter(connect(mapStateToProps)(App));
+export default withRouter(connect(mapStateToProps, { checkLogin })(App));

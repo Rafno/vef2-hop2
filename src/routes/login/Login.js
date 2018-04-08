@@ -34,7 +34,6 @@ class Login extends Component {
   render() {
     const { username, password } = this.state;
     const { isFetching, isAuthenticated, message } = this.props;
-    console.log(isAuthenticated);
     if (isAuthenticated) {
       return (
         <button onClick={this.handleLogout}>Útskrá</button>
