@@ -1,12 +1,10 @@
-import {
-  LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAILURE, LOGIN_LOGOUT
-} from '../actions/auth';
+import { LOGIN_REQUEST, LOGIN_FAILURE, LOGIN_LOGOUT, LOGIN_SUCCESS } from '../actions/types';
 
 const user = JSON.parse(localStorage.getItem('user') || 'null');
 const initialState = {
   isFetching: false,
   isAuthenticated: user ? true : false,
-  user,
+  user:user
 };
 
 export default (state = initialState, action) => {
@@ -18,13 +16,13 @@ export default (state = initialState, action) => {
         isAuthenticated: action.isAuthenticated,
       };
     case LOGIN_SUCCESS:
-      console.log(action)
+      localStorage.setItem("Token", action.payload);
       return {
         ...state,
         isFetching: action.isFetching,
         isAuthenticated: action.isAuthenticated,
         user: action.user,
-        message: action.message,
+        message: action.payload,
       };
     case LOGIN_FAILURE:
       return {
@@ -34,6 +32,7 @@ export default (state = initialState, action) => {
         message: action.message
       };
     case LOGIN_LOGOUT:
+      localStorage.removeItem("Token");
       return {
         ...state,
         isFetching: action.isFetching,

@@ -16,7 +16,7 @@ class Search extends Component {
   }
   handleSearch = (e) => {
     e.preventDefault();
-    window.location.replace(`/books?query=${this.search.value}`);
+    window.location.replace(`/books?query=${this.search.value}&page=1`);
   }
 
   render() {

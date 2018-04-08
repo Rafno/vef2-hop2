@@ -3,5 +3,6 @@ import auth from './auth';
 import Book from './Book';
 
 export default combineReducers({
-  books: Book
+  books: Book,
+  auth
 });
