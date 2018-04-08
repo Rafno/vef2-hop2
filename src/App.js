@@ -23,12 +23,11 @@ class App extends Component {
   state = { authenticated: false };
 
   render() {
+    const authenticated = false;
     if (localStorage.getItem("Token")){
       this.props.checkLogin();
       const { user } = this.props;
-      console.log(user);
     }
-    const authenticated = false;
     return (
       <Provider store={store} >
       <main className="main">
@@ -38,7 +37,7 @@ class App extends Component {
 
         <div className="main__content">
           <Switch location={this.props.location}>
-            <Route path="/" exact component={Home}/>
+              <Route path="/" exact authenticated={authenticated} component={Home}/>
             <Route path="/books" exact component={Book}/>
             <Route path="/books/new" exact component={updated}/>
             <Route path="/books/:id" exact component={viewBook}/>

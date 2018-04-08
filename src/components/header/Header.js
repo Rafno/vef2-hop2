@@ -16,6 +16,7 @@ class Header extends Component {
 
   render() {
     const { isAuthenticated } = this.props;
+    console.log("ég er víst skráður inn!",isAuthenticated);
     return (
       <header className="header">
         <h1 className="header__heading"><Link to="/">Bókasafnið</Link></h1>
