@@ -103,11 +103,12 @@ class update extends Component {
          return (<option key={i} value={x}>{x}</option>)
         });
     }
+    
   render() {
     const { title, author, category, isbn10, isbn13, released, pageCount, language, description} = this.state;
     // TODO FALL SÆKJA ÖLL CATEGORIES
-    console.log(this.state.description);
-    const allCategories = ['fiction', 'mistery', 'horror', 'thriller', 'drama', 'romance'];
+    const allCategories = ['Science Fiction', 'Fantasy', 'Fiction', 'Computer Science', 'Comic', 'Nonfiction', 'Business',
+                            'Psychology', 'Horror', 'Design', 'Economics', 'Graphic Novel'];
     const options = this.generateOptions(allCategories, category);
     return(
         <div>
@@ -127,7 +128,7 @@ class update extends Component {
             </div>
             <div>
                 <lable htmlFor="category" >Flokkur:</lable>
-                <select id="category" name="category" defaultValue={category} onChange={this.handleInputChange}>
+                <select id="category" name="category" value={category} onChange={this.handleInputChange}>
                     {options}
                 </select>
             </div>
