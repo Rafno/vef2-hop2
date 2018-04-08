@@ -24,11 +24,30 @@ class books extends Component {
       this.forwardHandler = this.forwardHandler.bind(this);
       this.backwardHandler = this.backwardHandler.bind(this);
   }
+
+  getQueryVariable(variable) {
+       var query = window.location.search.substring(1);
+       var vars = query.split("&");
+       for (var i=0;i<vars.length;i++) {
+               var pair = vars[i].split("=");
+               if(pair[0] == variable){return pair[1];}
+       }
+       return(false);
+  }
   
   async componentDidMount() {
+    const searchParam = this.getQueryVariable("query");
+    let url = 'https://verkefni2server.herokuapp.com/books?offset=0&limit=10&books'
     try {
-      const url = 'https://verkefni2server.herokuapp.com/books?offset=0&limit=10&books';
-      const data = await this.fetchData(url);
+      if(searchParam){
+        console.log("url change");
+        url = `https://verkefni2server.herokuapp.com/books?search=${searchParam}`
+      }
+      let data = await this.fetchData(url);
+      console.log(data);
+      if (searchParam) {
+        data = data.response;
+      }
       this.setState({ data, loading: false });
 
     } catch (e) {
@@ -54,8 +73,10 @@ class books extends Component {
     const {back, forward, data, count} = this.state;
     const linkur = data.links.next.href.toString();
     if(linkur){
-      console.log(linkur.href);
-      const gogn = await this.fetchData(linkur);
+      let gogn = await this.fetchData(linkur);
+      if (this.getQueryVariable("query")){
+        gogn = gogn.response;
+      }
       const inc = count+1;
 
       await this.setState({ data: gogn, loading: false, count:inc });
@@ -121,5 +142,3 @@ class books extends Component {
     }
   }
 export default books;
-
-

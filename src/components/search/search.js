@@ -8,12 +8,17 @@ class Search extends Component {
     query: '',
     results:[]
   }
-  handleInputChange = () => {
+  handleInputChange = (e) => {
     console.log(this.search.value);
     this.setState({
       query:this.search.value
     })
   }
+  handleSearch = (e) => {
+    e.preventDefault();
+    window.location.replace(`/books?query=${this.search.value}`);
+  }
+
   render() {
     return (
       <form>
@@ -22,8 +27,7 @@ class Search extends Component {
         ref={input => this.search = input}
         onChange={this.handleInputChange}
         />
-        {/* <p>PLACEHOLDER {this.state.query}</p> */}
-        <Button onClick={this.onClick}>Leita</Button>
+        <Button onClick={this.handleSearch}>Leita</Button>
         </form>
         )
   }
