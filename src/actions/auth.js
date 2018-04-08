@@ -6,16 +6,17 @@
  */
 /*TODO skoða afhverju það er message í RequestLogin og sjá hvort það vanti á hina. */
 import api from '../api';
-import { LOGIN_REQUEST, LOGIN_FAILURE, LOGIN_LOGOUT, LOGIN_SUCCESS } from './types';
+import { LOGIN_REQUEST, LOGIN_FAILURE, LOGIN_LOGOUT, LOGIN_SUCCESS, NAMECHANGE_SUCCESS } from './types';
 
 export const checkLogin = () => dispatch => {
-  const testing = fetch('https://verkefni2server.herokuapp.com/users/me', {
-    method: 'GET',
+  fetch('https://verkefni2server.herokuapp.com/books', {
+    method: 'POST',
     headers: {
+      'content-type': 'application/json',
       'authorization': `bearer ${localStorage.getItem("Token")}`
     }
     })
-    .then(res =>res.json())
+    .then(res => res.json())
     .then(login =>
       dispatch({
         type: LOGIN_REQUEST,
@@ -89,7 +90,7 @@ export const UpdateBookById = (title, author, about, isbn10, isbn13, published, 
     .then(res => res.json())
     .then(login =>
       dispatch({
-        type: LOGIN_SUCCESS,
+        type: NAMECHANGE_SUCCESS,
         isFetching: false,
         isAuthenticated: true,
         payload: localStorage.getItem("Token"),
@@ -115,3 +116,26 @@ export const loginOut = () => dispatch => {
   })
 };
 
+  export const changeName = (name) => dispatch => {
+    const testing = fetch(`https://verkefni2server.herokuapp.com/users/me`, {
+      method: 'PATCH',
+      headers: {
+        'content-type': 'application/json',
+        'authorization': `bearer ${localStorage.getItem("Token")}`
+      },
+      body: JSON.stringify({
+        "username": localStorage.getItem("username"),
+        "password": localStorage.getItem("password"),
+        "name": name
+      })
+    })
+      .then(res => res.json())
+      .then(login =>
+        dispatch({
+          type: LOGIN_SUCCESS,
+          isFetching: false,
+          isAuthenticated: true,
+          payload: localStorage.getItem("Token"),
+        }))
+    };
+  

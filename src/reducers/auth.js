@@ -1,4 +1,4 @@
-import { LOGIN_REQUEST, LOGIN_FAILURE, LOGIN_LOGOUT, LOGIN_SUCCESS } from '../actions/types';
+import { LOGIN_REQUEST, LOGIN_FAILURE, LOGIN_LOGOUT, LOGIN_SUCCESS, NAMECHANGE_SUCCESS } from '../actions/types';
 
 const user = JSON.parse(localStorage.getItem('user') || 'null');
 const initialState = {
@@ -18,6 +18,14 @@ export default (state = initialState, action) => {
         user: action.user,
         message: action.payload,
       };
+      case NAMECHANGE_SUCCESS:
+        return {
+          ...state,
+          isFetching: action.isFetching,
+          isAuthenticated: action.isAuthenticated,
+          user: action.user,
+          message: action.payload,
+        };
     case LOGIN_SUCCESS:
       localStorage.setItem("Token", `${action.payload}`);
       return {
