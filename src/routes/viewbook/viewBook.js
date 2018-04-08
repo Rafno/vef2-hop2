@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Helmet from 'react-helmet';
+import Registerread from '../registerRead';
 import { Route, Link, Switch } from 'react-router-dom';
 
 
@@ -38,7 +39,7 @@ class viewBook extends Component {
     this.setState({clicked:true});
   }
   render(){
-    const {gogn, loading, error, teljari, tala} = this.state;
+    const {gogn, loading, error, teljari, tala,clicked} = this.state;
     if (loading) {
       return (
         <div>
@@ -56,9 +57,10 @@ class viewBook extends Component {
     const items = this.state.gogn.gogn[0];
     console.log(items);
    // console.log(this.state.gogn.gogn[0].id)
+   const check = null;
      return (
         <div className="skodaBok">
-          <ul className="listinnfyirBok">
+            <ul className="listinnfyirBok">
             <li>{items.title} </li>
             <li> {items.author}</li>
             <li> {items.isbn13} </li>
@@ -70,10 +72,12 @@ class viewBook extends Component {
           <button>
             <Link to = {`/books/${items.id}/edit`}> Breyta bók</Link>
           </button>
-          <button>
-            <Link to="/books"> Til Baka</Link>
-          </button>
-          <button onClick = {this.buttonHandler}> Lesinn Bók </button>
+          <Registerread
+          read = {this.state.clicked}
+          check = {items}
+          />
+        {<button className="buttonHandler" onClick={this.buttonHandler}>Lesinn</button>}
+
         </div>
       );
     }
