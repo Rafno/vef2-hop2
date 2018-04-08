@@ -34,7 +34,7 @@ class App extends Component {
             <Route path="/" exact component={Home}/>
             <Route path="/books" exact component={Book}/>
             <Route path="/books/:id" exact component={viewBook}/>
-            <Route path="/updateBook" exact component={updated}/>
+            <Route path="/books/:id/edit" exact component={updated}/>
             <Route path="/login" exact component={Login}/>
             <Route path="/registration" exact component={Registration}/>
             <UserRoute path="/profile" authenticated={authenticated} component={Profile}/>

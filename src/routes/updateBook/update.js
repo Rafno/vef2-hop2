@@ -14,6 +14,43 @@ class update extends Component {
         released:'',
         pageCount:'',
         language:'',
+    }
+      async componentDidMount() {
+        try {
+            const str = window.location.pathname;
+            const hlutur = str.split('/');
+            const url = 'https://verkefni2server.herokuapp.com/'+hlutur[1]+'/'+hlutur[2];
+
+
+            console.log(url);
+            const data = await this.fetchData(url);
+            console.log(data);
+            console.log(data.gogn[0].category)
+            const flokkur = this.checkWichCat(data);
+            this.setState({
+                data, loading: false,
+                title: data.gogn[0].title,
+                author: data.gogn[0].author,
+                category:data.gogn[0].category,
+                isbn10: data.gogn[0].isbn10,
+                isbn13: data.gogn[0].isbn13,
+                released: data.gogn[0].published,
+                pageCount: data.gogn[0].pagecount,
+                language: data.gogn[0].language,
+                description: data.gogn[0].description,
+            });
+        } catch (e) {
+            console.error('Error fetching navigation', e);
+            this.setState({ error: true, loading: false});
+        }
+      }
+      async fetchData(url) {
+        const {linkur} = this.state;
+        const link = url;
+        let data = null;
+        const response = await fetch(link);
+        data = await response.json();
+        return data;
       }
       handleInputChange = (e) => {
         const { name, value } = e.target;
@@ -66,11 +103,11 @@ class update extends Component {
         });
     }
   render() {
-    const { title, author, category, isbn10, isbn13, released, pageCount, language} = this.state;
+    const { title, author, category, isbn10, isbn13, released, pageCount, language, description} = this.state;
     // TODO FALL SÆKJA ÖLL CATEGORIES
+    console.log(this.state.description);
     const allCategories = ['fiction', 'mistery', 'horror', 'thriller', 'drama', 'romance'];
     const options = this.generateOptions(allCategories, category);
-    const about = "tommy was a little boy";
     return(
         <div>
             <h2> Breyta bók </h2>
@@ -84,8 +121,7 @@ class update extends Component {
             </div>
             <div>
                 <legend htmlFor="about">Lýsing</legend>
-                <textarea rows="5" cols="50" id="about" type="text" name="about" onChange={this.handleInputChange}>
-                {about}
+                <textarea rows="5" cols="50" id="about" type="text" value ={description} name="about" onChange={this.handleInputChange}>
                 </textarea>
             </div>
             <div>

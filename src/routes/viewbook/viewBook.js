@@ -21,13 +21,16 @@ class viewBook extends Component {
             <li>{items.title} </li>
             <li> {items.author}</li>
             <li> {items.isbn13} </li>
-            <li>Alveg lost hvað fiction er semsagt category </li>
+            <li>{items.category} </li>
             <li> {items.description}</li>
             <li> {items.pagecount} Síður </li>
             <li> Tungumál: {items.language} </li>
           </ul>
+          <button> 
+            <Link to = {`/books/${items.id}/edit`}> Breyta bók </Link>
+            </button>
           <button>
-            <a href ="/books"> Til Baka</a>
+            <Link to="/books"> Til Baka</Link>
           </button>
         </div>
       );
