@@ -35,6 +35,7 @@ class update extends Component {
                 pageCount: data.gogn[0].pagecount,
                 language: data.gogn[0].language,
                 description: data.gogn[0].description,
+                sluggid:hlutur[2],
             });
         } catch (e) {
             console.error('Error fetching navigation', e);
@@ -83,7 +84,7 @@ class update extends Component {
         }
     }
     buttonHandler = (e) => {
-        const {title, author, about, category, isbn10, isbn13, released, pageCount, language } = this.state;
+        const {title, author, about, category, isbn10, isbn13, released, pageCount, language, sluggid } = this.state;
         console.log(`title is ${title}
                     author ${author}
                     about ${about}
@@ -149,6 +150,9 @@ class update extends Component {
             </div>
 
             <button onClick = {this.buttonHandler}> Submit </button>
+            <button>
+               <Link to={`/books/${this.state.sluggid}`}> Til baka</Link>
+            </button>
 
       </div>
     );
