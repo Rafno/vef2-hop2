@@ -1,11 +1,13 @@
 
-const baseurl = 'https://verkefni2server.herokuapp.com';
-console.log(baseurl);
 
-/* todo aðrar aðgerðir */
+const baseurl = process.env.REACT_APP_SERVICE_URL;
 
-export async function get(endpoint) {
-  const url = `${baseurl}${endpoint}`;
+async function get(endpoint) {
+  console.log('HS');
+  const token = window.localStorage.getItem('token');
+
+  /*const url = `${baseurl}${endpoint}`;*/
+  const url = `${endpoint}`;
 
   const response = await fetch(url);
 

@@ -50,6 +50,7 @@ function logout() {
 }
 
 // Thunk!
+/* SKOÐA API.LOGIN. Gripið frá Óla sem er ekki tengt heroku. */ 
 export const loginUser = (username, password) => {
   return async (dispatch) => {
     dispatch(requestLogin());
