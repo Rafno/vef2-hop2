@@ -63,7 +63,7 @@ export const CreateBook = (title, author, about, isbn10, isbn13, published, page
       }))
   console.log(testing);
 };
-export const UpdateBookById = (title, author, about, isbn10, isbn13, published, pagecount, language, category, id) => async dispatch => {
+export const CreateBookById = (title, author, about, isbn10, isbn13, published, pagecount, language, category, id) => async dispatch => {
   const testing = await fetch(`https://verkefni2server.herokuapp.com/books/${id}`, {
     method: 'POST',
     headers: {

@@ -103,7 +103,6 @@ class update extends Component {
          return (<option key={i} value={x}>{x}</option>)
         });
     }
-    
   render() {
     const { title, author, category, isbn10, isbn13, released, pageCount, language, description} = this.state;
     // TODO FALL SÆKJA ÖLL CATEGORIES
@@ -171,4 +170,4 @@ const mapStateToProps = (state) => {
   }
 
 /* todo setja upp tengingu við redux til að vita stöðu notanda */
-export default connect (mapStateToProps, {CreateBook})(update);
+export default connect (mapStateToProps, {CreateBook,CreateBookById})(update);
