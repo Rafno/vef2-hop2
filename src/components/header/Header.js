@@ -17,7 +17,7 @@ class Header extends Component {
   render() {
     const { isAuthenticated, user } = this.props;
     const visible = isAuthenticated ?
-      <div>
+      <div class="profiles">
         <a href="/profile">{user}</a>
         <Button onClick={this.handleLogOut}>logout</Button>
       </div> :
