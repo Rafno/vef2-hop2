@@ -158,8 +158,6 @@ export const UpdatePassword = (id, password, username) => dispatch => {
         isAuthenticated: true,
         payload: localStorage.getItem("Token"),
        }))
-      console.log(testing, 'svar');
-      console.log(localStorage.getItem("Token"));
 };
 export const loginOut = () => dispatch => {
   console.log("logged out");

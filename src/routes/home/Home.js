@@ -15,7 +15,9 @@ class Home extends Component {
   }
   render() {
     const maybeToken = localStorage.getItem("Token")
+    if (maybeToken) {
     this.props.checkLogin(maybeToken);
+    }
     const { isAuthenticated } = this.props;
     const visible = isAuthenticated ?
     <div className ="IsLoggedIn">
