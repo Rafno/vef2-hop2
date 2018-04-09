@@ -24,7 +24,8 @@ class Home extends Component {
     <h2> Velkominn á bókasafnið</h2>
       <p>Þú ert skráður notandi og getur því</p>
       <p><a href="/updateBook"> skráð bækur</a></p>
-      <p>og breytt þeim sem til eru Einnig geturu skoðað aðra notendur </p>
+      <p>og
+        <Link to ="/books">breytt þeim sem til eru</Link> Einnig geturu <Link to ="/users">skoðað aðra notendur</Link> </p>
     </div>:
     <div className="isNotLoggedIn">
     <h2> Velkominn á bókasafnið</h2>

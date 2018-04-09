@@ -21,10 +21,8 @@ class Profile extends Component {
     this.setState( { [name]:value });
   }
   render() {
-    const data = this.props.user;
-    console.log(data);
-    const gogn = this.props.getBooks();
-    console.log(gogn, 'hello');
+    const {user} = this.props;
+    console.log(user);
     return (
       <div>
         <h2>Upplýsingar</h2>

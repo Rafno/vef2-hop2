@@ -40,11 +40,7 @@ export const getBooks = () => dispatch => {
         type: LOGIN_REQUEST,
         isFetching: false,
         isAuthenticated: true,
-<<<<<<< HEAD
-        user: login,
-=======
         payload: login,
->>>>>>> 5fe2791c5bbae16113b0dd52865a0483fb3a758e
       }))
 }
 export const receiveLogin = (username, password) => dispatch => {
