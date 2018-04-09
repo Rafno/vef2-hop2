@@ -1,16 +1,15 @@
 import { LOGIN_REQUEST, LOGIN_FAILURE, LOGIN_LOGOUT, LOGIN_SUCCESS, NAMECHANGE_SUCCESS } from '../actions/types';
 
-const user = JSON.parse(localStorage.getItem('user') || 'null');
+// const user = JSON.parse(localStorage.getItem('user') || 'null');
 const initialState = {
   isFetching: false,
-  isAuthenticated: user ? true : false,
-  user:user
+  isAuthenticated: false,
+  user:null,
 };
 
 export default (state = initialState, action) => {
   switch (action.type) {
     case LOGIN_REQUEST:
-      console.log(action.isAuthenticated);
       return {
         ...state,
         isFetching: action.isFetching,

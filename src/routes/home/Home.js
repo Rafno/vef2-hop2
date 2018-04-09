@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 
 class Home extends Component {
   state = {isLoggedIn:false};
@@ -11,8 +12,8 @@ class Home extends Component {
     }
   }
   render() {
-    /* todo birta mismunandi upplýsingar ef innskráður notandi eða ekki */
-    const visible = this.state.isLoggedIn ?
+    const { isAuthenticated } = this.props;
+    const visible = isAuthenticated ?
     <div className ="IsLoggedIn">
     <h2> Velkominn á bókasafnið</h2>
       <p>Þú ert skráður notandi og getur því</p>
@@ -34,4 +35,16 @@ class Home extends Component {
 }
 
 /* todo setja upp tengingu við redux til að vita stöðu notanda */
-export default Home;
+const mapStateToProps = state => ({
+  data: state.books.items,
+  back: false,
+  isAuthenticated: state.auth.isAuthenticated,
+  forward: false,
+  error: null,
+  linkur: null,
+  next: null,
+  count: 1,
+});
+
+export default connect(mapStateToProps)(Home);
+

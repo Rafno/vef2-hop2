@@ -8,12 +8,12 @@
 import api from '../api';
 import { LOGIN_REQUEST, LOGIN_FAILURE, LOGIN_LOGOUT, LOGIN_SUCCESS, NAMECHANGE_SUCCESS } from './types';
 
-export const checkLogin = () => dispatch => {
-  fetch('https://verkefni2server.herokuapp.com/books', {
-    method: 'POST',
+export const checkLogin = (maybeToken) => dispatch => {
+  fetch('https://verkefni2server.herokuapp.com/users/me', {
+    method: 'GET',
     headers: {
       'content-type': 'application/json',
-      'authorization': `bearer ${localStorage.getItem("Token")}`
+      'authorization': `bearer ${maybeToken}`
     }
     })
     .then(res => res.json())
@@ -23,7 +23,7 @@ export const checkLogin = () => dispatch => {
         isFetching: false,
         isAuthenticated: true,
         user: login.username,
-        payload: localStorage.getItem("Token"),
+        payload: maybeToken,
       }))
 }
 export const receiveLogin = (username, password) => dispatch => {

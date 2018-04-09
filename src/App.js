@@ -12,7 +12,6 @@ import Profile from './routes/profile';
 import NotFound from './routes/not-found';
 import Book from './routes/books';
 import updated from './routes/updateBook';
-/* todo fleiri routes */
 
 import './App.css';
 import store from './store';
@@ -24,9 +23,11 @@ class App extends Component {
 
   render() {
     const authenticated = false;
-    if (localStorage.getItem("Token")){
-      this.props.checkLogin();
-      const { user } = this.props;
+    const maybeToken = localStorage.getItem("Token")
+    if (maybeToken) {
+      console.log("sending token to check login...");
+      this.props.checkLogin(maybeToken);
+      console.log("isAuthd",this.props.isAuthenticated);
     }
     return (
       <Provider store={store} >

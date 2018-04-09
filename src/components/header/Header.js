@@ -10,22 +10,27 @@ import './Header.css';
 
 class Header extends Component {
 
-  onClick = (e) => {
-    console.log('leita');
+  handleLogOut = (e) => {
+    this.props.loginOut();
   }
 
   render() {
-    const { isAuthenticated } = this.props;
-    console.log("ég er víst skráður inn!",isAuthenticated);
+    const { isAuthenticated, user } = this.props;
+    const visible = isAuthenticated ?
+      <div>
+        <a href="/profile">{user}</a>
+        <Button onClick={this.handleLogOut}>logout</Button>
+      </div> :
+      <div>
+        <Link to="/register">Innskráning</Link>
+      </div>
     return (
       <header className="header">
         <h1 className="header__heading"><Link to="/">Bókasafnið</Link></h1>
-
-        {/* ætti samt frekar heima í sér component */}
         <div className="header__searchBar">
           <Search />
         </div>
-        <Link to="/register">Innskráning</Link>
+        {visible}
       </header>
     );
   }
@@ -35,6 +40,7 @@ const mapStateToProps = (state) => {
   return {
     auth: state.auth,
     isAuthenticated: state.auth.isAuthenticated,
+    user: state.auth.user,
   }
 }
 
