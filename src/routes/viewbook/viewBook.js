@@ -86,15 +86,13 @@ class viewBook extends Component {
             <Link to = {`/books/${items.id}/edit`}> Breyta bók</Link>
           </button>
           <Registerread
+          audkenni = {items.title}
           lesa = {BookRead}
           read = {this.state.clicked}
           check = {items}
           />
         {<button className={tableClass} onClick={this.buttonHandler}>Lesinn</button>}
         <div className={name}>
-          <button>
-            vista
-          </button>
           <button onClick={this.StoppHandler}> Hætta</button>
         </div>
 
@@ -108,37 +106,3 @@ export default viewBook;
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/*<div className="oneBook">
-      <h3> {title}</h3>
-      <ul>
-        <li>Eftir {author} </li>
-        <li>ISBN13: {isbn13}</li>
-        <li>{description}</li>
-        <li>{pages} síður </li>
-        <li> Gefinn út {published}</li>
-        <li> Tungumál: {language}</li>
-      </ul>
-      <button onClick = {this.buttonHandler}>Til baka </button>
-    </div>*/

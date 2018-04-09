@@ -35,6 +35,30 @@ export const receiveLogin = (username, password) => dispatch => {
         payload: login.token,
       }))
 };
+export const readBookByUser = (einkunn, texti, title) => dispatch => {
+  const testing = fetch(`https://verkefni2server.herokuapp.com/users/me/read`, {
+    method: 'POST',
+    headers: {
+      'content-type': 'application/json',
+      'authorization': `bearer ${localStorage.getItem("Token")}`
+    },
+    body: JSON.stringify({
+      "title":title,
+      "grade":einkunn,
+      "judge":texti
+    })
+  })
+    .then(res => res.json())
+    .then(login =>
+      dispatch({
+        type: LOGIN_SUCCESS,
+        isFetching: false,
+        isAuthenticated: true,
+        payload: localStorage.getItem("Token"),
+       }))
+      console.log(testing, 'svar');
+      console.log(localStorage.getItem("Token"));
+};
 export const CreateBook = (title, author, about, isbn10, isbn13, published, pagecount, language, category) => async dispatch => {
   const testing = await fetch('https://verkefni2server.herokuapp.com/books', {
     method: 'POST',
@@ -97,6 +121,38 @@ export const loginError = message => dispatch => {
     payload: null,
   })
 };
+export const UpdatePassword = (id, password, username) => dispatch => {
+  if(username === null){
+    username= localStorage.getItem("username");
+  }
+  if(password === null){
+    password = localStorage.getItem("password");
+  }
+  const testing = fetch(`https://verkefni2server.herokuapp.com/users/me`, {
+    method: 'PATCH',
+    headers: {
+      'content-type': 'application/json',
+      'authorization': `bearer ${localStorage.getItem("Token")}`
+    },
+    body: JSON.stringify({
+      "id":id,
+      "username":username,
+      "password":password,
+      "name":'blobbb',
+    })
+  })
+    .then(res => res.json())
+    .then(login =>
+      dispatch({
+        type: LOGIN_SUCCESS,
+        isFetching: false,
+        isAuthenticated: true,
+        payload: localStorage.getItem("Token"),
+       }))
+      console.log(testing, 'svar');
+      console.log(localStorage.getItem("Token"));
+};
+
 export const loginOut = () => dispatch => {
   console.log("logged out");
   dispatch({

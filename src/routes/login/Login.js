@@ -24,6 +24,8 @@ class Login extends Component {
     e.preventDefault();
     const { username, password } = this.state;
     const user = { username, password };
+    localStorage.setItem("username", username);
+    localStorage.setItem("password", password);
     this.props.receiveLogin(username, password);
   }
 
