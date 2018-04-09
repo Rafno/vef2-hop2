@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import './home.css';
 
 class Home extends Component {
   state = {isLoggedIn:false};
@@ -27,7 +28,7 @@ class Home extends Component {
       <a href="/books"> allar bækur </a></p>
     </div>
     return (
-      <div>
+      <div className="mainPageContainer">
         {visible}
       </div>
     );

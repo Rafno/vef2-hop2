@@ -21,7 +21,7 @@ class Header extends Component {
         <a href="/profile">{user}</a>
         <Button onClick={this.handleLogOut}>logout</Button>
       </div> :
-      <div>
+      <div className="loginLink">
         <Link to="/register">Innskráning</Link>
       </div>
     return (
