@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import api from '../../api';
-
+import './registration.css';
 class Registration extends Component {
 
     constructor(props) {
@@ -61,7 +61,7 @@ class Registration extends Component {
         }
         console.log("errors are" + errors);
         return (
-          <form onSubmit={this.handleSubmit}>
+          <form onSubmit={this.handleSubmit} class="registration">
             <label>
               Notandanafn:
               <input type="text" onChange={this.handleUsernameChange} />
@@ -75,7 +75,8 @@ class Registration extends Component {
               <input type="text" onChange={this.handleNameChange} />
             </label>
             {errors}
-            <input type="submit" value="Submit" />
+            <input type="submit" value="Nýskrá" />
+            <a href="/login">Innskráning</a>
           </form>
         );
       }

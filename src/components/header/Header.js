@@ -25,7 +25,7 @@ class Header extends Component {
         <div className="header__searchBar">
           <Search />
         </div>
-        <Link to="/login">Innskráning</Link>
+        <Link to="/register">Innskráning</Link>
       </header>
     );
   }
