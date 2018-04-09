@@ -49,13 +49,15 @@ class Login extends Component {
     }
 
     return (
+      <div className="loginContainer">
+      <h1>Innskráning</h1>
       <div>
         {message && (
           <p>{message}</p>
         )}
 
-        <form onSubmit={this.handleSubmit}>
-
+        <form className="loginForm" onSubmit={this.handleSubmit}>
+        <div className="inputContainer">
           <div>
             <label htmlFor="username">Notendanafn:</label>
             <input id="username" type="text" name="username" value={username} onChange={this.handleInputChange} />
@@ -65,9 +67,10 @@ class Login extends Component {
             <label htmlFor="password">Lykilorð:</label>
             <input id="password" type="password" name="password" value={password} onChange={this.handleInputChange} />
           </div>
-
+          </div>
           <button disabled={isFetching}>Innskrá</button>
         </form>
+      </div>
       </div>
     );
   }
