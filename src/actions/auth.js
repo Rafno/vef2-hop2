@@ -41,7 +41,6 @@ export const getBooks = () => dispatch => {
         isFetching: false,
         isAuthenticated: true,
         user: login,
-        payload: maybeToken,
       }))
 }
 export const receiveLogin = (username, password) => dispatch => {
