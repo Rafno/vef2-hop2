@@ -62,6 +62,7 @@ class Registration extends Component {
         console.log("errors are" + errors);
         return (
           <form onSubmit={this.handleSubmit} class="registration">
+            <h1>Nýskráning</h1>
             <label>
               Notandanafn:
               <input type="text" onChange={this.handleUsernameChange} />
