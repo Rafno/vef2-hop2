@@ -5,4 +5,27 @@ button {
     color: #fff;
     background-color: #4e1d04;
     font-size: 1rem;
+    max-width: 7em;
+}
+
+.loginContainer {
+    margin-top: 3em;
+    margin-left: 10%;
+}
+
+.loginForm {
+    display:flex;
+    flex-direction: column;
+}
+
+.inputContainer label {
+    margin-right: 1em;
+}
+
+.inputContainer div {
+    margin-bottom: 1em;
+}
+
+.inputContainer input {
+    float:right;
 }

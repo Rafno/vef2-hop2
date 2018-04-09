@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
-import { UpdatePassword, checkLogin } from '../../actions/auth';
+import { UpdatePassword, getBooks } from '../../actions/auth';
 import { connect } from 'react-redux';
-
 
 class Profile extends Component {
   handlePassChange = (e) => {
@@ -15,18 +14,15 @@ class Profile extends Component {
       this.props.UpdatePassword(10,null,name);
     }
   }
-
   handleInputChange = (e) => {
     console.log(e.target.value);
     const name = e.target.name;
     const value = e.target.value;
     this.setState( { [name]:value });
   }
-
   render() {
-    const a = this.props.checkLogin(localStorage.getItem("Token"));
-    console.log(a, 'helllo peps');
-    console.log(this.props.user)
+    const gogn = this.props.getBooks();
+    console.log(gogn, 'hello');
     return (
       <div>
         <h2>Upplýsingar</h2>
@@ -57,4 +53,4 @@ const mapStateToProps = (state) => {
     user: state.auth.user,
   }
 }
-export default connect (mapStateToProps, {UpdatePassword, checkLogin})(Profile);
+export default connect (mapStateToProps, {UpdatePassword, getBooks})(Profile);

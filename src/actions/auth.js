@@ -26,6 +26,23 @@ export const checkLogin = (maybeToken) => dispatch => {
         payload: maybeToken,
       }))
 }
+export const getBooks = () => dispatch => {
+  fetch('https://verkefni2server.herokuapp.com/users/me/read', {
+    method: 'GET',
+    headers: {
+      'content-type': 'application/json',
+      'authorization': `bearer ${localStorage.getItem("Token")}`
+    }
+    })
+    .then(res => res.json())
+    .then(login =>
+      dispatch({
+        type: LOGIN_REQUEST,
+        isFetching: false,
+        isAuthenticated: true,
+        payload: login,
+      }))
+}
 export const receiveLogin = (username, password) => dispatch => {
   fetch('https://verkefni2server.herokuapp.com/login', {
     method: 'POST',
