@@ -63,6 +63,7 @@ class Registration extends Component {
         return (
           <form onSubmit={this.handleSubmit} class="registration">
             <h1>Nýskráning</h1>
+            <div className="inputContainer">
             <label>
               Notandanafn:
               <input type="text" onChange={this.handleUsernameChange} />
@@ -71,10 +72,11 @@ class Registration extends Component {
               Lykilorð:
               <input type="password" onChange={this.handlePasswordChange} />
             </label>
-            <label>
+            <label for="name">
               Nafn:
-              <input type="text" onChange={this.handleNameChange} />
+              <input id="name" type="text" onChange={this.handleNameChange} />
             </label>
+            </div>
             {errors}
             <input type="submit" value="Nýskrá" />
             <a href="/login">Innskráning</a>
