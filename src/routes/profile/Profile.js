@@ -1,16 +1,9 @@
 import React, { Component } from 'react';
-import { UpdatePassword, getUsers } from '../../actions/auth';
+import { UpdatePassword, checkLogin } from '../../actions/auth';
 import { connect } from 'react-redux';
 
 
 class Profile extends Component {
-  componentDidMount() {
-    const a = this.props.getUsers();
-    console.log(a, 'helllo peps');
-    a.then(function(result){
-      console.log(result);
-    })
-  }
   handlePassChange = (e) => {
     e.preventDefault();
     const { pass, confirmPass, name,confirmName } = this.state;
@@ -31,6 +24,9 @@ class Profile extends Component {
   }
 
   render() {
+    const a = this.props.checkLogin(localStorage.getItem("Token"));
+    console.log(a, 'helllo peps');
+    console.log(this.props.user)
     return (
       <div>
         <h2>Upplýsingar</h2>
@@ -58,6 +54,7 @@ const mapStateToProps = (state) => {
     isFetching: state.auth.isFetching,
     isAuthenticated: state.auth.isAuthenticated,
     message: state.auth.message,
+    user: state.auth.user,
   }
 }
-export default connect (mapStateToProps, {UpdatePassword, getUsers})(Profile);
+export default connect (mapStateToProps, {UpdatePassword, checkLogin})(Profile);

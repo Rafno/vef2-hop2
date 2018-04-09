@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { checkLogin } from '../../actions/auth';
 import './home.css';
 
 class Home extends Component {
@@ -13,6 +14,8 @@ class Home extends Component {
     }
   }
   render() {
+    const maybeToken = localStorage.getItem("Token")
+    this.props.checkLogin(maybeToken);
     const { isAuthenticated } = this.props;
     const visible = isAuthenticated ?
     <div className ="IsLoggedIn">
@@ -47,5 +50,5 @@ const mapStateToProps = state => ({
   count: 1,
 });
 
-export default connect(mapStateToProps)(Home);
+export default connect(mapStateToProps, { checkLogin })(Home);
 
