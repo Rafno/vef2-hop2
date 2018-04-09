@@ -1,17 +1,16 @@
 import React, { Component } from 'react';
-import { UpdatePassword } from '../../actions/auth';
+import { UpdatePassword, getUsers } from '../../actions/auth';
 import { connect } from 'react-redux';
 
 
 class Profile extends Component {
-
-  handleNameChange = (e) => {
-    e.preventDefault();
-    const { name } = this.state;
-    localStorage.setItem("username", name);
-    this.props.changeName(name);
+  componentDidMount() {
+    const a = this.props.getUsers();
+    console.log(a, 'helllo peps');
+    a.then(function(result){
+      console.log(result);
+    })
   }
-
   handlePassChange = (e) => {
     e.preventDefault();
     const { pass, confirmPass, name,confirmName } = this.state;
@@ -49,6 +48,7 @@ class Profile extends Component {
           <input type="username" name="confirmName" onChange={this.handleInputChange}/>
           <input type="submit"/>
         </form>
+        <h2> Lesnar Bækur </h2>
       </div>
     );
   }
@@ -60,4 +60,4 @@ const mapStateToProps = (state) => {
     message: state.auth.message,
   }
 }
-export default connect (mapStateToProps, {UpdatePassword})(Profile);
+export default connect (mapStateToProps, {UpdatePassword, getUsers})(Profile);

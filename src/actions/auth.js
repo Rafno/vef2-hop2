@@ -161,6 +161,26 @@ export const UpdatePassword = (id, password, username) => dispatch => {
       console.log(testing, 'svar');
       console.log(localStorage.getItem("Token"));
 };
+export const getUsers = () => dispatch => {
+  const testing = fetch(`https://verkefni2server.herokuapp.com/users/me`, {
+    method: 'GET',
+    headers: {
+      'content-type': 'application/json',
+      'authorization': `bearer ${localStorage.getItem("Token")}`
+    },
+  })
+  .then(res => res.json())
+    .then(login =>
+      dispatch({
+        type: LOGIN_FAILURE,
+        isFetching: false,
+        isAuthenticated: true,
+        payload: localStorage.getItem("Token"),
+       }))
+       console.log( testing.headers, 'svar');
+       return testing;
+};
+
 
 export const loginOut = () => dispatch => {
   console.log("logged out");
@@ -175,6 +195,7 @@ export const loginOut = () => dispatch => {
  * *changeName og changePassword skemma "name" hlutann eins og er. TODO. þarf að útfæra name í localstorage.
  * @param {any} name
  */
+// tók ekki eftir þessum 2 en er búinn að útfæra að breyta lykilorði og username
   export const changeName = (name) => dispatch => {
     const testing = fetch(`https://verkefni2server.herokuapp.com/users/me`, {
       method: 'PATCH',
