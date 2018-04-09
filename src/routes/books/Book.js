@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Helmet from 'react-helmet';
 import { Route, Link, Switch } from 'react-router-dom';
+import './book.css';
 /**
  * Hér mun þessi compnent sjá um alla listann af bókunum og getur valið spes bók.
  */
@@ -136,14 +137,14 @@ class books extends Component {
     const view2 = frammari ? <div> <button>Áfram um síðu</button></div>:null
     return (
       <div className="BookList">
-        <h2> Bækur </h2>
+        <h1> Bækur </h1>
         {data.items.map((i, index) => {
           const slug = i.id
           const url = "/books/"+slug
           return(
             <ul className ="listarnir">
             <Link to = {url}>
-              <li> {i.title}</li>
+              <li> <h3>{i.title}</h3></li>
             </Link>
               <li> {i.author} </li>
             </ul>
@@ -151,7 +152,7 @@ class books extends Component {
         })}
         <div className="takkar">
           {data.links.prev?<button className="backButton" onClick = {this.backwardHandler}>{view1}</button> : null}
-          {"Síða númer: "+this.state.count}
+          <p>Síða {this.state.count}</p>
           {data.links.next?<button className="forwardButton" onClick = {this.forwardHandler}>{view2}</button> : null}
         </div>
       </div>
