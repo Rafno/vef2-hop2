@@ -23,12 +23,16 @@ class App extends Component {
 
   render() {
     const authenticated = false;
+<<<<<<< HEAD
     const maybeToken = localStorage.getItem("Token")
    /* if (maybeToken) {
       console.log("sending token to check login...");
       this.props.checkLogin(maybeToken);
       console.log("isAuthd",this.props.isAuthenticated);
     }*/
+=======
+    const { user } = this.props;
+>>>>>>> 19a4d41195c7d8cf199cd92510eedcf87bb59a7b
     return (
       <Provider store={store} >
       <main className="main">
