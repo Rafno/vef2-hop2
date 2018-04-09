@@ -5,6 +5,11 @@ heiti{
 }
 .BookList button {
     padding: 5px 6px;
+    border: 0;
+    border-radius: 5px;
+    color: #fff;
+    background-color: #4e1d04;
+    font-size: 1rem;
 }
 
 .BookList {
