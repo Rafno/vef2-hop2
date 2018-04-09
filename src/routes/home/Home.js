@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 class Home extends Component {
-  state = {isLoggedIn:false,hello:52};
+  state = {isLoggedIn:false};
 
   onHeaderClick = (header) => {
     return (e) => {
@@ -12,7 +12,6 @@ class Home extends Component {
   }
   render() {
     /* todo birta mismunandi upplýsingar ef innskráður notandi eða ekki */
-    console.log(this.state.isLoggedIn,'jjj',this.state.hello)
     const visible = this.state.isLoggedIn ?
     <div className ="IsLoggedIn">
     <h2> Velkominn á bókasafnið</h2>

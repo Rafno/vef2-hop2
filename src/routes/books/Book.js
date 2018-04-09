@@ -46,6 +46,10 @@ class books extends Component {
     if (page) {
       offset = page - 1;
       this.state.count = parseInt(page,10);
+      if (page < 1) {
+        console.log("tere was an error");
+        this.setState( { loading: false, error: true })
+      }
     }
     console.log(page);
     let url = `https://verkefni2server.herokuapp.com/books?offset=${(offset)*10}&limit=10&books`;
@@ -56,7 +60,9 @@ class books extends Component {
         url = `https://verkefni2server.herokuapp.com/books?offset=${(offset)*10}&limit=10&search=${searchParam}`
       }
       let data = await this.fetchData(url);
-      console.log(data);
+      if (data.villa){
+        this.setState( { error: data});
+      }
       if (searchParam) {
         data = data.response;
       }
@@ -114,13 +120,18 @@ class books extends Component {
       );
     }
     if (error) {
+      console.log(data);
+      if (error.villa){
+        return (
+          <p>Engar niðurstöður fundust</p>
+        );
+      }
       return (
         <div>
             <p> villa kom upp </p>
         </div>
       );
     }
-
     const view1 = bakkari ? <div><button>Aftur um síðu</button></div>:null;
     const view2 = frammari ? <div> <button>Áfram um síðu</button></div>:null
     return (
@@ -139,9 +150,9 @@ class books extends Component {
           );
         })}
         <div className="takkar">
-          {<button className="backButton" onClick = {this.backwardHandler}>{view1}</button>}
+          {data.links.prev?<button className="backButton" onClick = {this.backwardHandler}>{view1}</button> : null}
           {"Síða númer: "+this.state.count}
-          {<button className="forwardButton" onClick = {this.forwardHandler}>{view2}</button>}
+          {data.links.next?<button className="forwardButton" onClick = {this.forwardHandler}>{view2}</button> : null}
         </div>
       </div>
     );

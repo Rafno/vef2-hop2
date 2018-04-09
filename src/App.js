@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Provider, connect } from 'react-redux';
 import Helmet from 'react-helmet';
 import { Route, NavLink, Link, Switch, withRouter } from 'react-router-dom'
-
+import { checkLogin } from './actions/auth';
 import UserRoute from './components/user-route';
 import Header from './components/header';
 
@@ -20,10 +20,14 @@ import viewBook from './routes/viewbook/viewBook';
 import Registration from './routes/registration';
 
 class App extends Component {
+  state = { authenticated: false };
 
   render() {
-    const authenticated = false; /* vita hvort notandi sé innskráður */
-
+    const authenticated = false;
+    if (localStorage.getItem("Token")){
+      this.props.checkLogin();
+      const { user } = this.props;
+    }
     return (
       <Provider store={store} >
       <main className="main">
@@ -33,7 +37,7 @@ class App extends Component {
 
         <div className="main__content">
           <Switch location={this.props.location}>
-            <Route path="/" exact component={Home}/>
+              <Route path="/" exact authenticated={authenticated} component={Home}/>
             <Route path="/books" exact component={Book}/>
             <Route path="/books/new" exact component={updated}/>
             <Route path="/books/:id" exact component={viewBook}/>
@@ -53,7 +57,10 @@ class App extends Component {
 }
 
 const mapStateToProps = (state) => {
-  /* todo stilla redux ef það er notað */
+  return {
+    isAuthenticated: state.auth.isAuthenticated,
+    user: state.auth.user
+  }
 }
 
-export default withRouter(connect(mapStateToProps)(App));
+export default withRouter(connect(mapStateToProps, { checkLogin })(App));

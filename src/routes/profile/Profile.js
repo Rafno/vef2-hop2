@@ -5,6 +5,13 @@ import { connect } from 'react-redux';
 
 class Profile extends Component {
 
+  handleNameChange = (e) => {
+    e.preventDefault();
+    const { name } = this.state;
+    localStorage.setItem("username", name);
+    this.props.changeName(name);
+  }
+
   handlePassChange = (e) => {
     e.preventDefault();
     const { pass, confirmPass, name,confirmName } = this.state;
@@ -27,6 +34,7 @@ class Profile extends Component {
   render() {
     return (
       <div>
+        <h2>Upplýsingar</h2>
         <form>
           <input type="file" name="pic" accept="image/*"/>
           <input type="submit"/>
