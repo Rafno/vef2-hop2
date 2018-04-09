@@ -17,12 +17,12 @@ export const checkLogin = (maybeToken) => dispatch => {
     }
     })
     .then(res => res.json())
-    .then(login =>
+    .then(login => 
       dispatch({
         type: LOGIN_REQUEST,
         isFetching: false,
         isAuthenticated: true,
-        user: login.username,
+        user: login,
         payload: maybeToken,
       }))
 }
