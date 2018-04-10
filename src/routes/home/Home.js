@@ -6,7 +6,7 @@ import { checkLogin } from '../../actions/auth';
 import './home.css';
 
 class Home extends Component {
-  state = {isLoggedIn:false};
+  state = { isLoggedIn: false };
 
   onHeaderClick = (header) => {
     return (e) => {
@@ -16,22 +16,22 @@ class Home extends Component {
   render() {
     const { isAuthenticated } = this.props;
     const visible = isAuthenticated ?
-    <div className ="IsLoggedIn">
-    <h2> Velkominn á bókasafnið</h2>
-    <div className="loggedText">
-      <p>Þú ert skráður notandi og getur því </p>
-      <p><Link to="/updateBook">skráð bækur</Link></p>
-      <p> og </p>
-        <p><Link to ="/books">breytt þeim sem til eru.</Link></p>
+      <div className="IsLoggedIn">
+        <h2> Velkominn á bókasafnið</h2>
+        <div className="loggedText">
+          <p>Þú ert skráður notandi og getur því </p>
+          <p><Link to="/updateBook">skráð bækur</Link></p>
+          <p> og </p>
+          <p><Link to="/books">breytt þeim sem til eru.</Link></p>
         </div>
-         <p>Einnig geturu <Link to ="/users">skoðað aðra notendur</Link> </p>
-    </div>:
-    <div className="isNotLoggedIn">
-    <h2> Velkominn á bókasafnið</h2>
-      <p> Til að njóta bókasafnsins til fullnustu
+        <p>Einnig geturu <Link to="/users">skoðað aðra notendur</Link> </p>
+      </div> :
+      <div className="isNotLoggedIn">
+        <h2> Velkominn á bókasafnið</h2>
+        <p> Til að njóta bókasafnsins til fullnustu
       við með að skrá sig inn. Þangað til getur þú skoðað
       <a href="/books"> allar bækur </a></p>
-    </div>
+      </div>
     return (
       <div className="mainPageContainer">
         {visible}

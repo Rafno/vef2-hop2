@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 import { receiveLogin, requestLogin, loginOut, checkLogin } from '../../actions/auth';
 import { fetchBooks, getbookByID } from '../../actions/book';
 import './Login.css';
@@ -24,7 +25,7 @@ class Login extends Component {
     e.preventDefault();
     const { username, password } = this.state;
     const loginUser = { username, password };
-    let user = { 'username': username, 'password': password, 'name':null};
+    let user = { 'username': username, 'password': password, 'name': null };
     // Put the object into storage
     localStorage.setItem('user', JSON.stringify(user));
     this.props.receiveLogin(username, password);
@@ -37,11 +38,34 @@ class Login extends Component {
   render() {
     const { username, password } = this.state;
     const { isFetching, isAuthenticated, message } = this.props;
-    if (isAuthenticated) {
-      return (
-        <button onClick={this.handleLogout}>Útskrá</button>
-      );
-    }
+    const login = isAuthenticated ?
+      (<Redirect
+        to={{
+          pathname: '/',
+          state: { from: this.props.location }
+        }}
+      />
+      ) :
+      <div>
+        {message && (
+          <p>{message}</p>
+        )}
+
+        <form className="loginForm" onSubmit={this.handleSubmit}>
+          <div className="inputContainer">
+            <div>
+              <label htmlFor="username">Notendanafn:</label>
+              <input id="username" type="text" name="username" value={username} onChange={this.handleInputChange} />
+            </div>
+
+            <div>
+              <label htmlFor="password">Lykilorð:</label>
+              <input id="password" type="password" name="password" value={password} onChange={this.handleInputChange} />
+            </div>
+          </div>
+          <button disabled={isFetching}>Innskrá</button>
+        </form>
+      </div>
 
     if (isFetching) {
       return (
@@ -51,27 +75,8 @@ class Login extends Component {
 
     return (
       <div className="loginContainer">
-      <h1>Innskráning</h1>
-      <div>
-        {message && (
-          <p>{message}</p>
-        )}
-
-        <form className="loginForm" onSubmit={this.handleSubmit}>
-        <div className="inputContainer">
-          <div>
-            <label htmlFor="username">Notendanafn:</label>
-            <input id="username" type="text" name="username" value={username} onChange={this.handleInputChange} />
-          </div>
-
-          <div>
-            <label htmlFor="password">Lykilorð:</label>
-            <input id="password" type="password" name="password" value={password} onChange={this.handleInputChange} />
-          </div>
-          </div>
-          <button disabled={isFetching}>Innskrá</button>
-        </form>
-      </div>
+        <h1>Innskráning</h1>
+        {login}
       </div>
     );
   }

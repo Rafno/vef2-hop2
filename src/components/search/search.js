@@ -6,12 +6,12 @@ import './Search.css';
 class Search extends Component {
   state = {
     query: '',
-    results:[]
+    results: []
   }
   handleInputChange = (e) => {
     console.log(this.search.value);
     this.setState({
-      query:this.search.value
+      query: this.search.value
     })
   }
   handleSearch = (e) => {
@@ -23,13 +23,13 @@ class Search extends Component {
     return (
       <form>
         <input
-        placeholder="Bókaleit"
-        ref={input => this.search = input}
-        onChange={this.handleInputChange}
+          placeholder="Bókaleit"
+          ref={input => this.search = input}
+          onChange={this.handleInputChange}
         />
         <Button onClick={this.handleSearch}>Leita</Button>
-        </form>
-        )
+      </form>
+    )
   }
 }
 export default Search

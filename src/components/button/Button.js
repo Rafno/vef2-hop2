@@ -14,7 +14,7 @@ export default class Books extends Component {
 
   static defaultProps = {
     className: '',
-    onClick: () => {},
+    onClick: () => { },
   }
 
   render() {

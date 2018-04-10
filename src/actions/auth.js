@@ -15,9 +15,9 @@ export const checkLogin = (maybeToken) => dispatch => {
       'content-type': 'application/json',
       'authorization': `bearer ${maybeToken}`
     }
-    })
+  })
     .then(res => res.json())
-    .then(user => 
+    .then(user =>
       dispatch({
         type: LOGIN_REQUEST,
         isFetching: false,
@@ -31,7 +31,7 @@ export const getBooks = () => dispatch => {
       'content-type': 'application/json',
       'authorization': `bearer ${localStorage.getItem("Token")}`
     }
-    })
+  })
     .then(res => res.json())
     .then(login =>
       dispatch({
@@ -64,13 +64,13 @@ export const receiveLogin = (username, password) => dispatch => {
     .then(login => {
       const a = letsLogIn(login.token);
       a.then(function (result) {
-      dispatch({
-        type: LOGIN_SUCCESS,
-        isFetching: false,
-        isAuthenticated: true,
-        user: result,
-        payload: login.token,
-      })
+        dispatch({
+          type: LOGIN_SUCCESS,
+          isFetching: false,
+          isAuthenticated: true,
+          user: result,
+          payload: login.token,
+        })
       });
     })
 };
@@ -82,9 +82,9 @@ export const readBookByUser = (einkunn, texti, title) => dispatch => {
       'authorization': `bearer ${localStorage.getItem("Token")}`
     },
     body: JSON.stringify({
-      "title":title,
-      "grade":einkunn,
-      "judge":texti
+      "title": title,
+      "grade": einkunn,
+      "judge": texti
     })
   })
     .then(res => res.json())
@@ -93,23 +93,26 @@ export const readBookByUser = (einkunn, texti, title) => dispatch => {
         type: READ_REQUEST,
         isFetching: false,
         message: login,
-       }))
+      }))
 };
 export const CreateBook = (title, author, about, isbn10, isbn13, published, pagecount, language, category) => async dispatch => {
-    fetch('https://verkefni2server.herokuapp.com/books', {
+  fetch('https://verkefni2server.herokuapp.com/books', {
     method: 'POST',
     headers: {
       'content-type': 'application/json',
-      'authorization': `bearer ${localStorage.getItem("Token")}`},
-    body: JSON.stringify({"title":title,
-    "author":author,
-    "description":about,
-    "isbn10":isbn10,
-    "isbn13":isbn13,
-    "published":published,
-    "pagecount":pagecount,
-    "language":language,
-    "category":category })
+      'authorization': `bearer ${localStorage.getItem("Token")}`
+    },
+    body: JSON.stringify({
+      "title": title,
+      "author": author,
+      "description": about,
+      "isbn10": isbn10,
+      "isbn13": isbn13,
+      "published": published,
+      "pagecount": pagecount,
+      "language": language,
+      "category": category
+    })
   })
     .then(res => res.json())
     .then(login =>
@@ -126,15 +129,17 @@ export const UpdateBookById = (title, author, about, isbn10, isbn13, published, 
       'content-type': 'application/json',
       'authorization': `bearer ${localStorage.getItem("Token")}`
     },
-    body: JSON.stringify({"title":title,
-    "author":author,
-    "description":about,
-    "isbn10":isbn10,
-    "isbn13":isbn13,
-    "published":published,
-    "pagecount":pagecount,
-    "language":language,
-    "category":category })
+    body: JSON.stringify({
+      "title": title,
+      "author": author,
+      "description": about,
+      "isbn10": isbn10,
+      "isbn13": isbn13,
+      "published": published,
+      "pagecount": pagecount,
+      "language": language,
+      "category": category
+    })
   })
     .then(res => res.json())
     .then(login =>
@@ -154,10 +159,10 @@ export const loginError = message => dispatch => {
   })
 };
 export const UpdatePassword = (id, password, username) => dispatch => {
-  if(username === null){
-    username= localStorage.getItem("username");
+  if (username === null) {
+    username = localStorage.getItem("username");
   }
-  if(password === null){
+  if (password === null) {
     password = localStorage.getItem("password");
   }
   const testing = fetch(`https://verkefni2server.herokuapp.com/users/me`, {
@@ -167,10 +172,10 @@ export const UpdatePassword = (id, password, username) => dispatch => {
       'authorization': `bearer ${localStorage.getItem("Token")}`
     },
     body: JSON.stringify({
-      "id":id,
-      "username":username,
-      "password":password,
-      "name":'blobbb',
+      "id": id,
+      "username": username,
+      "password": password,
+      "name": 'blobbb',
     })
   })
     .then(res => res.json())
@@ -179,7 +184,7 @@ export const UpdatePassword = (id, password, username) => dispatch => {
         type: USER_PATCH_REQUEST,
         isFetching: false,
         message: login,
-       }))
+      }))
 };
 export const loginOut = () => dispatch => {
   console.log("logged out");

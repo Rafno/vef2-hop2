@@ -14,19 +14,18 @@ class viewBook extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      gogn:null,
-      loading:true,
-      error:null,
-      clicked:null,
+      gogn: null,
+      loading: true,
+      error: null,
+      clicked: null,
     };
-}
-  async componentDidMount(){
+  }
+  async componentDidMount() {
     const str = window.location.pathname;
     const hlutur = str.split('/');
-    const url = 'https://verkefni2server.herokuapp.com/'+hlutur[1]+'/'+hlutur[2];
-    console.log(url);
+    const url = 'https://verkefni2server.herokuapp.com/' + hlutur[1] + '/' + hlutur[2];
     const data = await this.fetchData(url);
-    this.setState({ gogn:data, loading: false });
+    this.setState({ gogn: data, loading: false });
   }
   async fetchData(url) {
     const link = url;
@@ -35,14 +34,14 @@ class viewBook extends Component {
     return data;
   }
   buttonHandler = (e) => {
-    const {clicked} = this.state;
-    this.setState({clicked:true});
+    const { clicked } = this.state;
+    this.setState({ clicked: true });
   }
   StoppHandler = (e) => {
-    this.setState({clicked:false});
+    this.setState({ clicked: false });
   }
-  render(){
-    const {gogn, loading, error, teljari, tala,clicked} = this.state;
+  render() {
+    const { gogn, loading, error, teljari, tala, clicked } = this.state;
     if (loading) {
       return (
         <div>
@@ -53,53 +52,53 @@ class viewBook extends Component {
     if (error) {
       return (
         <div>
-            <p> villa kom upp </p>
+          <p> villa kom upp </p>
         </div>
       );
     }
     const items = this.state.gogn.gogn[0];
     console.log(items);
-   const check = null;
-   let tableClass = null;
-   let name = null;
-   //const BookRead = null;
-   const BookRead = true;
-    if(this.state.clicked === false  || this.state.clicked === null){
+    const check = null;
+    let tableClass = null;
+    let name = null;
+    //const BookRead = null;
+    const BookRead = true;
+    if (this.state.clicked === false || this.state.clicked === null) {
       tableClass = 'lesTakkinn';
       name = 'none';
-    }else{
-      tableClass='none';
-      name='lesa';
+    } else {
+      tableClass = 'none';
+      name = 'lesa';
     }
-     return (
-        <div className="skodaBok">
-            <ul className="listinnfyirBok">
-            <li>{items.title} </li>
-            <li> {items.author}</li>
-            <li> {items.isbn13} </li>
-            <li>{items.category} </li>
-            <li> {items.description}</li>
-            <li> {items.pagecount} Síður </li>
-            <li> Tungumál: {items.language} </li>
-          </ul>
-          <button>
-            <Link to = {`/books/${items.id}/edit`}> Breyta bók</Link>
-          </button>
-          <Registerread
-          audkenni = {items.title}
-          lesa = {BookRead}
-          read = {this.state.clicked}
-          check = {items}
-          />
+    return (
+      <div className="skodaBok">
+        <ul className="listinnfyirBok">
+          <li>{items.title} </li>
+          <li> {items.author}</li>
+          <li> {items.isbn13} </li>
+          <li>{items.category} </li>
+          <li> {items.description}</li>
+          <li> {items.pagecount} Síður </li>
+          <li> Tungumál: {items.language} </li>
+        </ul>
+        <button>
+          <Link to={`/books/${items.id}/edit`}> Breyta bók</Link>
+        </button>
+        <Registerread
+          audkenni={items.title}
+          lesa={BookRead}
+          read={this.state.clicked}
+          check={items}
+        />
         {<button className={tableClass} onClick={this.buttonHandler}>Lesinn</button>}
         <div className={name}>
           <button onClick={this.StoppHandler}> Hætta</button>
         </div>
 
-        </div>
-      );
-    }
+      </div>
+    );
   }
+}
 export default viewBook;
 
 

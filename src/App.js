@@ -26,25 +26,25 @@ class App extends Component {
     const { user } = this.props;
     return (
       <Provider store={store} >
-      <main className="main">
-        <Helmet defaultTitle="Bókasafnið" titleTemplate="%s – Bókasafnið" />
+        <main className="main">
+          <Helmet defaultTitle="Bókasafnið" titleTemplate="%s – Bókasafnið" />
 
-        <Header />
+          <Header />
 
-        <div className="main__content">
-          <Switch location={this.props.location}>
-              <Route path="/" exact component={Home}/>
-            <Route path="/books" exact component={Book}/>
-            <Route path="/users" exact component={users}/>
-            <Route path="/books/new" exact component={updated}/>
-            <Route path="/books/:id" exact component={viewBook}/>
-            <Route path="/books/:id/edit" exact component={updated}/>
-            <Route path="/login" exact component={Login}/>
-            <Route path="/register" exact component={Registration}/>
-            <Route path="/profile" exact component={Profile}/>
-            <Route component={NotFound} />
-          </Switch>
-        </div>
+          <div className="main__content">
+            <Switch location={this.props.location}>
+              <Route path="/" exact component={Home} />
+              <Route path="/books" exact component={Book} />
+              <Route path="/users" exact component={users} />
+              <Route path="/books/new" exact component={updated} />
+              <Route path="/books/:id" exact component={viewBook} />
+              <Route path="/books/:id/edit" exact component={updated} />
+              <Route path="/login" exact component={Login} />
+              <Route path="/register" exact component={Registration} />
+              <Route path="/profile" exact component={Profile} />
+              <Route component={NotFound} />
+            </Switch>
+          </div>
 
         </main>
       </Provider>

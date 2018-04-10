@@ -1,5 +1,7 @@
 
-
+/**
+ * Erum við að nota API? TODO, eyða API ef aldrei notað.
+ */
 const baseurl = process.env.REACT_APP_SERVICE_URL;
 
 async function get(endpoint) {
