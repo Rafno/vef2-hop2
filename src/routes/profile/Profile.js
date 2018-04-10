@@ -21,8 +21,8 @@ class Profile extends Component {
     this.setState( { [name]:value });
   }
   render() {
+    const { user } = this.props;
     const gogn = this.props.getBooks();
-    console.log(gogn, 'hello');
     return (
       <div>
         <h2>Upplýsingar</h2>
@@ -48,9 +48,8 @@ class Profile extends Component {
 const mapStateToProps = (state) => {
   return {
     isFetching: state.auth.isFetching,
-    isAuthenticated: state.auth.isAuthenticated,
     message: state.auth.message,
     user: state.auth.user,
   }
 }
-export default connect (mapStateToProps, {UpdatePassword, getBooks})(Profile);
+export default connect(mapStateToProps, {UpdatePassword, getBooks})(Profile);

@@ -16,9 +16,11 @@ class Header extends Component {
 
   render() {
     const { isAuthenticated, user } = this.props;
+    let breyta = localStorage.getItem('user');
+    const users = JSON.parse(breyta);
     const visible = isAuthenticated ?
       <div class="profiles">
-        <a href="/profile">{user.username}</a>
+        <a href="/profile">{users.name}</a>
         <Button onClick={this.handleLogOut}>logout</Button>
       </div> :
       <div className="loginLink">

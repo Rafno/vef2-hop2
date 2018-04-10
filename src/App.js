@@ -22,7 +22,6 @@ class App extends Component {
   state = { authenticated: false };
 
   render() {
-    const authenticated = false;
     const { user } = this.props;
     return (
       <Provider store={store} >
@@ -33,7 +32,7 @@ class App extends Component {
 
         <div className="main__content">
           <Switch location={this.props.location}>
-              <Route path="/" exact authenticated={authenticated} component={Home}/>
+              <Route path="/" exact component={Home}/>
             <Route path="/books" exact component={Book}/>
             <Route path="/books/new" exact component={updated}/>
             <Route path="/books/:id" exact component={viewBook}/>
@@ -41,7 +40,6 @@ class App extends Component {
             <Route path="/login" exact component={Login}/>
             <Route path="/register" exact component={Registration}/>
             <Route path="/profile" exact component={Profile}/>
-            <UserRoute path="/profile" authenticated={authenticated} component={Profile}/>
             <Route component={NotFound} />
           </Switch>
         </div>

@@ -6,7 +6,7 @@
  */
 /*TODO skoða afhverju það er message í RequestLogin og sjá hvort það vanti á hina. */
 import api from '../api';
-import { LOGIN_REQUEST, LOGIN_FAILURE, LOGIN_LOGOUT, LOGIN_SUCCESS, NAMECHANGE_SUCCESS } from './types';
+import { LOGIN_REQUEST, BOOK_REQUEST, LOGIN_SUCCESS, READ_REQUEST, BOOK_REGISTER_REQUEST, BOOK_PATCH_REQUEST, LOGIN_FAILURE, USER_PATCH_REQUEST, LOGIN_LOGOUT } from './types';
 
 export const checkLogin = (maybeToken) => dispatch => {
   fetch('https://verkefni2server.herokuapp.com/users/me', {
@@ -17,13 +17,11 @@ export const checkLogin = (maybeToken) => dispatch => {
     }
     })
     .then(res => res.json())
-    .then(login => 
+    .then(user => 
       dispatch({
         type: LOGIN_REQUEST,
         isFetching: false,
-        isAuthenticated: true,
-        user: login,
-        payload: maybeToken,
+        user,
       }))
 }
 export const getBooks = () => dispatch => {
@@ -37,11 +35,22 @@ export const getBooks = () => dispatch => {
     .then(res => res.json())
     .then(login =>
       dispatch({
-        type: LOGIN_REQUEST,
+        type: BOOK_REQUEST,
         isFetching: false,
-        isAuthenticated: true,
         payload: login,
       }))
+}
+
+function letsLogIn(token) {
+  const user = fetch('https://verkefni2server.herokuapp.com/users/me', {
+    method: 'GET',
+    headers: {
+      'content-type': 'application/json',
+      'authorization': `bearer ${token}`
+    }
+  })
+    .then(res => { return res.json() })
+  return user;
 }
 export const receiveLogin = (username, password) => dispatch => {
   fetch('https://verkefni2server.herokuapp.com/login', {
@@ -52,17 +61,21 @@ export const receiveLogin = (username, password) => dispatch => {
     body: JSON.stringify({ "username": username, "password": password })
   })
     .then(res => res.json())
-    .then(login =>
+    .then(login => {
+      const a = letsLogIn(login.token);
+      a.then(function (result) {
       dispatch({
         type: LOGIN_SUCCESS,
         isFetching: false,
         isAuthenticated: true,
-        user: username,
+        user: result,
         payload: login.token,
-      }))
+      })
+      });
+    })
 };
 export const readBookByUser = (einkunn, texti, title) => dispatch => {
-  const testing = fetch(`https://verkefni2server.herokuapp.com/users/me/read`, {
+  fetch(`https://verkefni2server.herokuapp.com/users/me/read`, {
     method: 'POST',
     headers: {
       'content-type': 'application/json',
@@ -77,13 +90,10 @@ export const readBookByUser = (einkunn, texti, title) => dispatch => {
     .then(res => res.json())
     .then(login =>
       dispatch({
-        type: LOGIN_SUCCESS,
+        type: READ_REQUEST,
         isFetching: false,
-        isAuthenticated: true,
-        payload: localStorage.getItem("Token"),
+        message: login,
        }))
-      console.log(testing, 'svar');
-      console.log(localStorage.getItem("Token"));
 };
 export const CreateBook = (title, author, about, isbn10, isbn13, published, pagecount, language, category) => async dispatch => {
     fetch('https://verkefni2server.herokuapp.com/books', {
@@ -104,15 +114,13 @@ export const CreateBook = (title, author, about, isbn10, isbn13, published, page
     .then(res => res.json())
     .then(login =>
       dispatch({
-        type: LOGIN_SUCCESS,
+        type: BOOK_REGISTER_REQUEST,
         isFetching: false,
-        isAuthenticated: true,
-        payload: localStorage.getItem("Token"),
+        message: login,
       }))
-  console.log(localStorage.getItem("Token"));
 };
 export const UpdateBookById = (title, author, about, isbn10, isbn13, published, pagecount, language, category, id) => async dispatch => {
-  const testing = await fetch(`https://verkefni2server.herokuapp.com/books/${id}`, {
+  fetch(`https://verkefni2server.herokuapp.com/books/${id}`, {
     method: 'PATCH',
     headers: {
       'content-type': 'application/json',
@@ -131,12 +139,10 @@ export const UpdateBookById = (title, author, about, isbn10, isbn13, published, 
     .then(res => res.json())
     .then(login =>
       dispatch({
-        type: NAMECHANGE_SUCCESS,
+        type: BOOK_PATCH_REQUEST,
         isFetching: false,
-        isAuthenticated: true,
-        payload: localStorage.getItem("Token"),
+        message: login,
       }))
-  console.log(testing);
 };
 export const loginError = message => dispatch => {
   console.log("login failed");
@@ -170,10 +176,9 @@ export const UpdatePassword = (id, password, username) => dispatch => {
     .then(res => res.json())
     .then(login =>
       dispatch({
-        type: LOGIN_SUCCESS,
+        type: USER_PATCH_REQUEST,
         isFetching: false,
-        isAuthenticated: true,
-        payload: localStorage.getItem("Token"),
+        message: login,
        }))
 };
 export const loginOut = () => dispatch => {
@@ -190,47 +195,3 @@ export const loginOut = () => dispatch => {
  * @param {any} name
  */
 // tók ekki eftir þessum 2 en er búinn að útfæra að breyta lykilorði og username
-  export const changeName = (name) => dispatch => {
-    const testing = fetch(`https://verkefni2server.herokuapp.com/users/me`, {
-      method: 'PATCH',
-      headers: {
-        'content-type': 'application/json',
-        'authorization': `bearer ${localStorage.getItem("Token")}`
-      },
-      body: JSON.stringify({
-        "username": localStorage.getItem("username"),
-        "password": localStorage.getItem("password"),
-        "name": name
-      })
-    })
-      .then(res => res.json())
-      .then(login =>
-        dispatch({
-          type: NAMECHANGE_SUCCESS,
-          isFetching: false,
-          isAuthenticated: true,
-          payload: localStorage.getItem("Token"),
-        }))
-    };
-export const changePassword = (password) => dispatch => {
-  const testing = fetch(`https://verkefni2server.herokuapp.com/users/me`, {
-    method: 'PATCH',
-    headers: {
-      'content-type': 'application/json',
-      'authorization': `bearer ${localStorage.getItem("Token")}`
-    },
-    body: JSON.stringify({
-      "username": localStorage.getItem("username"),
-      "password": localStorage.getItem("password"),
-      "name": "testing"
-    })
-  })
-    .then(res => res.json())
-    .then(login =>
-      dispatch({
-        type: NAMECHANGE_SUCCESS,
-        isFetching: false,
-        isAuthenticated: true,
-        payload: localStorage.getItem("Token"),
-      }))
-};

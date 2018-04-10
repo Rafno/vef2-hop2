@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { receiveLogin, requestLogin, loginOut } from '../../actions/auth';
+import { receiveLogin, requestLogin, loginOut, checkLogin } from '../../actions/auth';
 import { fetchBooks, getbookByID } from '../../actions/book';
 import './Login.css';
 
@@ -23,9 +23,10 @@ class Login extends Component {
   handleSubmit = async (e) => {
     e.preventDefault();
     const { username, password } = this.state;
-    const user = { username, password };
-    localStorage.setItem("username", username);
-    localStorage.setItem("password", password);
+    const loginUser = { username, password };
+    let user = { 'username': username, 'password': password, 'name':null};
+    // Put the object into storage
+    localStorage.setItem('user', JSON.stringify(user));
     this.props.receiveLogin(username, password);
   }
 
@@ -84,4 +85,4 @@ const mapStateToProps = (state) => {
   }
 }
 
-export default connect(mapStateToProps, { receiveLogin, loginOut })(Login);
+export default connect(mapStateToProps, { receiveLogin, loginOut, checkLogin })(Login);

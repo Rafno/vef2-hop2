@@ -1,11 +1,17 @@
-import { LOGIN_REQUEST, LOGIN_FAILURE, LOGIN_LOGOUT, LOGIN_SUCCESS, NAMECHANGE_SUCCESS } from '../actions/types';
-
-// const user = JSON.parse(localStorage.getItem('user') || 'null');
-const initialState = {
+import { LOGIN_REQUEST, BOOK_REQUEST, LOGIN_SUCCESS, READ_REQUEST, BOOK_REGISTER_REQUEST, BOOK_PATCH_REQUEST, LOGIN_FAILURE, USER_PATCH_REQUEST, LOGIN_LOGOUT } from '../actions/types';
+let user = null;
+if (localStorage.getItem("Token")) {
+  user = localStorage.getItem('user');
+}
+const initialState = user ? {
   isFetching: false,
-  isAuthenticated: false,
-  user:null,
-};
+  isAuthenticated: true,
+  user,
+} : {
+    isFetching: false,
+    isAuthenticated: false,
+    user: null,
+  };
 
 export default (state = initialState, action) => {
   switch (action.type) {
@@ -13,33 +19,64 @@ export default (state = initialState, action) => {
       return {
         ...state,
         isFetching: action.isFetching,
-        isAuthenticated: action.isAuthenticated,
+        isAuthenticated: state.isAuthenticated,
         user: action.user,
-        message: action.payload,
       };
-      case NAMECHANGE_SUCCESS:
-        return {
-          ...state,
-          isFetching: action.isFetching,
-          isAuthenticated: action.isAuthenticated,
-          user: action.user,
-          message: action.payload,
-        };
+    case BOOK_REQUEST:
+      return {
+        ...state,
+        isFetching: action.isFetching,
+        isAuthenticated: state.isAuthenticated,
+        payload: action.payload,
+      };
     case LOGIN_SUCCESS:
       localStorage.setItem("Token", `${action.payload}`);
+      let breyta = localStorage.getItem('user');
+      breyta = JSON.parse(breyta);
+      let user = {'username': breyta.username, 'password': breyta.password, "name": action.user.name };
+      // Put the object into storage
+      localStorage.setItem('user', JSON.stringify(user));
       return {
         ...state,
         isFetching: action.isFetching,
         isAuthenticated: action.isAuthenticated,
         user: action.user,
-        message: action.payload,
+        payload: action.payload,
+      };
+    case READ_REQUEST:
+      return {
+        ...state,
+        isFetching: action.isFetching,
+        isAuthenticated: state.isAuthenticated,
+        message: action.message,
+      };
+    case BOOK_REGISTER_REQUEST:
+      return {
+        ...state,
+        isFetching: action.isFetching,
+        isAuthenticated: state.isAuthenticated,
+        message: action.message,
+      };
+    case BOOK_PATCH_REQUEST:
+      return {
+        ...state,
+        isFetching: action.isFetching,
+        isAuthenticated: state.isAuthenticated,
+        message: action.message,
       };
     case LOGIN_FAILURE:
       return {
         ...state,
         isFetching: action.isFetching,
         isAuthenticated: action.isAuthenticated,
-        message: action.message
+        message: action.payload,
+      };
+    case USER_PATCH_REQUEST:
+      return {
+        ...state,
+        isFetching: action.isFetching,
+        isAuthenticated: state.isAuthenticated,
+        message: action.message,
       };
     case LOGIN_LOGOUT:
       localStorage.removeItem("Token");

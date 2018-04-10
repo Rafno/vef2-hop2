@@ -37,7 +37,6 @@ class books extends Component {
   }
   
   async componentDidMount() {
-    console.log(this.state.count);
     const searchParam = this.getQueryVariable("query");
     const page = this.getQueryVariable("page");
     if (!page){
@@ -52,12 +51,10 @@ class books extends Component {
         this.setState( { loading: false, error: true })
       }
     }
-    console.log(page);
     let url = `https://verkefni2server.herokuapp.com/books?offset=${(offset)*10}&limit=10&books`;
     console.log(url);
     try {
-      if(searchParam){
-        console.log("url change");
+      if(searchParam){;
         url = `https://verkefni2server.herokuapp.com/books?offset=${(offset)*10}&limit=10&search=${searchParam}`
       }
       let data = await this.fetchData(url);
