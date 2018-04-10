@@ -1,8 +1,17 @@
 .mainPageContainer {
     margin-left: 10%;
-    margin-top: 3em;
+    margin-top: 2em;
 }
 
 .mainPageContainer h2{
     margin-bottom: 0.5em;
+}
+
+.loggedText a, p {
+    display: inline;
+}
+
+.loggedText {
+    margin-top: 1.3em;
+    margin-bottom: 1em;
 }
