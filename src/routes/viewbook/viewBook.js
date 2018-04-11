@@ -18,6 +18,11 @@ class viewBook extends Component {
   }
   render() {
     const { bookItem } = this.props;
+    /**
+     * TODO, klára eftir </ul> virkni sem sendir á tilbúið Action sem setur í state lesna bók.
+     * Gæti þurft að breyta hvort state takið við object, ef ekki. útfæra bókina og ég bæti á morgun þannig
+     * að það sé bætt við object á stateið frekar en að yfirskrifa það
+     */
     const book = bookItem ?
       <div className="skodaBok">
       <ul className="listinnfyirBok">
@@ -28,7 +33,7 @@ class viewBook extends Component {
           <li> {bookItem.gogn[0].description}</li>
           <li> {bookItem.gogn[0].pagecount} Síður </li>
           <li> Tungumál: {bookItem.gogn[0].language} </li>
-      </ul>
+        </ul>
       </div> : <p>loading...</p>
     return (
       <div>{book}</div>

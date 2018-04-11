@@ -42,6 +42,9 @@ class Profile extends Component {
   }
   render() {
     const { user, isAuthenticated, bookItem } = this.props;
+    /**
+     * Ef readbook state er til, þá á að endurskrifa "I am destroyer become worlds" með þeim gögnum með til dæmis readBook.title
+     */
     const readBooks = bookItem ?
       <div>
         <p>I am destroy become worlds</p>
