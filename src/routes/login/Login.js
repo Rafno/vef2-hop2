@@ -24,11 +24,13 @@ class Login extends Component {
   handleSubmit = async (e) => {
     e.preventDefault();
     const { username, password } = this.state;
+    const { error } = this.props;
     const loginUser = { username, password };
     let user = { 'username': username, 'password': password, 'name': null, "id": null };
     // Put the object into storage
-    localStorage.setItem('user', JSON.stringify(user));
     this.props.receiveLogin(username, password);
+    localStorage.setItem('user', JSON.stringify(user));
+    console.log(error);
   }
 
   handleLogout = (e) => {
@@ -37,7 +39,7 @@ class Login extends Component {
 
   render() {
     const { username, password } = this.state;
-    const { isFetching, isAuthenticated, message } = this.props;
+    const { isFetching, isAuthenticated, error } = this.props;
     const login = isAuthenticated ?
       (<Redirect
         to={{
@@ -87,6 +89,7 @@ const mapStateToProps = (state) => {
     isFetching: state.auth.isFetching,
     isAuthenticated: state.auth.isAuthenticated,
     message: state.auth.message,
+    error: state.auth.error,
   }
 }
 

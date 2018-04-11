@@ -69,7 +69,7 @@ export default (state = initialState, action) => {
         ...state,
         isFetching: action.isFetching,
         isAuthenticated: action.isAuthenticated,
-        message: action.payload,
+        error: action.error,
       };
     case USER_PATCH_REQUEST:
       return {
