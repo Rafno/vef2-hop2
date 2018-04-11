@@ -49,8 +49,8 @@ class Login extends Component {
       />
       ) :
       <div>
-        {message && (
-          <p>{message}</p>
+        {error && (
+          <p>{error}</p>
         )}
 
         <form className="loginForm" onSubmit={this.handleSubmit}>
@@ -88,7 +88,6 @@ const mapStateToProps = (state) => {
   return {
     isFetching: state.auth.isFetching,
     isAuthenticated: state.auth.isAuthenticated,
-    message: state.auth.message,
     error: state.auth.error,
   }
 }
