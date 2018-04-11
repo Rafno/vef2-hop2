@@ -18,7 +18,6 @@ class viewBook extends Component {
   }
   render() {
     const { bookItem } = this.props;
-    console.log(bookItem);
     const book = bookItem ?
       <div className="skodaBok">
       <ul className="listinnfyirBok">
