@@ -62,17 +62,27 @@ export const receiveLogin = (username, password) => dispatch => {
   })
     .then(res => res.json())
     .then(login => {
-      const a = letsLogIn(login.token);
-      a.then(function (result) {
+      if (!login.token) {
         dispatch({
-          type: LOGIN_SUCCESS,
+          type: LOGIN_FAILURE,
           isFetching: false,
-          isAuthenticated: true,
-          user: result,
-          payload: login.token,
+          isAuthenticated: false,
+          error: login.error,
         })
-      });
-    })
+      } else {
+        const a = letsLogIn(login.token);
+        a.then(function (result) {
+          dispatch({
+            type: LOGIN_SUCCESS,
+            isFetching: false,
+            isAuthenticated: true,
+            user: result,
+            payload: login.token,
+          })
+        })
+      }
+    }
+  );
 };
 export const readBookByUser = (einkunn, texti, title) => dispatch => {
   fetch(`https://verkefni2server.herokuapp.com/users/me/read`, {
