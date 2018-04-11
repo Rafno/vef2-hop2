@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { UpdatePassword, getBooks } from '../../actions/auth';
+import { UpdatePassword } from '../../actions/auth';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 class Profile extends Component {
@@ -22,7 +22,7 @@ class Profile extends Component {
   }
   render() {
     const { user, isAuthenticated } = this.props;
-    const gogn = this.props.getBooks();
+    //const gogn = this.props.getBooks();
     const profile = isAuthenticated ?
       <div>
         <h2>Upplýsingar</h2>
@@ -35,9 +35,9 @@ class Profile extends Component {
           <input type="password" name="confirmPass" onChange={this.handleInputChange} />
           <input type="submit" />
         </form>
-        <form onSubmit={this.handlePassChange}> Breyta Notendanafni
-          <input type="username" name="name" onChange={this.handleInputChange} />
-          <input type="username" name="confirmName" onChange={this.handleInputChange} />
+        <form onSubmit={this.handlePassChange}> Breyta Nafni
+          <input type="nafn" name="name" onChange={this.handleInputChange} />
+          <input type="nafn" name="confirmName" onChange={this.handleInputChange} />
           <input type="submit" />
         </form>
         <h2> Lesnar Bækur </h2>
@@ -64,4 +64,4 @@ const mapStateToProps = (state) => {
     isAuthenticated: state.auth.isAuthenticated,
   }
 }
-export default connect(mapStateToProps, { UpdatePassword, getBooks })(Profile);
+export default connect(mapStateToProps, { UpdatePassword })(Profile);
