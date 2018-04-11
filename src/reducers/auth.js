@@ -33,7 +33,7 @@ export default (state = initialState, action) => {
       localStorage.setItem("Token", `${action.payload}`);
       let breyta = localStorage.getItem('user');
       breyta = JSON.parse(breyta);
-      let user = { 'username': breyta.username, 'password': breyta.password, "name": action.user.name, "id": action.user.id };
+      let user = { 'username': breyta.username, 'password': breyta.password, "name": action.user.name, "id": action.user.identity };
       // Put the object into storage
       localStorage.setItem('user', JSON.stringify(user));
       return {

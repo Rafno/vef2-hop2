@@ -6,12 +6,17 @@ class Profile extends Component {
   handlePassChange = (e) => {
     e.preventDefault();
     const { pass, confirmPass, name, confirmName } = this.state;
+    let breyta = localStorage.getItem('user');
+    breyta = JSON.parse(breyta);
+    const id = breyta.id;
+    const username = breyta.username;
+    console.log(username, " þetta er id í profile");
     if (pass === confirmPass) {
-      this.props.UpdatePassword(10, pass, null);
+      this.props.UpdatePassword(id, username, null, pass);
     }
     console.log(name, confirmName)
     if (name === confirmName) {
-      this.props.UpdatePassword(10, null, name);
+      this.props.UpdatePassword(id, username, name, null);
     }
   }
   handleInputChange = (e) => {

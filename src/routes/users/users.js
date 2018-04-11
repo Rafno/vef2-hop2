@@ -9,7 +9,7 @@ class users extends Component {
   render() {
 
     return (
-      <p> hello </p>
+      <p> háá æ þ ö llo </p>
     );
   }
 }

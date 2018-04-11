@@ -62,27 +62,17 @@ export const receiveLogin = (username, password) => dispatch => {
   })
     .then(res => res.json())
     .then(login => {
-      if (!login.token) {
+      const a = letsLogIn(login.token);
+      a.then(function (result) {
         dispatch({
-          type: LOGIN_FAILURE,
+          type: LOGIN_SUCCESS,
           isFetching: false,
-          isAuthenticated: false,
-          error: login.error,
+          isAuthenticated: true,
+          user: result,
+          payload: login.token,
         })
-      } else {
-        const a = letsLogIn(login.token);
-        a.then(function (result) {
-          dispatch({
-            type: LOGIN_SUCCESS,
-            isFetching: false,
-            isAuthenticated: true,
-            user: result,
-            payload: login.token,
-          })
-        })
-      }
-    }
-  );
+      });
+    })
 };
 export const readBookByUser = (einkunn, texti, title) => dispatch => {
   fetch(`https://verkefni2server.herokuapp.com/users/me/read`, {
@@ -168,14 +158,18 @@ export const loginError = message => dispatch => {
     payload: null,
   })
 };
-export const UpdatePassword = (id, password, username) => dispatch => {
+export const UpdatePassword = (id, username, name, password) => dispatch => {
   let breyta = localStorage.getItem('user');
   const users = JSON.parse(breyta);
-  console.log(users.name);
-  const nafn = users.name.toString();
-  console.log(nafn, " þetta er nafnið");
-  console.log(username, " þetta er username");
-  console.log(password, " þetta er lykilorð");
+  if (name === null) {
+      name = users.name;
+  }
+  if (password === null) {
+      password = users.password;
+  }
+  let user = { 'username': username, 'password': users.password, "name": users.name, "id": id };
+      // Put the object into storage
+      localStorage.setItem('user', JSON.stringify(user));
   const testing = fetch(`https://verkefni2server.herokuapp.com/users/me`, {
     method: 'PATCH',
     headers: {
@@ -186,7 +180,7 @@ export const UpdatePassword = (id, password, username) => dispatch => {
       "id": id,
       "username": username,
       "password": password,
-      "name": nafn,
+      "name": name,
     })
   })
     .then(res => res.json())
