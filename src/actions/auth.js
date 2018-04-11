@@ -24,7 +24,7 @@ export const checkLogin = (maybeToken) => dispatch => {
         user,
       }))
 }
-export const getBooks = () => dispatch => {
+/*export const getBooks = () => dispatch => {
   fetch('https://verkefni2server.herokuapp.com/users/me/read', {
     method: 'GET',
     headers: {
@@ -39,7 +39,7 @@ export const getBooks = () => dispatch => {
         isFetching: false,
         payload: login,
       }))
-}
+}*/
 
 function letsLogIn(token) {
   const user = fetch('https://verkefni2server.herokuapp.com/users/me', {
@@ -159,12 +159,13 @@ export const loginError = message => dispatch => {
   })
 };
 export const UpdatePassword = (id, password, username) => dispatch => {
-  if (username === null) {
-    username = localStorage.getItem("username");
-  }
-  if (password === null) {
-    password = localStorage.getItem("password");
-  }
+  let breyta = localStorage.getItem('user');
+  const users = JSON.parse(breyta);
+  console.log(users.name);
+  const nafn = users.name.toString();
+  console.log(nafn, " þetta er nafnið");
+  console.log(username, " þetta er username");
+  console.log(password, " þetta er lykilorð");
   const testing = fetch(`https://verkefni2server.herokuapp.com/users/me`, {
     method: 'PATCH',
     headers: {
@@ -175,7 +176,7 @@ export const UpdatePassword = (id, password, username) => dispatch => {
       "id": id,
       "username": username,
       "password": password,
-      "name": 'blobbb',
+      "name": nafn,
     })
   })
     .then(res => res.json())

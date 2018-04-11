@@ -25,7 +25,7 @@ class Login extends Component {
     e.preventDefault();
     const { username, password } = this.state;
     const loginUser = { username, password };
-    let user = { 'username': username, 'password': password, 'name': null };
+    let user = { 'username': username, 'password': password, 'name': null, "id": null };
     // Put the object into storage
     localStorage.setItem('user', JSON.stringify(user));
     this.props.receiveLogin(username, password);
