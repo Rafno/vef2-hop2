@@ -6,7 +6,7 @@
  */
 /*TODO skoða afhverju það er message í RequestLogin og sjá hvort það vanti á hina. */
 import api from '../api';
-import { LOGIN_REQUEST, BOOK_REQUEST, LOGIN_SUCCESS, READ_REQUEST, BOOK_REGISTER_REQUEST, BOOK_PATCH_REQUEST, LOGIN_FAILURE, USER_PATCH_REQUEST, LOGIN_LOGOUT, VIEW_USERS } from './types';
+import { LOGIN_REQUEST, SIGN_BOOK,BOOK_REQUEST, LOGIN_SUCCESS, READ_REQUEST, BOOK_REGISTER_REQUEST, BOOK_PATCH_REQUEST, LOGIN_FAILURE, USER_PATCH_REQUEST, LOGIN_LOGOUT, VIEW_USERS, UPDATE_USER } from './types';
 
 export const viewUser = (token) => dispatch => {
   fetch('https://verkefni2server.herokuapp.com/users', {
@@ -176,7 +176,6 @@ export const UpdateBookById = (title, author, about, isbn10, isbn13, published, 
       }))
 };
 export const loginError = message => dispatch => {
-  console.log("login failed");
   dispatch({
     type: LOGIN_FAILURE,
     isFetching: false,
@@ -187,12 +186,8 @@ export const loginError = message => dispatch => {
 export const UpdatePassword = (id, password, username) => dispatch => {
   let breyta = localStorage.getItem('user');
   const users = JSON.parse(breyta);
-  console.log(users.name);
   const nafn = users.name.toString();
-  console.log(nafn, " þetta er nafnið");
-  console.log(username, " þetta er username");
-  console.log(password, " þetta er lykilorð");
-  const testing = fetch(`https://verkefni2server.herokuapp.com/users/me`, {
+  fetch(`https://verkefni2server.herokuapp.com/users/me`, {
     method: 'PATCH',
     headers: {
       'content-type': 'application/json',
@@ -214,7 +209,6 @@ export const UpdatePassword = (id, password, username) => dispatch => {
       }))
 };
 export const loginOut = () => dispatch => {
-  console.log("logged out");
   dispatch({
     type: LOGIN_LOGOUT,
     isFetching: false,
@@ -222,8 +216,16 @@ export const loginOut = () => dispatch => {
     user: null,
   })
 };
-/**
- * *changeName og changePassword skemma "name" hlutann eins og er. TODO. þarf að útfæra name í localstorage.
- * @param {any} name
- */
-// tók ekki eftir þessum 2 en er búinn að útfæra að breyta lykilorði og username
+export const uploadPic = (file) => dispatch => {
+  dispatch({
+    type: UPDATE_USER,
+    picture: file,
+  })
+};
+
+export const signReadBook = (book) => dispatch => {
+  dispatch({
+    type: SIGN_BOOK,
+    readBook: book,
+  })
+};

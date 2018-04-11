@@ -11,3 +11,5 @@ export const LOGIN_FAILURE = 'LOGIN_FAILURE';
 export const LOGIN_LOGOUT = 'LOGIN_LOGOUT';
 export const USER_PATCH_REQUEST = 'USER_PATCH_REQUEST';
 export const VIEW_USERS = 'VIEW_USERS';
+export const UPDATE_USER = 'UPDATE_USER';
+export const SIGN_BOOK = 'SIGN_BOOK';

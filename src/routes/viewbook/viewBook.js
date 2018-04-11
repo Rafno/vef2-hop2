@@ -3,45 +3,52 @@ import PropTypes from 'prop-types';
 import Helmet from 'react-helmet';
 import Registerread from '../registerRead';
 import { Route, Link, Switch } from 'react-router-dom';
-
-
+import { signReadBook } from '../../actions/auth';
+import { fetchBooks } from '../../actions/book';
+import { connect } from 'react-redux';
 
 /**
  * Get skoðað eina bók
  */
 
 class viewBook extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      gogn: null,
-      loading: true,
-      error: null,
-      clicked: null,
-    };
-  }
-  async componentDidMount() {
-    const str = window.location.pathname;
-    const hlutur = str.split('/');
-    const url = 'https://verkefni2server.herokuapp.com/' + hlutur[1] + '/' + hlutur[2];
-    const data = await this.fetchData(url);
-    this.setState({ gogn: data, loading: false });
-  }
-  async fetchData(url) {
-    const link = url;
-    const response = await fetch(link);
-    const data = await response.json();
-    return data;
-  }
-  buttonHandler = (e) => {
-    const { clicked } = this.state;
-    this.setState({ clicked: true });
-  }
-  StoppHandler = (e) => {
-    this.setState({ clicked: false });
+  componentDidMount() {
+    const path = this.props.location.pathname;
+    this.props.fetchBooks(path);
   }
   render() {
-    const { gogn, loading, error, teljari, tala, clicked } = this.state;
+    const { bookItem } = this.props;
+    console.log(bookItem);
+    const book = bookItem ?
+      <div className="skodaBok">
+      <ul className="listinnfyirBok">
+        <li>{bookItem.gogn[0].title} </li>
+          <li> {bookItem.gogn[0].author}</li>
+          <li> {bookItem.gogn[0].isbn13} </li>
+          <li>{bookItem.gogn[0].category} </li>
+          <li> {bookItem.gogn[0].description}</li>
+          <li> {bookItem.gogn[0].pagecount} Síður </li>
+          <li> Tungumál: {bookItem.gogn[0].language} </li>
+      </ul>
+      </div> : <p>loading...</p>
+    return (
+      <div>{book}</div>
+      );
+  }
+}
+
+const mapStateToProps = (state) => {
+  return {
+    isFetching: state.auth.isFetching,
+    readBook: state.auth.readBook,
+    isAuthenticated: state.auth.isAuthenticated,
+    token: state.auth.token,
+    bookItem: state.books.bookItem,
+  }
+}
+export default connect(mapStateToProps, { signReadBook, fetchBooks })(viewBook);
+
+/*const { gogn, loading, error, teljari, tala, clicked } = this.state;
     if (loading) {
       return (
         <div>
@@ -94,14 +101,6 @@ class viewBook extends Component {
         <div className={name}>
           <button onClick={this.StoppHandler}> Hætta</button>
         </div>
-
       </div>
     );
-  }
-}
-export default viewBook;
-
-
-
-
-
+    */

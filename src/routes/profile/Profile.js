@@ -1,33 +1,51 @@
 import React, { Component } from 'react';
-import { UpdatePassword } from '../../actions/auth';
+import { UpdatePassword, uploadPic } from '../../actions/auth';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 class Profile extends Component {
+  componentDidMount() {
+
+  }
   handlePassChange = (e) => {
     e.preventDefault();
     const { pass, confirmPass, name, confirmName } = this.state;
     if (pass === confirmPass) {
       this.props.UpdatePassword(10, pass, null);
     }
-    console.log(name, confirmName)
     if (name === confirmName) {
       this.props.UpdatePassword(10, null, name);
     }
   }
   handleInputChange = (e) => {
-    console.log(e.target.value);
     const name = e.target.name;
     const value = e.target.value;
     this.setState({ [name]: value });
   }
+ handleFileSubmit = (e) => {
+   e.preventDefault();
+   const { token } = this.props;
+    let profilePic = new FormData();
+   profilePic.append('Profile', this.uploadInput.files[0]);
+   fetch('https://verkefni2server.herokuapp.com/users/me', {
+     method: 'POST',
+     headers: {
+       'content-type': 'application/json',
+       'authorization': `bearer ${token}`
+     },
+     body: profilePic,
+   }).then((response) => {
+     response.json().then((body) => {
+       this.props.uploadPic(body.file);
+     });
+   });
+  }
   render() {
     const { user, isAuthenticated } = this.props;
-    //const gogn = this.props.getBooks();
     const profile = isAuthenticated ?
       <div>
         <h2>Upplýsingar</h2>
-        <form>
-          <input type="file" name="pic" accept="image/*" />
+        <form onSubmit={this.handleFileSubmit}>
+          <input ref={(ref) => { this.uploadInput = ref; }} type="file" />
           <input type="submit" />
         </form>
         <form onSubmit={this.handlePassChange}> Breyta Lykilorði
@@ -62,6 +80,7 @@ const mapStateToProps = (state) => {
     message: state.auth.message,
     user: state.auth.user,
     isAuthenticated: state.auth.isAuthenticated,
+    token: state.auth.token,
   }
 }
-export default connect(mapStateToProps, { UpdatePassword })(Profile);
+export default connect(mapStateToProps, { UpdatePassword, uploadPic })(Profile);
