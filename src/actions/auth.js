@@ -17,12 +17,13 @@ export const viewUser = (token) => dispatch => {
     }
   })
     .then(res => res.json())
-    .then(users =>
+    .then(users => {
       dispatch({
         type: VIEW_USERS,
         isFetching: false,
         users,
-      }))
+      })
+    })
 }
 export const checkLogin = (maybeToken) => dispatch => {
   fetch('https://verkefni2server.herokuapp.com/users/me', {
@@ -33,12 +34,22 @@ export const checkLogin = (maybeToken) => dispatch => {
     }
   })
     .then(res => res.json())
-    .then(user =>
-      dispatch({
-        type: LOGIN_REQUEST,
-        isFetching: false,
-        user,
-      }))
+    .then(user => {
+      if (user.error) {
+        dispatch({
+          type: LOGIN_LOGOUT,
+          isFetching: false,
+          isAuthenticated: false,
+          user: null,
+        })
+      } else {
+        dispatch({
+          type: LOGIN_REQUEST,
+          isFetching: false,
+          user,
+        })
+      }
+    })
 }
 export const getBooks = () => dispatch => {
   const data = fetch('https://verkefni2server.herokuapp.com/users/me/read', {

@@ -54,14 +54,22 @@ class Profile extends Component {
     /**
      * Ef readbook state er til, þá á að endurskrifa "I am destroyer become worlds" með þeim gögnum með til dæmis readBook.title
      */
+    let bookReadList = <p>Hleð inn gögnum...</p>
+    
     try {
-      
-      console.log(book.response)
-      //fall(book.respnse);
-      
-      } catch (e) {
-        console.log();
-      }      
+      bookReadList =
+        (book.response.items.map(items =>
+          <div>
+            <h3>{items.booksread_title}</h3>
+            <p>Einkunn {items.booksread_grade} {items.booksread_judge}</p>
+          </div>
+        ));
+    } catch (e) {
+      try {
+        bookReadList = <p>{book.Empty}</p>
+      } catch (e) {}
+    }
+    
     const profile = isAuthenticated ?
       <div>
         <h2>Upplýsingar</h2>
@@ -91,6 +99,9 @@ class Profile extends Component {
     return (
       <div>
         {profile}
+        <div className="readList">
+          {bookReadList}
+          </div>
       </div>
     );
   }

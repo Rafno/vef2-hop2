@@ -12,7 +12,6 @@ class users extends Component {
   }
   render() {
     const { users } = this.props;
-    console.log(users);
     const userList = users ? 
       <p>{users.response.items[0].name}</p> : <p>Hleð inn gögnum</p>
     return (
