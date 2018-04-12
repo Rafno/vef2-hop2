@@ -8,8 +8,8 @@
 import api from '../api';
 import { LOGIN_REQUEST, SIGN_BOOK,BOOK_REQUEST, LOGIN_SUCCESS, READ_REQUEST, BOOK_REGISTER_REQUEST, BOOK_PATCH_REQUEST, LOGIN_FAILURE, USER_PATCH_REQUEST, LOGIN_LOGOUT, VIEW_USERS, UPDATE_USER } from './types';
 
-export const viewUser = (token) => dispatch => {
-  fetch('https://verkefni2server.herokuapp.com/users?offset=0&limit=10&users', {
+export const viewUser = (token,page) => dispatch => {
+  fetch(`https://verkefni2server.herokuapp.com/users?offset=${page}&limit=10&`, {
     method: 'GET',
     headers: {
       'content-type': 'application/json',

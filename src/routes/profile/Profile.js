@@ -4,12 +4,17 @@ import { fetchBooks } from '../../actions/book';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 class Profile extends Component {
- 
+  
   componentDidMount() {
     this.props.getBooks();
   }
   handlePassChange = (e) => {
     e.preventDefault();
+    try{
+      const {message} = this.props;
+      console.log(message);
+    }
+    catch(e){}
     const { pass, confirmPass, name, confirmName } = this.state;
     let breyta = localStorage.getItem('user');
     breyta = JSON.parse(breyta);
@@ -17,11 +22,26 @@ class Profile extends Component {
     const username = breyta.username;
     console.log(username, " þetta er id í profile");
     if (pass === confirmPass) {
+      //console.log(message);
       this.props.UpdatePassword(id, username, null, pass);
     }
-    if (name === confirmName) {
-      this.props.UpdatePassword(id, username, name, null);
+  }
+  handleNameChange = (e) => {
+    e.preventDefault();
+    const { pass, confirmPass, name, confirmName } = this.state;
+    try{
+      const {message} = this.props;
+      console.log(message);
     }
+    catch(e){}
+    let breyta = localStorage.getItem('user');
+    breyta = JSON.parse(breyta);
+    const id = breyta.id;
+    const username = breyta.username;
+    console.log(username, " þetta er id í profile");
+    this.props.UpdatePassword(id, username, name, null);
+   
+
   }
   handleInputChange = (e) => {
     const name = e.target.name;
@@ -50,12 +70,11 @@ class Profile extends Component {
     this.setState({check:false, book:books})
   }*/
   render() {
-    const { user, isAuthenticated, bookItem, book } = this.props;
+    const { user, isAuthenticated, bookItem, book, message } = this.props;
     /**
      * Ef readbook state er til, þá á að endurskrifa "I am destroyer become worlds" með þeim gögnum með til dæmis readBook.title
      */
     let bookReadList = <p>Hleð inn gögnum...</p>
-    
     try {
       bookReadList =
         (book.response.items.map(items =>
@@ -69,7 +88,6 @@ class Profile extends Component {
         bookReadList = <p>{book.Empty}</p>
       } catch (e) {}
     }
-    
     const profile = isAuthenticated ?
       <div>
         <h2>Upplýsingar</h2>
@@ -77,14 +95,13 @@ class Profile extends Component {
           <input ref={(ref) => { this.uploadInput = ref; }} type="file" />
           <input type="submit" />
         </form>
+        <form onSubmit={this.handleNameChange}> Breyta Nafni
+          <input type="nafn" name="name" onChange={this.handleInputChange} />
+          <input type="submit" />
+        </form>
         <form onSubmit={this.handlePassChange}> Breyta Lykilorði
           <input type="password" name="pass" onChange={this.handleInputChange} />
           <input type="password" name="confirmPass" onChange={this.handleInputChange} />
-          <input type="submit" />
-        </form>
-        <form onSubmit={this.handlePassChange}> Breyta Nafni
-          <input type="nafn" name="name" onChange={this.handleInputChange} />
-          <input type="nafn" name="confirmName" onChange={this.handleInputChange} />
           <input type="submit" />
         </form>
         <h2> Lesnar Bækur </h2>
