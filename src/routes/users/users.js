@@ -12,14 +12,11 @@ class users extends Component {
   }
   render() {
     const { users } = this.props;
-    try {
-      console.log(users.response);
-
-    } catch (e) {
-      console.log();
-    }
+    console.log(users);
+    const userList = users ? 
+      <p>{users.response.items[0].name}</p> : <p>Hleð inn gögnum</p>
     return (
-      <p> hálló </p>
+      <div>{userList}</div>
     );
   }
 }
