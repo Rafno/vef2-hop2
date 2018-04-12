@@ -25,10 +25,10 @@ class Login extends Component {
     e.preventDefault();
     const { username, password } = this.state;
     const loginUser = { username, password };
-    let user = { 'username': username, 'password': password, 'name': null, "id": null };
+    let user = { 'username': username, 'password': password, 'name': null };
     // Put the object into storage
-    this.props.receiveLogin(username, password);
     localStorage.setItem('user', JSON.stringify(user));
+    this.props.receiveLogin(username, password);
   }
 
   handleLogout = (e) => {
@@ -37,7 +37,7 @@ class Login extends Component {
 
   render() {
     const { username, password } = this.state;
-    const { isFetching, isAuthenticated, error } = this.props;
+    const { isFetching, isAuthenticated, message } = this.props;
     const login = isAuthenticated ?
       (<Redirect
         to={{
@@ -47,8 +47,8 @@ class Login extends Component {
       />
       ) :
       <div>
-        {error && (
-          <p>{error}</p>
+        {message && (
+          <p>{message}</p>
         )}
 
         <form className="loginForm" onSubmit={this.handleSubmit}>
@@ -86,7 +86,7 @@ const mapStateToProps = (state) => {
   return {
     isFetching: state.auth.isFetching,
     isAuthenticated: state.auth.isAuthenticated,
-    error: state.auth.error,
+    message: state.auth.message,
   }
 }
 

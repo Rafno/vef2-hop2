@@ -78,16 +78,25 @@ export const receiveLogin = (username, password) => dispatch => {
   })
     .then(res => res.json())
     .then(login => {
-      const a = letsLogIn(login.token);
-      a.then(function (result) {
+      if (login.token) {
+        const a = letsLogIn(login.token);
+        a.then(function (result) {
+          dispatch({
+            type: LOGIN_SUCCESS,
+            isFetching: false,
+            isAuthenticated: true,
+            user: result,
+            payload: login.token,
+          })
+        });
+      } else {
         dispatch({
-          type: LOGIN_SUCCESS,
-          isFetching: false,
-          isAuthenticated: true,
-          user: result,
-          payload: login.token,
+          type: LOGIN_FAILURE,
+          isAuthenticated: false,
+          user: null,
+          error:login.error,
         })
-      });
+      }
     })
 };
 export const readBookByUser = (einkunn, texti, title) => dispatch => {
