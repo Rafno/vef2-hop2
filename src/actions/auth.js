@@ -219,12 +219,21 @@ export const UpdatePassword = (id, username, name, password) => dispatch => {
     })
   })
     .then(res => res.json())
-    .then(login =>
+    .then(login => {
+      if (login.Success) {
+        dispatch({
+          type: USER_PATCH_REQUEST,
+          isFetching: false,
+          message: login.Success,
+        })
+      } else {
       dispatch({
         type: USER_PATCH_REQUEST,
         isFetching: false,
         message: login,
-      }))
+        })
+      }
+    })
 };
 export const loginOut = () => dispatch => {
   dispatch({

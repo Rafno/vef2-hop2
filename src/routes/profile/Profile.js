@@ -10,11 +10,6 @@ class Profile extends Component {
   }
   handlePassChange = (e) => {
     e.preventDefault();
-    try{
-      const {message} = this.props;
-      console.log(message);
-    }
-    catch(e){}
     const { pass, confirmPass, name, confirmName } = this.state;
     let breyta = localStorage.getItem('user');
     breyta = JSON.parse(breyta);
@@ -22,23 +17,16 @@ class Profile extends Component {
     const username = breyta.username;
     console.log(username, " þetta er id í profile");
     if (pass === confirmPass) {
-      //console.log(message);
       this.props.UpdatePassword(id, username, null, pass);
     }
   }
   handleNameChange = (e) => {
     e.preventDefault();
     const { pass, confirmPass, name, confirmName } = this.state;
-    try{
-      const {message} = this.props;
-      console.log(message);
-    }
-    catch(e){}
     let breyta = localStorage.getItem('user');
     breyta = JSON.parse(breyta);
     const id = breyta.id;
     const username = breyta.username;
-    console.log(username, " þetta er id í profile");
     this.props.UpdatePassword(id, username, name, null);
   }
   handleInputChange = (e) => {
@@ -69,6 +57,7 @@ class Profile extends Component {
   }*/
   render() {
     const { user, isAuthenticated, bookItem, book, message } = this.props;
+    console.log(message);
     /**
      * Ef readbook state er til, þá á að endurskrifa "I am destroyer become worlds" með þeim gögnum með til dæmis readBook.title
      */

@@ -11,6 +11,7 @@ if (localStorage.getItem("Token")) {
   user = localStorage.getItem('user');
 }
 const initialState = user ? {
+  message: 'no message',
   isFetching: false,
   isAuthenticated: true,
   user,
