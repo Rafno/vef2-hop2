@@ -40,8 +40,6 @@ class Profile extends Component {
     const username = breyta.username;
     console.log(username, " þetta er id í profile");
     this.props.UpdatePassword(id, username, name, null);
-   
-
   }
   handleInputChange = (e) => {
     const name = e.target.name;
@@ -85,7 +83,9 @@ class Profile extends Component {
         ));
     } catch (e) {
       try {
-        bookReadList = <p>{book.Empty}</p>
+        bookReadList =
+        <div>{book.Empty}
+        </div>
       } catch (e) {}
     }
     const profile = isAuthenticated ?
