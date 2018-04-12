@@ -6,12 +6,15 @@ import { Redirect } from 'react-router-dom';
 class Profile extends Component {
   
   componentDidMount() {
-    const {message} = this.props;
     this.props.getBooks();
-    console.log(message);
   }
   handlePassChange = (e) => {
     e.preventDefault();
+    try{
+      const {message} = this.props;
+      console.log(message);
+    }
+    catch(e){}
     const { pass, confirmPass, name, confirmName } = this.state;
     let breyta = localStorage.getItem('user');
     breyta = JSON.parse(breyta);
@@ -19,20 +22,23 @@ class Profile extends Component {
     const username = breyta.username;
     console.log(username, " þetta er id í profile");
     if (pass === confirmPass) {
+      //console.log(message);
       this.props.UpdatePassword(id, username, null, pass);
-      let { user } = this.props;
-      console.log(user.message);
     }
   }
   handleNameChange = (e) => {
     e.preventDefault();
     const { pass, confirmPass, name, confirmName } = this.state;
+    try{
+      const {message} = this.props;
+      console.log(message);
+    }
+    catch(e){}
     let breyta = localStorage.getItem('user');
     breyta = JSON.parse(breyta);
     const id = breyta.id;
     const username = breyta.username;
     console.log(username, " þetta er id í profile");
-
     this.props.UpdatePassword(id, username, name, null);
    
 
@@ -69,7 +75,6 @@ class Profile extends Component {
      * Ef readbook state er til, þá á að endurskrifa "I am destroyer become worlds" með þeim gögnum með til dæmis readBook.title
      */
     let bookReadList = <p>Hleð inn gögnum...</p>
-    
     try {
       bookReadList =
         (book.response.items.map(items =>
@@ -83,7 +88,6 @@ class Profile extends Component {
         bookReadList = <p>{book.Empty}</p>
       } catch (e) {}
     }
-    
     const profile = isAuthenticated ?
       <div>
         <h2>Upplýsingar</h2>
