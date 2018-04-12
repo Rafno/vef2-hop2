@@ -18,99 +18,18 @@ class update extends Component {
     language: '',
   }
   async componentDidMount() {
-    const path = this.props.location.pathname;
-    if (path.includes('edit')) {
-      console.log("im altering");
-      await this.setState({ action: "Breyta" });
-    } else if (path.includes('new')) {
-      console.log("changing stuff for new");
-      await this.setState({ loading: false, action: 'Ný bók' });
-    }
-    const { action } = this.state;
-    console.log('action is');
-    console.log(action);
-    if (action === "Breyta") {
-      console.log("chagingin");
-      try {
-        const str = window.location.pathname;
-        const hlutur = str.split('/');
-        const url = 'https://verkefni2server.herokuapp.com/' + hlutur[1] + '/' + hlutur[2];
-        console.log(url);
-        const data = await this.fetchData(url);
-        console.log(data);
-        console.log(data.gogn[0].category)
-        this.setState({
-          data, loading: false,
-          title: data.gogn[0].title,
-          author: data.gogn[0].author,
-          category: data.gogn[0].category,
-          isbn10: data.gogn[0].isbn10,
-          isbn13: data.gogn[0].isbn13,
-          released: data.gogn[0].published,
-          pageCount: data.gogn[0].pagecount,
-          language: data.gogn[0].language,
-          description: data.gogn[0].description,
-          sluggid: hlutur[2],
-        });
-      } catch (e) {
-        console.error('Error fetching navigation', e);
-        this.setState({ error: true, loading: false });
-      }
-    }
-  }
-  async fetchData(url) {
-    const { linkur } = this.state;
-    const link = url;
-    let data = null;
-    const response = await fetch(link);
-    data = await response.json();
-    return data;
-  }
-  handleInputChange = (e) => {
-    const { name, value } = e.target;
-    if (name) {
-      console.log(name);
-      if (e.target.id === 'title') {
-        this.setState({ [name]: value, title: e.target.value });
-      }
-      if (e.target.id === 'author') {
-        this.setState({ [name]: value, author: e.target.value });
-      }
-      if (e.target.id === 'about') {
-        this.setState({ [name]: value, about: e.target.value });
-      }
-      if (e.target.id === 'category') {
-        this.setState({ [name]: value, categories: e.target.value });
-      }
-      if (e.target.id === 'isbn10') {
-        this.setState({ [name]: value, isbn10: e.target.value });
-      }
-      if (e.target.id === 'isbn13') {
-        this.setState({ [name]: value, isbn13: e.target.value });
-      }
-      if (e.target.id === 'released') {
-        this.setState({ [name]: value, released: e.target.value });
-      }
-      if (e.target.id === 'pageCount') {
-        this.setState({ [name]: value, pageCount: e.target.value });
-      }
-      if (e.target.id === 'language') {
-        this.setState({ [name]: value, language: e.target.value });
-      }
-    }
-  }
-  buttonHandler = (e) => {
-    const { title, author, about, category, isbn10, isbn13, released, pageCount, language, sluggid, action } = this.state;
-    if (action === "Ný bók") {
-      this.props.CreateBook(title, author, about, parseInt(isbn10, 10), parseInt(isbn13, 10), released, parseInt(pageCount, 10), language, category);
-    } else if (action === "Breyta") {
-      this.props.UpdateBookById(title, author, about, parseInt(isbn10, 10), parseInt(isbn13, 10), released, parseInt(pageCount, 10), language, category, sluggid);
-    }
   }
   generateOptions(categories, currentCategory) {
     return categories.map((x, i) => {
       return (<option key={i} value={x}>{x}</option>)
     });
+  }
+  handleInputChange = (e) => {
+    const {title} = this.state;
+    console.log(e.target.value);
+    if(e.target.id == "title"){
+      this.setState({title})
+    }
   }
   render() {
     const { title, author, category, isbn10, isbn13, released, pageCount, language, description, action } = this.state;
