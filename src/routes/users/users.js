@@ -5,23 +5,26 @@ import { viewUser } from '../../actions/auth';
 import { connect } from 'react-redux';
 
 class users extends Component {
-  state = {page:0, pageNumber:1};
+  state = {page:1, pageNumber:1};
   componentDidMount() {
     const { token } = this.props;
     const { page, pageNumber } = this.state;
     const url = this.props.location.search;
     console.log(url);
-    const string = url.split('=');
-    console.log(string.length, " þetta er lengdin");
-    
-    if(string.length === 1) {
-      console.log('her er stuttur');
+    const strengur = url.split('=');
+    console.log(strengur.length, " þetta er lengdin");
+    let RealSide = null;
+    if(strengur.length === 1) {
+      RealSide = page;
     }else{
-      console.log("her er langur");
+      const res = parseInt(strengur[1]);
+      RealSide = res*10;
+      console.log(RealSide);
     }
-    const givenNumber = string;
-    this.props.viewUser(token,page);
-    this.setState({page:page, pageNumber:pageNumber})
+    //window.location.replace(`localhost:3000/users?page=${RealSide-10}`)
+    window.location.replace('localhost:3000/');
+    this.props.viewUser(token,RealSide);
+    this.setState({page:page, pageNumber:RealSide})
   }
   forwardHandler = (e) => {
     e.preventDefault();
