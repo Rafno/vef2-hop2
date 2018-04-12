@@ -1,9 +1,18 @@
 import React, { Component } from 'react';
-import { UpdatePassword, uploadPic, getBooks } from '../../actions/auth';
+import { UpdatePassword, uploadPic, getBooks, delBook } from '../../actions/auth';
 import { fetchBooks } from '../../actions/book';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 class Profile extends Component {
+  constructor() {
+    super()
+    this.state = {
+      pass: '',
+      confirmPass: ',',
+      name: '',
+      confirmName: ',',
+    }
+  }
   
   componentDidMount() {
     this.props.getBooks();
@@ -15,7 +24,6 @@ class Profile extends Component {
     breyta = JSON.parse(breyta);
     const id = breyta.id;
     const username = breyta.username;
-    console.log(username, " þetta er id í profile");
     if (pass === confirmPass) {
       this.props.UpdatePassword(id, username, null, pass);
     }
@@ -28,8 +36,6 @@ class Profile extends Component {
     const id = breyta.id;
     const username = breyta.username;
     this.props.UpdatePassword(id, username, name, null);
-   
-
   }
   handleInputChange = (e) => {
     const name = e.target.name;
@@ -54,22 +60,17 @@ class Profile extends Component {
       });
     });
   }
-  /*fall(books){
-    this.setState({check:false, book:books})
-  }*/
   render() {
-    const { user, isAuthenticated, bookItem, book, message } = this.props;
+    const { user, isAuthenticated, bookItem, book, message, delBook } = this.props;
     console.log(message);
-    /**
-     * Ef readbook state er til, þá á að endurskrifa "I am destroyer become worlds" með þeim gögnum með til dæmis readBook.title
-     */
     let bookReadList = <p>Hleð inn gögnum...</p>
     try {
       bookReadList =
         (book.response.items.map(items =>
           <div>
             <h3>{items.booksread_title}</h3>
-            <p>Einkunn {items.booksread_grade} {items.booksread_judge}</p>
+          <p>Einkunn {items.booksread_grade} {items.booksread_judge}</p>
+          <button onClick={delBook(items.booksread_id)}>Eyða</button>
           </div>
         ));
     } catch (e) {
@@ -123,4 +124,4 @@ const mapStateToProps = (state) => {
     book:state.auth.payload,
   }
 }
-export default connect(mapStateToProps, { UpdatePassword, uploadPic, fetchBooks, getBooks })(Profile);
+export default connect(mapStateToProps, { UpdatePassword, uploadPic, fetchBooks, getBooks, delBook })(Profile);

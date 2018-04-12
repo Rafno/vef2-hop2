@@ -8,6 +8,17 @@
 import api from '../api';
 import { LOGIN_REQUEST, SIGN_BOOK,BOOK_REQUEST, LOGIN_SUCCESS, READ_REQUEST, BOOK_REGISTER_REQUEST, BOOK_PATCH_REQUEST, LOGIN_FAILURE, USER_PATCH_REQUEST, LOGIN_LOGOUT, VIEW_USERS, UPDATE_USER } from './types';
 
+
+export const delBook = (id) => dispatch => {
+  const data = fetch(`https://verkefni2server.herokuapp.com/users/me/read/${id}`, {
+    method: 'DELETE',
+    headers: {
+      'content-type': 'application/json',
+      'authorization': `bearer ${localStorage.getItem("Token")}`
+    }
+  })
+    .then(res => console.log(res.json()))
+}
 export const viewUser = (token,page) => dispatch => {
   fetch(`https://verkefni2server.herokuapp.com/users?offset=${page}&limit=10&`, {
     method: 'GET',
@@ -205,7 +216,7 @@ export const UpdatePassword = (id, username, name, password) => dispatch => {
   let user = { 'username': username, 'password': users.password, "name": users.name, "id": id };
       // Put the object into storage
       localStorage.setItem('user', JSON.stringify(user));
-  const testing = fetch(`https://verkefni2server.herokuapp.com/users/me`, {
+    fetch(`https://verkefni2server.herokuapp.com/users/me`, {
     method: 'PATCH',
     headers: {
       'content-type': 'application/json',
@@ -219,7 +230,7 @@ export const UpdatePassword = (id, username, name, password) => dispatch => {
     })
   })
     .then(res => res.json())
-    .then(login => {
+      .then(login => {
       if (login.Success) {
         dispatch({
           type: USER_PATCH_REQUEST,
@@ -230,7 +241,7 @@ export const UpdatePassword = (id, username, name, password) => dispatch => {
       dispatch({
         type: USER_PATCH_REQUEST,
         isFetching: false,
-        message: login,
+        message: login.error[0].error,
         })
       }
     })

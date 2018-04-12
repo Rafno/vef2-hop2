@@ -11,7 +11,6 @@ if (localStorage.getItem("Token")) {
   user = localStorage.getItem('user');
 }
 const initialState = user ? {
-  message: 'no message',
   isFetching: false,
   isAuthenticated: true,
   user,
@@ -82,7 +81,7 @@ export default (state = initialState, action) => {
         message: action.error,
       };
     case USER_PATCH_REQUEST:
-    console.log(action);
+      console.log(action);
       return {
         ...state,
         isFetching: action.isFetching,

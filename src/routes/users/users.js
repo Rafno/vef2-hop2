@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import { Route, Link, Switch } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { viewUser } from '../../actions/auth';
 import { connect } from 'react-redux';
@@ -10,9 +10,7 @@ class users extends Component {
     const { token } = this.props;
     const { page, pageNumber } = this.state;
     const url = this.props.location.search;
-    console.log(url);
     const strengur = url.split('=');
-    console.log(strengur.length, " þetta er lengdin");
     let RealSide = null;
     if(strengur.length === 1) {
       RealSide = page;
@@ -50,21 +48,22 @@ class users extends Component {
   render() {
     const {page, pageNumber} = this.state;
     const { users } = this.props;
-    console.log(users);
     let next = null;
     let prev = null;
     const userList = users ?
+      
     <div>
       {
         users.response.items.map((i,index) => {
           if( index == 0) {
             prev = users.response.links.prev;
-            console.log(prev);
             next = users.response.links.next;
           }
           return(
-          <ul>
-            <li> {i.name} </li>
+            <ul>
+              <Link to={/users/+page+index+/read/}>
+                <li>{i.name}</li>
+              </Link>
           </ul>
           );
         })
