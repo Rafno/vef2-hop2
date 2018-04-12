@@ -13,6 +13,9 @@ class registerRead extends Component {
     checkScore: null,
     checkText: null,
   }
+  componentDidMount() {
+    const { readBookByUser } = this.props;
+  }
   generateOptions(categories) {
     return categories.map((x, i) => {
       return (<option key={i} value={x}>{x}</option>)
@@ -32,7 +35,7 @@ class registerRead extends Component {
   }
   submitHandler = (e) => {
     const { einkunn, textinn, checkScore, checkText } = this.state;
-    this.props.readBookByUser(parseInt(this.state.einkunn, 10), this.state.textinn, e)
+    readBookByUser(parseInt(this.state.einkunn, 10), this.state.textinn, e)
   }
   render() {
     const { einkunn, textinn, checkScore, checkText } = this.state;
