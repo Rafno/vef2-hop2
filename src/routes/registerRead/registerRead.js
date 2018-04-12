@@ -35,10 +35,11 @@ class registerRead extends Component {
   submitHandler = (e) => {
     const { einkunn, textinn, checkScore, checkText } = this.state;
     console.log("presed", e);
-    confirm();
+    this.confirm();
     //this.setState({seen:true})
   }
   confirm(title){
+    const { einkunn, textinn} = this.state;
       console.log(einkunn, textinn, title);
       this.props.readBookByUser(5, "lala", "About a Boy");
   }
