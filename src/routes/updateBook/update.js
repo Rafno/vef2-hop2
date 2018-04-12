@@ -2,8 +2,9 @@ import React, { Component } from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { CreateBook } from '../../actions/auth';
-import { UpdateBookById } from '../../actions/auth';
+import { UpdateBookById, getBookById } from '../../actions/auth';
 import { connect } from 'react-redux';
+
 
 class update extends Component {
   state = {
@@ -16,24 +17,55 @@ class update extends Component {
     released: '',
     pageCount: '',
     language: '',
+    initialized: false,
   }
+
   async componentDidMount() {
+    const path = window.location.pathname;
+    if (path.includes("edit")){
+      const bookId = path.split('/')[2];
+      await this.props.getBookById(bookId);
+      const { book } = this.props;
+
+    }
   }
+  
   generateOptions(categories, currentCategory) {
     return categories.map((x, i) => {
       return (<option key={i} value={x}>{x}</option>)
     });
   }
   handleInputChange = (e) => {
-    const {title} = this.state;
-    console.log(e.target.value);
-    if(e.target.id == "title"){
-      this.setState({title})
-    }
+    const name = e.target.name;
+    console.log(name);
+    const value = e.target.value;
+    this.setState({ [name]: value });
   }
-  render() {
+
+  buttonHandler = (e) => {
     const { title, author, category, isbn10, isbn13, released, pageCount, language, description, action } = this.state;
-    const { isAuthenticated, user } = this.props;
+    console.log(title, author, category, isbn10, isbn13, released, pageCount, language, description, action);
+  }
+
+  render() {
+    const { title, author, category, isbn10, isbn13, released, pageCount, language, description, action, initialized } = this.state;
+    const { isAuthenticated, user, book } = this.props;
+    if(!initialized && book){
+      console.log(book);
+        this.setState({ 
+          title: book.gogn[0].title,
+          author: book.gogn[0].author,
+          category: book.gogn[0].category,
+          isbn10: book.gogn[0].isbn10,
+          isbn13: book.gogn[0].isbn13,
+          released: book.gogn[0].published,
+          pageCount: book.gogn[0].pagecount,
+          language: book.gogn[0].language,
+          description: book.gogn[0].description,
+          action: book.gogn[0].action,
+          initialized: true,
+        });
+    }
     // TODO FALL SÆKJA ÖLL CATEGORIES
     const allCategories = ['Science Fiction', 'Fantasy', 'Fiction', 'Computer Science', 'Comic', 'Nonfiction', 'Business',
       'Psychology', 'Horror', 'Design', 'Economics', 'Graphic Novel'];
@@ -51,7 +83,7 @@ class update extends Component {
         </div>
         <div>
           <legend htmlFor="about">Lýsing</legend>
-          <textarea rows="5" cols="50" id="about" type="text" value={description} name="about" onChange={this.handleInputChange}>
+          <textarea rows="5" cols="50" id="description" type="text" value={description} name="description" onChange={this.handleInputChange}>
           </textarea>
         </div>
         <div>
@@ -105,8 +137,9 @@ const mapStateToProps = (state) => {
     isFetching: state.auth.isFetching,
     isAuthenticated: state.auth.isAuthenticated,
     message: state.auth.message,
+    book:state.auth.payload,
   }
 }
 
 /* todo setja upp tengingu við redux til að vita stöðu notanda */
-export default connect(mapStateToProps, { CreateBook, UpdateBookById })(update);
+export default connect(mapStateToProps, { CreateBook, UpdateBookById, getBookById })(update);

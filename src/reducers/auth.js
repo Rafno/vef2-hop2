@@ -5,6 +5,7 @@ import {
   LOGIN_FAILURE, USER_PATCH_REQUEST,
   LOGIN_LOGOUT, VIEW_USERS,
   UPDATE_USER, SIGN_BOOK,
+  BOOK_GET_REQUEST,
 } from '../actions/types';
 let user = null;
 if (localStorage.getItem("Token")) {
@@ -31,6 +32,13 @@ export default (state = initialState, action) => {
         isAuthenticated: state.isAuthenticated,
         user: action.user,
       };
+    case BOOK_GET_REQUEST:
+      return {
+        ...state,
+        isFetcinh: action.isFetching,
+        isAuthenticated: state.isAuthenticated,
+        payload: action.payload,
+      }
     case BOOK_REQUEST:
       return {
         ...state,
