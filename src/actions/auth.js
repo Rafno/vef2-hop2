@@ -185,6 +185,22 @@ export const UpdateBookById = (title, author, about, isbn10, isbn13, published, 
         message: login,
       }))
 };
+export const getBookById = (id) => async dispatch => {
+  fetch(`https://verkefni2server.herokuapp.com/books/${id}`, {
+    method: 'GET',
+    headers: {
+      'content-type': 'application/json',
+    },
+  })
+    .then(res => res.json())
+    .then(login =>
+      dispatch({
+        type: BOOK_REQUEST,
+        isFetching: false,
+        payload: login,
+      }))
+};
+
 export const loginError = message => dispatch => {
   dispatch({
     type: LOGIN_FAILURE,
@@ -219,12 +235,13 @@ export const UpdatePassword = (id, username, name, password) => dispatch => {
     })
   })
     .then(res => res.json())
-    .then(login =>
+    .then(login => {
       dispatch({
         type: USER_PATCH_REQUEST,
         isFetching: false,
         message: login,
-      }))
+      })
+    })
 };
 export const loginOut = () => dispatch => {
   dispatch({
