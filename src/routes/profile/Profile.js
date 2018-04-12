@@ -1,8 +1,12 @@
 import React, { Component } from 'react';
-import { UpdatePassword } from '../../actions/auth';
+import { UpdatePassword, uploadPic } from '../../actions/auth';
+import { fetchBooks } from '../../actions/book';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 class Profile extends Component {
+  componentDidMount() {
+
+  }
   handlePassChange = (e) => {
     e.preventDefault();
     const { pass, confirmPass, name, confirmName } = this.state;
@@ -14,25 +18,50 @@ class Profile extends Component {
     if (pass === confirmPass) {
       this.props.UpdatePassword(id, username, null, pass);
     }
-    console.log(name, confirmName)
     if (name === confirmName) {
       this.props.UpdatePassword(id, username, name, null);
     }
   }
   handleInputChange = (e) => {
-    console.log(e.target.value);
     const name = e.target.name;
     const value = e.target.value;
     this.setState({ [name]: value });
   }
+  handleFileSubmit = (e) => {
+    e.preventDefault();
+    const { token } = this.props;
+    let profilePic = new FormData();
+    profilePic.append('Profile', this.uploadInput.files[0]);
+    fetch('https://verkefni2server.herokuapp.com/users/me', {
+      method: 'POST',
+      headers: {
+        'content-type': 'application/json',
+        'authorization': `bearer ${token}`
+      },
+      body: profilePic,
+    }).then((response) => {
+      response.json().then((body) => {
+        this.props.uploadPic(body.file);
+      });
+    });
+  }
   render() {
-    const { user, isAuthenticated } = this.props;
-    //const gogn = this.props.getBooks();
+    const { user, isAuthenticated, bookItem } = this.props;
+    /**
+     * Ef readbook state er til, þá á að endurskrifa "I am destroyer become worlds" með þeim gögnum með til dæmis readBook.title
+     */
+    const readBooks = bookItem ?
+      <div>
+        <p>I am destroy become worlds</p>
+      </div> :
+      <div>
+        <p>Þú hefur ekki lesið neinar bækur</p>
+      </div>
     const profile = isAuthenticated ?
       <div>
         <h2>Upplýsingar</h2>
-        <form>
-          <input type="file" name="pic" accept="image/*" />
+        <form onSubmit={this.handleFileSubmit}>
+          <input ref={(ref) => { this.uploadInput = ref; }} type="file" />
           <input type="submit" />
         </form>
         <form onSubmit={this.handlePassChange}> Breyta Lykilorði
@@ -46,6 +75,7 @@ class Profile extends Component {
           <input type="submit" />
         </form>
         <h2> Lesnar Bækur </h2>
+        {readBooks}
       </div> : (<Redirect
         to={{
           pathname: '/',
@@ -67,6 +97,8 @@ const mapStateToProps = (state) => {
     message: state.auth.message,
     user: state.auth.user,
     isAuthenticated: state.auth.isAuthenticated,
+    token: state.auth.token,
+    bookItem: state.books.bookItem,
   }
 }
-export default connect(mapStateToProps, { UpdatePassword })(Profile);
+export default connect(mapStateToProps, { UpdatePassword, uploadPic, fetchBooks })(Profile);

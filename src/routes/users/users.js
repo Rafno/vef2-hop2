@@ -19,7 +19,7 @@ class users extends Component {
       console.log();
     }
     return (
-      <p> háá æ þ ö llo </p>
+      <p> hálló </p>
     );
   }
 }

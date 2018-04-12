@@ -1,4 +1,11 @@
-import { LOGIN_REQUEST, BOOK_REQUEST, LOGIN_SUCCESS, READ_REQUEST, BOOK_REGISTER_REQUEST, BOOK_PATCH_REQUEST, LOGIN_FAILURE, USER_PATCH_REQUEST, LOGIN_LOGOUT, VIEW_USERS } from '../actions/types';
+import {
+  LOGIN_REQUEST, BOOK_REQUEST,
+  LOGIN_SUCCESS, READ_REQUEST,
+  BOOK_REGISTER_REQUEST, BOOK_PATCH_REQUEST,
+  LOGIN_FAILURE, USER_PATCH_REQUEST,
+  LOGIN_LOGOUT, VIEW_USERS,
+  UPDATE_USER, SIGN_BOOK,
+} from '../actions/types';
 let user = null;
 if (localStorage.getItem("Token")) {
   user = localStorage.getItem('user');
@@ -92,6 +99,18 @@ export default (state = initialState, action) => {
         ...state,
         isAuthenticated: state.isAuthenticated,
         users: action.users,
+      }
+    case UPDATE_USER:
+      return {
+        ...state,
+        isAuthenticated: state.isAuthenticated,
+        picture: action.picture,
+      }
+    case SIGN_BOOK:
+      return {
+        ...state,
+        isAuthenticated: state.isAuthenticated,
+        signReadBook: state.signReadBook,
       }
     default:
       return state;
