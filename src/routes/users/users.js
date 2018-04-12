@@ -18,6 +18,7 @@ class users extends Component {
       RealSide = page;
     }else{
       const res = parseInt(strengur[1]);
+      console.log(res);
       RealSide = res*10;
       console.log(RealSide);
     }
@@ -58,6 +59,7 @@ class users extends Component {
         users.response.items.map((i,index) => {
           if( index == 0) {
             prev = users.response.links.prev;
+            console.log(prev);
             next = users.response.links.next;
           }
           return(
@@ -74,7 +76,7 @@ class users extends Component {
         <h2> Notendur </h2>
         {userList}
         <div className="takkar">
-          {prev ? <button className="backButton" onClick={this.backwardHandler}>Aftur um síðu</button> : null}
+          {page > 1 ? <button className="backButton" onClick={this.backwardHandler}>Aftur um síðu</button> : null}
           <p>Síða {pageNumber}</p>
           {next ? <button className="forwardButton" onClick={this.forwardHandler}>Áfram um síðu </button> : null}
         </div>
