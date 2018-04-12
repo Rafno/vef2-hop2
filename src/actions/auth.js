@@ -9,7 +9,7 @@ import api from '../api';
 import { LOGIN_REQUEST, SIGN_BOOK,BOOK_REQUEST, LOGIN_SUCCESS, READ_REQUEST, BOOK_REGISTER_REQUEST, BOOK_PATCH_REQUEST, LOGIN_FAILURE, USER_PATCH_REQUEST, LOGIN_LOGOUT, VIEW_USERS, UPDATE_USER } from './types';
 
 export const viewUser = (token) => dispatch => {
-  fetch('https://verkefni2server.herokuapp.com/users', {
+  fetch('https://verkefni2server.herokuapp.com/users?offset=0&limit=10&users', {
     method: 'GET',
     headers: {
       'content-type': 'application/json',
@@ -40,8 +40,8 @@ export const checkLogin = (maybeToken) => dispatch => {
         user,
       }))
 }
-/*export const getBooks = () => dispatch => {
-  fetch('https://verkefni2server.herokuapp.com/users/me/read', {
+export const getBooks = () => dispatch => {
+  const data = fetch('https://verkefni2server.herokuapp.com/users/me/read', {
     method: 'GET',
     headers: {
       'content-type': 'application/json',
@@ -55,7 +55,7 @@ export const checkLogin = (maybeToken) => dispatch => {
         isFetching: false,
         payload: login,
       }))
-}*/
+}
 
 function letsLogIn(token) {
   const user = fetch('https://verkefni2server.herokuapp.com/users/me', {
