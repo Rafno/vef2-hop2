@@ -24,7 +24,7 @@ class viewBook extends Component {
      * að það sé bætt við object á stateið frekar en að yfirskrifa það
      */
     const book = bookItem ?
-      <div className="skodaBok">
+    <div className="skodaBok">
       <ul className="listinnfyirBok">
         <li>{bookItem.gogn[0].title} </li>
           <li> {bookItem.gogn[0].author}</li>

@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
-import { UpdatePassword, uploadPic } from '../../actions/auth';
+import { UpdatePassword, uploadPic, getBooks } from '../../actions/auth';
 import { fetchBooks } from '../../actions/book';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 class Profile extends Component {
+ 
   componentDidMount() {
-
+    this.props.getBooks();
   }
   handlePassChange = (e) => {
     e.preventDefault();
@@ -45,18 +46,22 @@ class Profile extends Component {
       });
     });
   }
+  /*fall(books){
+    this.setState({check:false, book:books})
+  }*/
   render() {
-    const { user, isAuthenticated, bookItem } = this.props;
+    const { user, isAuthenticated, bookItem, book } = this.props;
     /**
      * Ef readbook state er til, þá á að endurskrifa "I am destroyer become worlds" með þeim gögnum með til dæmis readBook.title
      */
-    const readBooks = bookItem ?
-      <div>
-        <p>I am destroy become worlds</p>
-      </div> :
-      <div>
-        <p>Þú hefur ekki lesið neinar bækur</p>
-      </div>
+    try {
+      
+      console.log(book.response)
+      //fall(book.respnse);
+      
+      } catch (e) {
+        console.log();
+      }      
     const profile = isAuthenticated ?
       <div>
         <h2>Upplýsingar</h2>
@@ -75,7 +80,6 @@ class Profile extends Component {
           <input type="submit" />
         </form>
         <h2> Lesnar Bækur </h2>
-        {readBooks}
       </div> : (<Redirect
         to={{
           pathname: '/',
@@ -99,6 +103,7 @@ const mapStateToProps = (state) => {
     isAuthenticated: state.auth.isAuthenticated,
     token: state.auth.token,
     bookItem: state.books.bookItem,
+    book:state.auth.payload,
   }
 }
-export default connect(mapStateToProps, { UpdatePassword, uploadPic, fetchBooks })(Profile);
+export default connect(mapStateToProps, { UpdatePassword, uploadPic, fetchBooks, getBooks })(Profile);
