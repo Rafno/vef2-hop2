@@ -24,13 +24,11 @@ class Login extends Component {
   handleSubmit = async (e) => {
     e.preventDefault();
     const { username, password } = this.state;
-    const { error } = this.props;
     const loginUser = { username, password };
     let user = { 'username': username, 'password': password, 'name': null, "id": null };
     // Put the object into storage
     this.props.receiveLogin(username, password);
     localStorage.setItem('user', JSON.stringify(user));
-    console.log(error);
   }
 
   handleLogout = (e) => {

@@ -1,4 +1,4 @@
-import { LOGIN_REQUEST, BOOK_REQUEST, LOGIN_SUCCESS, READ_REQUEST, BOOK_REGISTER_REQUEST, BOOK_PATCH_REQUEST, LOGIN_FAILURE, USER_PATCH_REQUEST, LOGIN_LOGOUT } from '../actions/types';
+import { LOGIN_REQUEST, BOOK_REQUEST, LOGIN_SUCCESS, READ_REQUEST, BOOK_REGISTER_REQUEST, BOOK_PATCH_REQUEST, LOGIN_FAILURE, USER_PATCH_REQUEST, LOGIN_LOGOUT, VIEW_USERS } from '../actions/types';
 let user = null;
 if (localStorage.getItem("Token")) {
   user = localStorage.getItem('user');
@@ -7,6 +7,7 @@ const initialState = user ? {
   isFetching: false,
   isAuthenticated: true,
   user,
+  token: localStorage.getItem('Token'),
 } : {
     isFetching: false,
     isAuthenticated: false,
@@ -41,7 +42,7 @@ export default (state = initialState, action) => {
         isFetching: action.isFetching,
         isAuthenticated: action.isAuthenticated,
         user: action.user,
-        payload: action.payload,
+        token: action.payload,
       };
     case READ_REQUEST:
       return {
@@ -85,6 +86,12 @@ export default (state = initialState, action) => {
         isFetching: action.isFetching,
         isAuthenticated: action.isAuthenticated,
         user: action.user,
+      }
+    case VIEW_USERS:
+      return {
+        ...state,
+        isAuthenticated: state.isAuthenticated,
+        users: action.users,
       }
     default:
       return state;

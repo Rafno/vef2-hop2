@@ -6,8 +6,24 @@
  */
 /*TODO skoða afhverju það er message í RequestLogin og sjá hvort það vanti á hina. */
 import api from '../api';
-import { LOGIN_REQUEST, BOOK_REQUEST, LOGIN_SUCCESS, READ_REQUEST, BOOK_REGISTER_REQUEST, BOOK_PATCH_REQUEST, LOGIN_FAILURE, USER_PATCH_REQUEST, LOGIN_LOGOUT } from './types';
+import { LOGIN_REQUEST, BOOK_REQUEST, LOGIN_SUCCESS, READ_REQUEST, BOOK_REGISTER_REQUEST, BOOK_PATCH_REQUEST, LOGIN_FAILURE, USER_PATCH_REQUEST, LOGIN_LOGOUT, VIEW_USERS } from './types';
 
+export const viewUser = (token) => dispatch => {
+  fetch('https://verkefni2server.herokuapp.com/users', {
+    method: 'GET',
+    headers: {
+      'content-type': 'application/json',
+      'authorization': `bearer ${token}`
+    }
+  })
+    .then(res => res.json())
+    .then(users =>
+      dispatch({
+        type: VIEW_USERS,
+        isFetching: false,
+        users,
+      }))
+}
 export const checkLogin = (maybeToken) => dispatch => {
   fetch('https://verkefni2server.herokuapp.com/users/me', {
     method: 'GET',
