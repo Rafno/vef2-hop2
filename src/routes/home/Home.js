@@ -20,7 +20,7 @@ class Home extends Component {
         <h2> Velkominn á bókasafnið</h2>
         <div className="loggedText">
           <p>Þú ert skráður notandi og getur því </p>
-          <p><Link to="/updateBook">skráð bækur</Link></p>
+          <p><Link to="/books/new">skráð bækur</Link></p>
           <p> og </p>
           <p><Link to="/books">breytt þeim sem til eru.</Link></p>
         </div>
