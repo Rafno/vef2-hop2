@@ -12,6 +12,10 @@ class registerRead extends Component {
     textinn: null,
     checkScore: null,
     checkText: null,
+    seen:false,
+  }
+  componentDidMount(){
+    //this.props.readBookByUser(5, "lala", "About a Boy");
   }
   generateOptions(categories) {
     return categories.map((x, i) => {
@@ -20,27 +24,32 @@ class registerRead extends Component {
   }
   handleInputChange = (e) => {
     const { einkunn, textinn } = this.state;
-    console.log(e.target.value)
-    console.log(e.target.id)
     if (e.target.id === 'einkunn') {
+      console.log(e.target.value);
       this.setState({ einkunn: e.target.value, checkScore: true });
     }
     if (e.target.id === 'texti') {
       this.setState({ textinn: e.target.value, checkText: true });
     }
-
   }
   submitHandler = (e) => {
     const { einkunn, textinn, checkScore, checkText } = this.state;
-    this.props.readBookByUser(parseInt(this.state.einkunn, 10), this.state.textinn, e)
+    console.log("presed", e);
+    confirm();
+    //this.setState({seen:true})
+  }
+  confirm(title){
+      console.log(einkunn, textinn, title);
+      this.props.readBookByUser(5, "lala", "About a Boy");
   }
   render() {
-    const { einkunn, textinn, checkScore, checkText } = this.state;
+    const { einkunn, textinn, checkScore, checkText, seen } = this.state;
     const title = this.props.audkenni;
     const gognin = this.props.check;
     const visible = this.props.read;
     const lesaBok = this.props.lesa;
     let tableClass = null;
+    this.confirm(title);
     if (visible === false || visible === null) {
       tableClass = 'none ';
     } else {
@@ -58,7 +67,7 @@ class registerRead extends Component {
         <select name="category" id="einkunn" onChange={this.handleInputChange}>
           {options}
         </select>
-        <button onClick={this.submitHandler(title)}> vista</button>
+        <button onClick={this.submitHandler}> vista</button>
       </div>
     );
   }
