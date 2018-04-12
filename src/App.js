@@ -20,10 +20,13 @@ import users from './routes/users/users';
 import Registration from './routes/registration';
 
 class App extends Component {
+  componentDidMount() {
+    this.props.checkLogin(this.props.token);
+  }
   state = { authenticated: false };
 
   render() {
-    const { user } = this.props;
+    const { user, token } = this.props;
     return (
       <Provider store={store} >
         <main className="main">
@@ -55,7 +58,8 @@ class App extends Component {
 const mapStateToProps = (state) => {
   return {
     isAuthenticated: state.auth.isAuthenticated,
-    user: state.auth.user
+    user: state.auth.user,
+    token: state.auth.token
   }
 }
 
