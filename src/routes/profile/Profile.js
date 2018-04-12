@@ -75,7 +75,9 @@ class Profile extends Component {
         ));
     } catch (e) {
       try {
-        bookReadList = <p>{book.Empty}</p>
+        bookReadList =
+        <div>{book.Empty}
+        </div>
       } catch (e) {}
     }
     const profile = isAuthenticated ?

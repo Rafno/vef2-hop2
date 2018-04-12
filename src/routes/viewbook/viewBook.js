@@ -25,13 +25,13 @@ class viewBook extends Component {
     <div className="skodaBok">
       <ul className="listinnfyirBok">
         <li>{bookItem.gogn[0].title} </li>
-          <li> {bookItem.gogn[0].author}</li>
-          <li> {bookItem.gogn[0].isbn13} </li>
-          <li>{bookItem.gogn[0].category} </li>
-          <li> {bookItem.gogn[0].description}</li>
-          <li> {bookItem.gogn[0].pagecount} Síður </li>
-          <li> Tungumál: {bookItem.gogn[0].language} </li>
-        </ul>
+        <li> {bookItem.gogn[0].author}</li>
+        <li> {bookItem.gogn[0].isbn13} </li>
+        <li>{bookItem.gogn[0].category} </li>
+        <li> {bookItem.gogn[0].description}</li>
+        <li> {bookItem.gogn[0].pagecount} Síður </li>
+        <li> Tungumál: {bookItem.gogn[0].language} </li>
+      </ul>
         <button>
           <Link to={`/books/${bookItem.gogn[0].id}/edit`}> Breyta bók</Link>
         </button>
