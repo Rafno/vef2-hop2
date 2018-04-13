@@ -179,7 +179,7 @@ export const readBookByUser = (einkunn, texti, title) => dispatch => {
       }))
 };
 export const CreateBook = (title, author, about, isbn10, isbn13, published, pagecount, language, category) => async dispatch => {
-  fetch(`https://verkefni2server.herokuapp.com/books/`, {
+  fetch(`https://verkefni2server.herokuapp.com/books/new`, {
     method: 'POST',
     headers: {
       'content-type': 'application/json',
