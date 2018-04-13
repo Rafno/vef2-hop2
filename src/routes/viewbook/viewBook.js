@@ -32,6 +32,7 @@ class viewBook extends Component {
   }
 
   handleSubmit(event) {
+    const {grade, text} = this.state;
     const { bookItem } = this.props;
     event.preventDefault();
     const tala = this.state.grade;
