@@ -40,7 +40,7 @@ class App extends Component {
               <Route path="/" exact component={Home} />
               <Route path="/books" exact component={Book} />
               <Route path="/users" exact component={users} />
-              <Route path="/users/:id/read" exact component={notandi}/>
+              <Route path="/users/:id" exact component={notandi}/>
               <Route path="/books/new" exact component={updated} />
               <Route path="/books/:id" exact component={viewBook} />
               <Route path="/books/:id/edit" exact component={updated} />

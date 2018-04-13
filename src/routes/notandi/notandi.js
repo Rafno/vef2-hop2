@@ -1,15 +1,16 @@
 
-  import React, { Component } from 'react';
-  import { getBooks } from '../../actions/auth';
-  import {  } from '../../actions/book';
+import React, { Component } from 'react';
+import { getBooks, updateUser } from '../../actions/auth';
   import { connect } from 'react-redux';
   import { Redirect } from 'react-router-dom';
   class Profile extends Component {
       componentDidMount() {
         this.props.getBooks();
+        const userUrl = this.props.location.pathname.split('/');
+        this.props.updateUser(userUrl[2]);
       }
     render() {
-      const { user, isAuthenticated, bookItem, book, message, delBook } = this.props;
+      const { isAuthenticated, bookItem, book, message, delBook, notandi } = this.props;
       let bookReadList = <p> Hleð inn gögnum...</p>;
       try {
         bookReadList =
@@ -26,16 +27,22 @@
           </div>
         } catch (e) {}
       }
-      let breyta = localStorage.getItem('user');
-      const users = JSON.parse(breyta);
-      console.log(users.name);
-        return(
+      try {
+        return (
           <div>
-            <h2> {users.name}</h2>
+            <h2> {this.props.notandi.name}</h2>
             <h3> Lesnar bækur </h3>
-           {bookReadList}
+            {bookReadList}
           </div>
         );
+      }
+      catch (e) {
+        return (
+          <div>
+            <p>Loading..</p>
+          </div>
+        );
+      }
   }
 }
   const mapStateToProps = (state) => {
@@ -46,7 +53,8 @@
       isAuthenticated: state.auth.isAuthenticated,
       token: state.auth.token,
       bookItem: state.books.bookItem,
-      book:state.auth.payload,
+      book: state.auth.payload,
+      notandi: state.auth.notandi,
     }
   }
-  export default connect(mapStateToProps,  {getBooks})(Profile);
+export default connect(mapStateToProps, { getBooks, updateUser})(Profile);

@@ -30,7 +30,7 @@ class update extends Component {
       aftur = true;
       bookId = path.split('/')[2];
       await this.props.getBookById(bookId);
-      const { book } = this.props;
+      const { book, message } = this.props;
     } else {
       aftur = false;
 
@@ -59,7 +59,8 @@ class update extends Component {
 
   render() {
     const { title, author, category, isbn10, isbn13, released, pageCount, language, description, action, initialized, back, id } = this.state;
-    const { isAuthenticated, user, book } = this.props;
+    const { isAuthenticated, user, book, message } = this.props;
+    const errorMessage = <p>{this.props.message}</p>
     if(!initialized && book){
       console.log(book);
         this.setState({
@@ -128,6 +129,7 @@ class update extends Component {
         <button>
           <Link to={url}> Til baka</Link>
         </button>
+        {errorMessage}
       </div> :
       (<Redirect
         to={{

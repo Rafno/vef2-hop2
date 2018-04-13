@@ -14,3 +14,4 @@ export const VIEW_USERS = 'VIEW_USERS';
 export const UPDATE_USER = 'UPDATE_USER';
 export const SIGN_BOOK = 'SIGN_BOOK';
 export const BOOK_GET_REQUEST = 'BOOK_GET_REQUEST';
+export const VIEW_USER = 'VIEW_USER';

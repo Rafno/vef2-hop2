@@ -17,9 +17,7 @@ class users extends Component {
       RealSide = page;
     }else{
       const res = parseInt(strengur[1]);
-      console.log(res);
       RealSide = res*10;
-      console.log(RealSide);
     }
     //window.location.replace(`localhost:3000/users?page=${RealSide-10}`)
     window.location.replace('localhost:3000/');
@@ -64,12 +62,10 @@ class users extends Component {
                 prev = users.response.links.prev;
                 next = users.response.links.next;
               }
-              console.log(index);
-              id = sidan + index;
+              id = sidan + index + 1;
               return (
                 <ul>
-
-                  <Link to={"users/" + id + "/read"}>
+                  <Link to={"users/" + id}>
                     <li>{i.name}</li>
                   </Link>
                 </ul>

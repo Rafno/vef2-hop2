@@ -9,9 +9,27 @@ import api from '../api';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
-import { LOGIN_REQUEST, SIGN_BOOK,BOOK_REQUEST, LOGIN_SUCCESS, READ_REQUEST, BOOK_REGISTER_REQUEST, BOOK_PATCH_REQUEST, LOGIN_FAILURE, USER_PATCH_REQUEST, LOGIN_LOGOUT, VIEW_USERS, UPDATE_USER } from './types';
+import { VIEW_USER, LOGIN_REQUEST, SIGN_BOOK,BOOK_REQUEST, LOGIN_SUCCESS, READ_REQUEST, BOOK_REGISTER_REQUEST, BOOK_PATCH_REQUEST, LOGIN_FAILURE, USER_PATCH_REQUEST, LOGIN_LOGOUT, VIEW_USERS, UPDATE_USER } from './types';
 
 
+
+export const updateUser = (userId) => dispatch => {
+  fetch(`https://verkefni2server.herokuapp.com/users/${userId}`, {
+    method: 'GET',
+    headers: {
+      'content-type': 'application/json',
+      'authorization': `bearer ${localStorage.getItem("Token")}`
+    }
+  })
+    .then(res => res.json())
+    .then(users =>
+      dispatch({
+        type: VIEW_USER,
+        isFetching: false,
+        notandi: users.user,
+      })
+      )
+}
 export const delBook = (id) => dispatch => {
   const data = fetch(`https://verkefni2server.herokuapp.com/users/me/read/${id}`, {
     method: 'DELETE',
@@ -180,12 +198,22 @@ export const CreateBook = (title, author, about, isbn10, isbn13, published, page
     })
   })
     .then(res => res.json())
-    .then(login =>
+    .then(login => {
+      console.log(login);
+      if (login.errarray) {
+        dispatch({
+          type: BOOK_REGISTER_REQUEST,
+          isFetching: false,
+          message: login.errarray[0].Error,
+        })
+      } else{
       dispatch({
         type: BOOK_REGISTER_REQUEST,
         isFetching: false,
         message: login,
-      }))
+        })
+      }
+    })
 };
 export const UpdateBookById = (title, author, about, isbn10, isbn13, published, pagecount, language, category, id) => async dispatch => {
   fetch(`https://verkefni2server.herokuapp.com/books/${id}`, {

@@ -5,7 +5,7 @@ import {
   LOGIN_FAILURE, USER_PATCH_REQUEST,
   LOGIN_LOGOUT, VIEW_USERS,
   UPDATE_USER, SIGN_BOOK,
-  BOOK_GET_REQUEST,
+  BOOK_GET_REQUEST, VIEW_USER
 } from '../actions/types';
 let user = null;
 if (localStorage.getItem("Token")) {
@@ -16,6 +16,7 @@ const initialState = user ? {
   isAuthenticated: true,
   user,
   token: localStorage.getItem('Token'),
+  users: null,
 } : {
     isFetching: false,
     isAuthenticated: false,
@@ -110,6 +111,12 @@ export default (state = initialState, action) => {
         ...state,
         isAuthenticated: state.isAuthenticated,
         users: action.users,
+      }
+    case VIEW_USER:
+      return {
+        ...state,
+        isAuthenticated: state.isAuthenticated,
+        notandi: action.notandi,
       }
     case UPDATE_USER:
       return {
