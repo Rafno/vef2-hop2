@@ -34,7 +34,7 @@ class viewBook extends Component {
   handleSubmit(event) {
     const { bookItem } = this.props;
     console.log(this.state.grade);
-    this.props.readBookByUser(this.state.grade, this.state.value, bookItem.gogn[0].title);
+    this.props.readBookByUser(5, this.state.value, bookItem.gogn[0].title);
     event.preventDefault();
   }
 

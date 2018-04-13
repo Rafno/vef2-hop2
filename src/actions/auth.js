@@ -17,7 +17,13 @@ export const delBook = (id) => dispatch => {
       'authorization': `bearer ${localStorage.getItem("Token")}`
     }
   })
-    .then(res => console.log(res.json()))
+    .then(res => res.json())
+    .then(login =>
+      dispatch({
+        type: BOOK_REQUEST,
+        isFetching: false,
+        payload: { Empty: "You have not read any books" },
+      }))
 }
 export const viewUser = (token,page) => dispatch => {
   fetch(`https://verkefni2server.herokuapp.com/users?offset=${page}&limit=10&`, {
