@@ -38,7 +38,6 @@ class viewBook extends Component {
     const tala = this.state.grade;
     const numb = parseInt(tala);
     this.props.readBookByUser(numb, this.state.text, bookItem.gogn[0].title);
-    console.log("kemstu hingað")
     this.setState({checked:false, submit:true});
   }
   buttonHandler = () => {
@@ -57,11 +56,9 @@ class viewBook extends Component {
 
   render() {
     const {checked, submit} = this.state;
-    const { bookItem, message, delBook } = this.props;
+    const { bookItem, message, delBook, payload } = this.props;
     const check = null;
     let name = null;
-    console.log("þeta er submit ", submit)
-    console.log(message);
     let einkunn = 0;
     let domur = '';
     let agree = null;
@@ -69,26 +66,29 @@ class viewBook extends Component {
       try {
         einkunn = message.books.id
         domur = message.books.booksread_judge
-        agree =
+        agree = payload ?
+          <div>
+            <p>Lesni bók eytt</p>
+            </div> :
         <div>
           <ul>
             <li> Einkunn: {einkunn} </li>
             <li> {domur} </li>
           </ul>
-          <button onClick={this.props.delBook.bind(this, message.books.booksread_id)}>Eyða lestri</button>
+          <button onClick={this.props.delBook.bind(this, message.books.id)}>Eyða lestri</button>
         </div>
       } catch (e) {
         console.log("failure");
       }
     }
 
-    const final = this.state.submit?
+    const final = this.state.submit ?
     <div>
        {agree}
     </div>
       :
     null;
-    const read = this.state.checked?
+    const read = this.state.checked ?
     <div className={name}>
       <form onSubmit={this.handleSubmit} >
         <textarea value={this.state.text} onChange={this.handleTextChange} rows="5" cols="20">Hvað fannst þér um bókina?</textarea>
@@ -132,6 +132,7 @@ const mapStateToProps = (state) => {
     token: state.auth.token,
     message: state.auth.message,
     bookItem: state.books.bookItem,
+    payload: state.auth.payload,
   }
 }
 export default connect(mapStateToProps, { signReadBook, fetchBooks, readBookByUser, delBook })(viewBook);
