@@ -32,14 +32,14 @@ class viewBook extends Component {
   }
 
   handleSubmit(event) {
-    const {grade, text, checked} = this.state;
+    const {grade, text, checked, submit} = this.state;
     const { bookItem } = this.props;
     event.preventDefault();
     const tala = this.state.grade;
     const numb = parseInt(tala);
     this.props.readBookByUser(numb, this.state.text, bookItem.gogn[0].title);
     console.log("kemstu hingað")
-    this.setState({checked:false});
+    this.setState({checked:false, submit:true});
   }
   buttonHandler = () => {
     const {checked} = this.state;
@@ -51,13 +51,43 @@ class viewBook extends Component {
     }
     this.setState({checked:truth});
   }
+  DeleteHandler = () => {
+    console.log("eyða þessari skrá");
+  }
 
   render() {
-    const {checked} = this.state;
-    const { bookItem } = this.props;
+    const {checked, submit} = this.state;
+    const { bookItem, message } = this.props;
     const check = null;
     let name = null;
-    const agree = this.state.submit;
+    console.log("þeta er submit ", submit)
+    console.log(message);
+    let einkunn = 0;
+    let domur = '';
+    let agree = null;
+    if(this.state.submit === true ){
+      try {
+        einkunn = message.books.id
+        domur = message.books.booksread_judge
+        agree =
+        <div>
+          <ul>
+            <li> Einkunn: {einkunn} </li>
+            <li> {domur} </li>
+          </ul>
+          <button onClick={this.DeleteHandler}> Eyða lestri </button>
+        </div>
+      } catch (e) {
+        console.log("failure");
+      }
+    }
+
+    const final = this.state.submit?
+    <div>
+       {agree}
+    </div>
+      :
+    null;
     const read = this.state.checked?
     <div className={name}>
       <form onSubmit={this.handleSubmit} >
@@ -87,6 +117,7 @@ class viewBook extends Component {
       <div>
         {book}
         {read}
+        {final}
         <button> <Link to={"/books"}>Til baka </Link> </button>
       </div>
     );
@@ -99,6 +130,7 @@ const mapStateToProps = (state) => {
     readBook: state.auth.readBook,
     isAuthenticated: state.auth.isAuthenticated,
     token: state.auth.token,
+    message: state.auth.message,
     bookItem: state.books.bookItem,
   }
 }
