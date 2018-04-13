@@ -14,7 +14,7 @@ import { connect } from 'react-redux';
 class viewBook extends Component {
   constructor(props) {
     super(props);
-    this.state = { value: '', grade: '' };
+    this.state = { text: '', grade: 0 };
 
     this.handleTextChange = this.handleTextChange.bind(this);
     this.handleGradeChange = this.handleGradeChange.bind(this);
@@ -25,17 +25,19 @@ class viewBook extends Component {
     this.props.fetchBooks(path);
   }
   handleGradeChange(event) {
-    this.setState({ grade: event.target.grade });
+    this.setState({ grade: event.target.value });
   }
   handleTextChange(event) {
-    this.setState({ value: event.target.value });
+    this.setState({ text: event.target.value });
   }
 
   handleSubmit(event) {
+    const {grade, text} = this.state;
     const { bookItem } = this.props;
-    console.log(this.state.grade);
-    this.props.readBookByUser(this.state.grade, this.state.value, bookItem.gogn[0].title);
     event.preventDefault();
+    const tala = this.state.grade;
+    const numb = parseInt(tala);
+    this.props.readBookByUser(numb, this.state.text, bookItem.gogn[0].title);
   }
 
   render() {
@@ -59,8 +61,8 @@ class viewBook extends Component {
 
         <div className={name}>
           <form onSubmit={this.handleSubmit} >
-            <textarea value={this.state.value} onChange={this.handleTextChange} rows="5" cols="20">Hvað fannst þér um bókina?</textarea>
-            <input type="number" value={this.state.grade} onChange={this.handleGradeChange} min="1" max="5" />
+            <textarea value={this.state.text} onChange={this.handleTextChange} rows="5" cols="20">Hvað fannst þér um bókina?</textarea>
+            <input type="number" name ="quantity" min ="1" max="5" value={this.state.grade} onChange={this.handleGradeChange} />
             <input type="submit" value="Lesinn" />
           </form>
         </div>
