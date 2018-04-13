@@ -6,6 +6,9 @@
  */
 /*TODO skoða afhverju það er message í RequestLogin og sjá hvort það vanti á hina. */
 import api from '../api';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 import { LOGIN_REQUEST, SIGN_BOOK,BOOK_REQUEST, LOGIN_SUCCESS, READ_REQUEST, BOOK_REGISTER_REQUEST, BOOK_PATCH_REQUEST, LOGIN_FAILURE, USER_PATCH_REQUEST, LOGIN_LOGOUT, VIEW_USERS, UPDATE_USER } from './types';
 
 
@@ -25,7 +28,7 @@ export const delBook = (id) => dispatch => {
         payload: { Empty: "You have not read any books" },
       }))
 }
-export const viewUser = (token,page) => dispatch => {
+export const viewUser = (token, page) => dispatch => {
   fetch(`https://verkefni2server.herokuapp.com/users?offset=${page}&limit=10&`, {
     method: 'GET',
     headers: {
@@ -35,12 +38,21 @@ export const viewUser = (token,page) => dispatch => {
   })
     .then(res => res.json())
     .then(users => {
-      dispatch({
-        type: VIEW_USERS,
-        isFetching: false,
-        users,
+      if (!token) {
+        dispatch({
+          type: LOGIN_LOGOUT,
+          isFetching: false,
+          isAuthenticated: false,
+          user: null,
+        })
+      } else {
+        dispatch({
+          type: VIEW_USERS,
+          isFetching: false,
+          users,
+        })
+      }
       })
-    })
 }
 export const checkLogin = (maybeToken) => dispatch => {
   fetch('https://verkefni2server.herokuapp.com/users/me', {

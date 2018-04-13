@@ -103,6 +103,7 @@ export default (state = initialState, action) => {
         isFetching: action.isFetching,
         isAuthenticated: action.isAuthenticated,
         user: action.user,
+        token: null,
       }
     case VIEW_USERS:
       return {
