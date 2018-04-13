@@ -34,6 +34,11 @@ class viewBook extends Component {
   handleSubmit(event) {
     const {grade, text} = this.state;
     const { bookItem } = this.props;
+<<<<<<< HEAD
+=======
+    console.log(this.state.grade);
+    this.props.readBookByUser(5, this.state.value, bookItem.gogn[0].title);
+>>>>>>> 11eceeeb5d0ed471c510b2f943040bde9f3b74b1
     event.preventDefault();
     const tala = this.state.grade;
     const numb = parseInt(tala);

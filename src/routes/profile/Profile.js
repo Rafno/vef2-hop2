@@ -12,8 +12,8 @@ class Profile extends Component {
       name: '',
       confirmName: ',',
     }
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
-  
   componentDidMount() {
     this.props.getBooks();
   }
@@ -60,25 +60,29 @@ class Profile extends Component {
       });
     });
   }
+  handleSubmit(event) {
+    const { delBook } = this.props;
+    console.log(event);
+    delBook(event);
+  }
   render() {
     const { user, isAuthenticated, bookItem, book, message, delBook } = this.props;
-    console.log(message);
     let bookReadList = <p>Hleð inn gögnum...</p>
     try {
       bookReadList =
         (book.response.items.map(items =>
           <div>
             <h3>{items.booksread_title}</h3>
-          <p>Einkunn {items.booksread_grade} {items.booksread_judge}</p>
-          <button onClick={delBook(items.booksread_id)}>Eyða</button>
+            <p>Einkunn {items.booksread_grade} {items.booksread_judge}</p>
+          <button onClick={this.props.delBook.bind(this, items.booksread_id)}>Eyða lestri</button>
           </div>
         ));
     } catch (e) {
       try {
         bookReadList =
-        <div>{book.Empty}
-        </div>
-      } catch (e) {}
+          <div>{book.Empty}
+          </div>
+      } catch (e) { }
     }
     const profile = isAuthenticated ?
       <div>
@@ -110,7 +114,7 @@ class Profile extends Component {
         {profile}
         <div className="readList">
           {bookReadList}
-          </div>
+        </div>
       </div>
     );
   }
@@ -123,7 +127,7 @@ const mapStateToProps = (state) => {
     isAuthenticated: state.auth.isAuthenticated,
     token: state.auth.token,
     bookItem: state.books.bookItem,
-    book:state.auth.payload,
+    book: state.auth.payload,
   }
 }
 export default connect(mapStateToProps, { UpdatePassword, uploadPic, fetchBooks, getBooks, delBook })(Profile);
