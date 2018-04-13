@@ -178,8 +178,8 @@ export const readBookByUser = (einkunn, texti, title) => dispatch => {
         message: login,
       }))
 };
-export const CreateBook = (title, author, about, isbn10, isbn13, published, pagecount, language, category) => dispatch => {
-  fetch('https://verkefni2server.herokuapp.com/books', {
+export const CreateBook = (title, author, about, isbn10, isbn13, published, pagecount, language, category) => async dispatch => {
+  fetch(`https://verkefni2server.herokuapp.com/books/`, {
     method: 'POST',
     headers: {
       'content-type': 'application/json',
@@ -198,13 +198,12 @@ export const CreateBook = (title, author, about, isbn10, isbn13, published, page
     })
   })
     .then(res => res.json())
-    .then(login => 
+    .then(login =>
       dispatch({
         type: BOOK_REGISTER_REQUEST,
         isFetching: false,
         message: login,
-        })
-    )
+      }))
 };
 export const UpdateBookById = (title, author, about, isbn10, isbn13, published, pagecount, language, category, id) => async dispatch => {
   fetch(`https://verkefni2server.herokuapp.com/books/${id}`, {
