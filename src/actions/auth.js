@@ -99,7 +99,7 @@ export const checkLogin = (maybeToken) => dispatch => {
     })
 }
 export const getBooks = () => dispatch => {
-  const data = fetch('https://verkefni2server.herokuapp.com/users/me/read', {
+  fetch('https://verkefni2server.herokuapp.com/users/me/read', {
     method: 'GET',
     headers: {
       'content-type': 'application/json',
@@ -198,14 +198,13 @@ export const CreateBook = (title, author, about, isbn10, isbn13, published, page
     })
   })
     .then(res => res.json())
-    .then(login => {
-      console.log(login);
+    .then(login => 
       dispatch({
         type: BOOK_REGISTER_REQUEST,
         isFetching: false,
         message: login,
         })
-    })
+    )
 };
 export const UpdateBookById = (title, author, about, isbn10, isbn13, published, pagecount, language, category, id) => async dispatch => {
   fetch(`https://verkefni2server.herokuapp.com/books/${id}`, {
@@ -298,7 +297,7 @@ export const UpdatePassword = (id, username, name, password) => dispatch => {
         message: login.error[0].error,
         })
       }
-    })
+        })
 };
 export const loginOut = () => dispatch => {
   dispatch({

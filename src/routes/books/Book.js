@@ -117,7 +117,6 @@ class books extends Component {
       );
     }
     if (error) {
-      console.log(data);
       if (error.villa) {
         return (
           <p>Engar niðurstöður fundust</p>

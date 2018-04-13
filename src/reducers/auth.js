@@ -90,7 +90,6 @@ export default (state = initialState, action) => {
         message: action.error,
       };
     case USER_PATCH_REQUEST:
-      console.log(action);
       return {
         ...state,
         isFetching: action.isFetching,

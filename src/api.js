@@ -5,7 +5,6 @@
 const baseurl = process.env.REACT_APP_SERVICE_URL;
 
 async function get(endpoint) {
-  console.log('HS');
   const token = window.localStorage.getItem('token');
 
   /*const url = `${baseurl}${endpoint}`;*/

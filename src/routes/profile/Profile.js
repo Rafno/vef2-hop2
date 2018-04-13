@@ -14,6 +14,9 @@ class Profile extends Component {
     }
     this.handleSubmit = this.handleSubmit.bind(this);
   }
+  componentDidMount() {
+    this.props.getBooks();
+  }
   handlePassChange = (e) => {
     e.preventDefault();
     const { pass, confirmPass, name, confirmName } = this.state;
@@ -59,12 +62,10 @@ class Profile extends Component {
   }
   handleSubmit(event) {
     const { delBook } = this.props;
-    console.log(event);
     delBook(event);
   }
   render() {
     const { user, isAuthenticated, bookItem, book, message, delBook } = this.props;
-    this.props.getBooks();
     let bookReadList = <p>Hleð inn gögnum...</p>
     try {
       bookReadList =
@@ -90,7 +91,7 @@ class Profile extends Component {
           <input type="submit" value="Aftengt afþví Cloudinary virkar ekki" />
         </form>
         <form onSubmit={this.handleNameChange}> Breyta Nafni
-          <input type="nafn" name="name" onChange={this.handleInputChange} />
+          <input type="nafn" name="name" onChange={this.handleInputChange} placeholder="Updates at next login" />
           <input type="submit" />
           {message ?
             <p>{message}</p> : <p></p>}
