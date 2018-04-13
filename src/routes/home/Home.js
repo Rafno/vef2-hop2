@@ -10,7 +10,7 @@ class Home extends Component {
 
   onHeaderClick = (header) => {
     return (e) => {
-      console.log('presses');
+
     }
   }
   render() {
