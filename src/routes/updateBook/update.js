@@ -61,6 +61,7 @@ class update extends Component {
     const { title, author, category, isbn10, isbn13, released, pageCount, language, description, action, initialized, back, id } = this.state;
     const { isAuthenticated, user, book, message } = this.props;
     const errorMessage = <p>{this.props.message}</p>
+    console.log(message);
     if(!initialized && book){
       console.log(book);
         this.setState({

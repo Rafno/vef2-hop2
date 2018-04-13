@@ -87,7 +87,7 @@ class Profile extends Component {
         <h2>Upplýsingar</h2>
         <form onSubmit={this.handleFileSubmit}>
           <input ref={(ref) => { this.uploadInput = ref; }} type="file" />
-          <input type="submit" />
+          <input type="submit" value="Aftengt afþví Cloudinary virkar ekki" />
         </form>
         <form onSubmit={this.handleNameChange}> Breyta Nafni
           <input type="nafn" name="name" onChange={this.handleInputChange} />
