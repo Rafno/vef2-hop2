@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import Helmet from 'react-helmet';
 import Registerread from '../registerRead';
 import { Route, Link, Switch } from 'react-router-dom';
-import { signReadBook, readBookByUser } from '../../actions/auth';
+import { signReadBook, readBookByUser, delBook } from '../../actions/auth';
 import { fetchBooks } from '../../actions/book';
 import { connect } from 'react-redux';
 
@@ -57,7 +57,7 @@ class viewBook extends Component {
 
   render() {
     const {checked, submit} = this.state;
-    const { bookItem, message } = this.props;
+    const { bookItem, message, delBook } = this.props;
     const check = null;
     let name = null;
     console.log("þeta er submit ", submit)
@@ -75,7 +75,7 @@ class viewBook extends Component {
             <li> Einkunn: {einkunn} </li>
             <li> {domur} </li>
           </ul>
-          <button onClick={this.DeleteHandler}> Eyða lestri </button>
+          <button onClick={this.props.delBook.bind(this, message.books.booksread_id)}>Eyða lestri</button>
         </div>
       } catch (e) {
         console.log("failure");
@@ -134,4 +134,4 @@ const mapStateToProps = (state) => {
     bookItem: state.books.bookItem,
   }
 }
-export default connect(mapStateToProps, { signReadBook, fetchBooks, readBookByUser })(viewBook);
+export default connect(mapStateToProps, { signReadBook, fetchBooks, readBookByUser, delBook })(viewBook);

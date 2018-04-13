@@ -14,9 +14,6 @@ class Profile extends Component {
     }
     this.handleSubmit = this.handleSubmit.bind(this);
   }
-  componentDidMount() {
-    this.props.getBooks();
-  }
   handlePassChange = (e) => {
     e.preventDefault();
     const { pass, confirmPass, name, confirmName } = this.state;
@@ -67,6 +64,7 @@ class Profile extends Component {
   }
   render() {
     const { user, isAuthenticated, bookItem, book, message, delBook } = this.props;
+    this.props.getBooks();
     let bookReadList = <p>Hleð inn gögnum...</p>
     try {
       bookReadList =
@@ -74,7 +72,7 @@ class Profile extends Component {
           <div>
             <h3>{items.booksread_title}</h3>
             <p>Einkunn {items.booksread_grade} {items.booksread_judge}</p>
-          <button onClick={this.props.delBook.bind(this, items.booksread_id)}>Eyða lestri</button>
+          <button onClick={this.props.delBook.bind(this, items.id)}>Eyða lestri</button>
           </div>
         ));
     } catch (e) {

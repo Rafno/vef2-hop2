@@ -43,7 +43,7 @@ export const delBook = (id) => dispatch => {
       dispatch({
         type: BOOK_REQUEST,
         isFetching: false,
-        payload: { Empty: "You have not read any books" },
+        payload: login,
       }))
 }
 export const viewUser = (token, page) => dispatch => {
