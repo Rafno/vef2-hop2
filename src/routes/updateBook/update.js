@@ -51,7 +51,6 @@ class update extends Component {
 
   buttonHandler = (e) => {
     const { title, author, category, isbn10, isbn13, released, pageCount, language, description, action } = this.state;
-    console.log(title, author, category, isbn10, isbn13, released, pageCount, language, description, action);
     this.props.CreateBook(title, author, description, parseInt(isbn10), parseInt(isbn13), released, parseInt(pageCount), language, category);
   }
 
