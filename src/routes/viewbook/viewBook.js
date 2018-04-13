@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import Helmet from 'react-helmet';
 import Registerread from '../registerRead';
 import { Route, Link, Switch } from 'react-router-dom';
-import { signReadBook } from '../../actions/auth';
+import { signReadBook, readBookByUser } from '../../actions/auth';
 import { fetchBooks } from '../../actions/book';
 import { connect } from 'react-redux';
 
@@ -12,43 +12,62 @@ import { connect } from 'react-redux';
  */
 
 class viewBook extends Component {
+  constructor(props) {
+    super(props);
+    this.state = { value: '', grade: '' };
+
+    this.handleTextChange = this.handleTextChange.bind(this);
+    this.handleGradeChange = this.handleGradeChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
   componentDidMount() {
     const path = this.props.location.pathname;
     this.props.fetchBooks(path);
   }
+  handleGradeChange(event) {
+    this.setState({ grade: event.target.grade });
+  }
+  handleTextChange(event) {
+    this.setState({ value: event.target.value });
+  }
+
+  handleSubmit(event) {
+    const { bookItem } = this.props;
+    console.log(this.state.grade);
+    this.props.readBookByUser(this.state.grade, this.state.value, bookItem.gogn[0].title);
+    event.preventDefault();
+  }
+
   render() {
     const { bookItem } = this.props;
     const check = null;
-    let tableClass = null;
     let name = null;
     const book = bookItem ?
-    <div className="skodaBok">
-      <ul className="listinnfyirBok">
-        <li>{bookItem.gogn[0].title} </li>
-        <li> {bookItem.gogn[0].author}</li>
-        <li> {bookItem.gogn[0].isbn13} </li>
-        <li>{bookItem.gogn[0].category} </li>
-        <li> {bookItem.gogn[0].description}</li>
-        <li> {bookItem.gogn[0].pagecount} Síður </li>
-        <li> Tungumál: {bookItem.gogn[0].language} </li>
-      </ul>
+      <div className="skodaBok">
+        <ul className="listinnfyirBok">
+          <li>{bookItem.gogn[0].title} </li>
+          <li> {bookItem.gogn[0].author}</li>
+          <li> {bookItem.gogn[0].isbn13} </li>
+          <li>{bookItem.gogn[0].category} </li>
+          <li> {bookItem.gogn[0].description}</li>
+          <li> {bookItem.gogn[0].pagecount} Síður </li>
+          <li> Tungumál: {bookItem.gogn[0].language} </li>
+        </ul>
         <button>
           <Link to={`/books/${bookItem.gogn[0].id}/edit`}> Breyta bók</Link>
         </button>
-        <Registerread
-          audkenni={bookItem.gogn[0].title}
-          lesa={true}
-          read={true}
-          check={bookItem.gogn[0]}
-        />
-        {<button className={tableClass} onClick={this.buttonHandler}>Lesinn</button>}
+
         <div className={name}>
-          <button onClick={this.StoppHandler}> Hætta</button>
+          <form onSubmit={this.handleSubmit} >
+            <textarea value={this.state.value} onChange={this.handleTextChange} rows="5" cols="20">Hvað fannst þér um bókina?</textarea>
+            <input type="number" value={this.state.grade} onChange={this.handleGradeChange} min="1" max="5" />
+            <input type="submit" value="Lesinn" />
+          </form>
         </div>
       </div> : <p>loading...</p>
     return (
       <div>{book}</div>
-      );
+    );
   }
 }
 
@@ -61,61 +80,4 @@ const mapStateToProps = (state) => {
     bookItem: state.books.bookItem,
   }
 }
-export default connect(mapStateToProps, { signReadBook, fetchBooks })(viewBook);
-
-/*const { gogn, loading, error, teljari, tala, clicked } = this.state;
-    if (loading) {
-      return (
-        <div>
-          <p>Sæki gögn...</p>
-        </div>
-      );
-    }
-    if (error) {
-      return (
-        <div>
-          <p> villa kom upp </p>
-        </div>
-      );
-    }
-    const items = this.state.gogn.gogn[0];
-    console.log(items);
-    const check = null;
-    let tableClass = null;
-    let name = null;
-    //const BookRead = null;
-    const BookRead = true;
-    if (this.state.clicked === false || this.state.clicked === null) {
-      tableClass = 'lesTakkinn';
-      name = 'none';
-    } else {
-      tableClass = 'none';
-      name = 'lesa';
-    }
-    return (
-      <div className="skodaBok">
-        <ul className="listinnfyirBok">
-          <li>{items.title} </li>
-          <li> {items.author}</li>
-          <li> {items.isbn13} </li>
-          <li>{items.category} </li>
-          <li> {items.description}</li>
-          <li> {items.pagecount} Síður </li>
-          <li> Tungumál: {items.language} </li>
-        </ul>
-        <button>
-          <Link to={`/books/${items.id}/edit`}> Breyta bók</Link>
-        </button>
-        <Registerread
-          audkenni={items.title}
-          lesa={BookRead}
-          read={this.state.clicked}
-          check={items}
-        />
-        {<button className={tableClass} onClick={this.buttonHandler}>Lesinn</button>}
-        <div className={name}>
-          <button onClick={this.StoppHandler}> Hætta</button>
-        </div>
-      </div>
-    );
-    */
+export default connect(mapStateToProps, { signReadBook, fetchBooks, readBookByUser })(viewBook);
