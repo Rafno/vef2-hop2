@@ -37,7 +37,7 @@ class update extends Component {
   }
   handleInputChange = (e) => {
     const name = e.target.name;
-    console.log(name);
+    console.log(name, e.target.value);
     const value = e.target.value;
     this.setState({ [name]: value });
   }
@@ -45,6 +45,8 @@ class update extends Component {
   buttonHandler = (e) => {
     const { title, author, category, isbn10, isbn13, released, pageCount, language, description, action } = this.state;
     console.log(title, author, category, isbn10, isbn13, released, pageCount, language, description, action);
+    console.log("pressed");
+    this.props.CreateBook(title, author, description, parseInt(isbn10), parseInt(isbn13), released, parseInt(pageCount), language, category)
   }
 
   render() {
@@ -52,7 +54,7 @@ class update extends Component {
     const { isAuthenticated, user, book } = this.props;
     if(!initialized && book){
       console.log(book);
-        this.setState({ 
+        this.setState({
           title: book.gogn[0].title,
           author: book.gogn[0].author,
           category: book.gogn[0].category,
