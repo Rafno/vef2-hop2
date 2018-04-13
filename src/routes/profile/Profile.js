@@ -32,13 +32,22 @@ class Profile extends Component {
   handleNameChange = (e) => {
     e.preventDefault();
     const { pass, confirmPass, name, confirmName } = this.state;
+    console.log(e.target.value)
     let breyta = localStorage.getItem('user');
     breyta = JSON.parse(breyta);
     const id = breyta.id;
     const username = breyta.username;
     let user = { 'username': username, 'password': breyta.password, "name":name, "id": id };
-    localStorage.setItem('user', JSON.stringify(user));
     this.props.UpdatePassword(id, username, name, null);
+    if(name.length !== 0){
+      localStorage.setItem('user', JSON.stringify(user));
+    }
+    this.fall();
+  }
+  fall(){
+    console.log("kemstu hingað");
+   
+    this.setState({name:"jónas fór út í búð"});
   }
   handleInputChange = (e) => {
     const name = e.target.name;
@@ -68,6 +77,7 @@ class Profile extends Component {
     delBook(event);
   }
   render() {
+    console.log("fer ég aftur hingað")
     const { user, isAuthenticated, bookItem, book, message, delBook } = this.props;
     let bookReadList = <p>Hleð inn gögnum...</p>
     try {
@@ -89,7 +99,7 @@ class Profile extends Component {
     const profile = isAuthenticated ?
       <div>
         <h2>Upplýsingar</h2>
-        <form onSubmit={this.handleFileSubmit}>
+        <form id="myForm" onSubmit={this.handleFileSubmit} onClick="clearField();">
           <input ref={(ref) => { this.uploadInput = ref; }} type="file" />
           <input type="submit" value="Aftengt afþví Cloudinary virkar ekki" />
         </form>
