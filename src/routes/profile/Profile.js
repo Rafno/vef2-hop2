@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { UpdatePassword, uploadPic, getBooks, delBook } from '../../actions/auth';
 import { fetchBooks } from '../../actions/book';
 import { connect } from 'react-redux';
+import {header} from '../../components/header';
 import { Redirect } from 'react-router-dom';
 class Profile extends Component {
   constructor() {
@@ -35,6 +36,8 @@ class Profile extends Component {
     breyta = JSON.parse(breyta);
     const id = breyta.id;
     const username = breyta.username;
+    let user = { 'username': username, 'password': breyta.password, "name":name, "id": id };
+    localStorage.setItem('user', JSON.stringify(user));
     this.props.UpdatePassword(id, username, name, null);
   }
   handleInputChange = (e) => {
@@ -91,10 +94,16 @@ class Profile extends Component {
           <input type="submit" value="Aftengt afþví Cloudinary virkar ekki" />
         </form>
         <form onSubmit={this.handleNameChange}> Breyta Nafni
-          <input type="nafn" name="name" onChange={this.handleInputChange} placeholder="Updates at next login" />
+          <input type="nafn" name="name" onChange={this.handleInputChange} />
           <input type="submit" />
           {message ?
-            <p>{message}</p> : <p></p>}
+          <div>
+            <header
+            />
+            <p>{message}</p>
+            </div>
+             :
+             <p></p>}
         </form>
         <form onSubmit={this.handlePassChange}> Breyta Lykilorði
           <input type="password" name="pass" onChange={this.handleInputChange} />
