@@ -5,7 +5,7 @@ import { viewUser } from '../../actions/auth';
 import { connect } from 'react-redux';
 
 class users extends Component {
-  state = {page:1, pageNumber:1};
+  state = {page:1, pageNumber:-1};
   componentDidMount() {
     const { token } = this.props;
     const { page, pageNumber } = this.state;
@@ -50,8 +50,13 @@ class users extends Component {
     const { users } = this.props;
     let next = null;
     let prev = null;
+    let sidan = null;
+    sidan = this.state.pageNumber-1;
+    console.log(sidan +" hvað er siðan");
+    sidan = sidan*10;
+    console.log("þett er sidan"+ sidan)
+    let id = 0;
     const userList = users ?
-      
     <div>
       {
         users.response.items.map((i,index) => {
@@ -59,9 +64,12 @@ class users extends Component {
             prev = users.response.links.prev;
             next = users.response.links.next;
           }
+          console.log(index);
+          id= sidan+index;
           return(
             <ul>
-              <Link to={/users/+page+index+/read/}>
+
+              <Link to={"users/"+id+"/read"}>
                 <li>{i.name}</li>
               </Link>
           </ul>

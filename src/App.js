@@ -12,12 +12,13 @@ import Profile from './routes/profile';
 import NotFound from './routes/not-found';
 import Book from './routes/books';
 import updated from './routes/updateBook';
-
+import notandi from './routes/notandi';
 import './App.css';
 import store from './store';
 import viewBook from './routes/viewbook/viewBook';
 import users from './routes/users/users';
 import Registration from './routes/registration';
+
 
 class App extends Component {
   componentDidMount() {
@@ -39,6 +40,7 @@ class App extends Component {
               <Route path="/" exact component={Home} />
               <Route path="/books" exact component={Book} />
               <Route path="/users" exact component={users} />
+              <Route path="/users/:id/read" exact component={notandi}/>
               <Route path="/books/new" exact component={updated} />
               <Route path="/books/:id" exact component={viewBook} />
               <Route path="/books/:id/edit" exact component={updated} />
