@@ -53,8 +53,8 @@ class update extends Component {
     const { title, author, category, isbn10, isbn13, released, pageCount, language, description, action } = this.state;
     console.log(title, author, category, isbn10, isbn13, released, pageCount, language, description, action);
    // console.log("pressed");
-    this.props.CreateBook(title, author, description, parseInt(isbn10), parseInt(isbn13), released, parseInt(pageCount), language, category)
-    this.props.CreateBook("baldur", "jónas", "skemmtileg bók", 1234564512315, 1234567894125, released, 245, "en", "Fantasy");
+   // this.props.CreateBook(title, author, description, parseInt(isbn10), parseInt(isbn13), released, parseInt(pageCount), language, category)
+    this.props.UpdateBookById("kingerinn", "jónas", "skemmtileg bók", 512315, 9934512012154, released, 245, "en", "Fantasy",3);
   }
 
   render() {

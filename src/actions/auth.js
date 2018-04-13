@@ -230,7 +230,8 @@ export const UpdateBookById = (title, author, about, isbn10, isbn13, published, 
         type: BOOK_PATCH_REQUEST,
         isFetching: false,
         message: login,
-      }))
+      })
+    )
 };
 export const getBookById = (id) => async dispatch => {
   fetch(`https://verkefni2server.herokuapp.com/books/${id}`, {
