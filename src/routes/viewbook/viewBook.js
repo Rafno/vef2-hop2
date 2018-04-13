@@ -14,7 +14,7 @@ import { connect } from 'react-redux';
 class viewBook extends Component {
   constructor(props) {
     super(props);
-    this.state = { text: '', grade: 0 };
+    this.state = { text: '', grade: 0, checked:false, submit:false };
 
     this.handleTextChange = this.handleTextChange.bind(this);
     this.handleGradeChange = this.handleGradeChange.bind(this);
@@ -32,18 +32,42 @@ class viewBook extends Component {
   }
 
   handleSubmit(event) {
-    const {grade, text} = this.state;
+    const {grade, text, checked} = this.state;
     const { bookItem } = this.props;
     event.preventDefault();
     const tala = this.state.grade;
     const numb = parseInt(tala);
     this.props.readBookByUser(numb, this.state.text, bookItem.gogn[0].title);
+    console.log("kemstu hingað")
+    this.setState({checked:false});
+  }
+  buttonHandler = () => {
+    const {checked} = this.state;
+    let truth = null;
+    if(this.state.checked === true){
+      truth = false;
+    } else {
+      truth = true;
+    }
+    this.setState({checked:truth});
   }
 
   render() {
+    const {checked} = this.state;
     const { bookItem } = this.props;
     const check = null;
     let name = null;
+    const agree = this.state.submit;
+    const read = this.state.checked?
+    <div className={name}>
+      <form onSubmit={this.handleSubmit} >
+        <textarea value={this.state.text} onChange={this.handleTextChange} rows="5" cols="20">Hvað fannst þér um bókina?</textarea>
+          <input type="number" name ="quantity" min ="1" max="5" value={this.state.grade} onChange={this.handleGradeChange} />
+          <input type="submit" value="Lesinn" />
+      </form>
+          <button onClick={this.buttonHandler}> Hætta við </button>
+  </div>:
+  <button onClick={this.buttonHandler}> Lesinn </button>
     const book = bookItem ?
       <div className="skodaBok">
         <ul className="listinnfyirBok">
@@ -58,17 +82,13 @@ class viewBook extends Component {
         <button>
           <Link to={`/books/${bookItem.gogn[0].id}/edit`}> Breyta bók</Link>
         </button>
-
-        <div className={name}>
-          <form onSubmit={this.handleSubmit} >
-            <textarea value={this.state.text} onChange={this.handleTextChange} rows="5" cols="20">Hvað fannst þér um bókina?</textarea>
-            <input type="number" name ="quantity" min ="1" max="5" value={this.state.grade} onChange={this.handleGradeChange} />
-            <input type="submit" value="Lesinn" />
-          </form>
-        </div>
       </div> : <p>loading...</p>
     return (
-      <div>{book}</div>
+      <div>
+        {book}
+        {read}
+        <button> <Link to={"/books"}>Til baka </Link> </button>
+      </div>
     );
   }
 }
