@@ -18,16 +18,24 @@ class update extends Component {
     pageCount: '',
     language: '',
     initialized: false,
+    back:false,
+    id:null,
   }
 
   async componentDidMount() {
     const path = window.location.pathname;
+    let aftur = null;
+    let bookId = null;
     if (path.includes("edit")){
-      const bookId = path.split('/')[2];
+      aftur = true;
+      bookId = path.split('/')[2];
       await this.props.getBookById(bookId);
       const { book } = this.props;
+    } else {
+      aftur = false;
 
     }
+    this.setState({back:aftur, id:bookId})
   }
   
   generateOptions(categories, currentCategory) {
@@ -50,7 +58,7 @@ class update extends Component {
   }
 
   render() {
-    const { title, author, category, isbn10, isbn13, released, pageCount, language, description, action, initialized } = this.state;
+    const { title, author, category, isbn10, isbn13, released, pageCount, language, description, action, initialized, back, id } = this.state;
     const { isAuthenticated, user, book } = this.props;
     if(!initialized && book){
       console.log(book);
@@ -68,7 +76,8 @@ class update extends Component {
           initialized: true,
         });
     }
-    // TODO FALL SÆKJA ÖLL CATEGORIES
+    `/books/${this.state.sluggid}`
+    let url = back ? url= `/books/${id}`: url = '/'
     const allCategories = ['Science Fiction', 'Fantasy', 'Fiction', 'Computer Science', 'Comic', 'Nonfiction', 'Business',
       'Psychology', 'Horror', 'Design', 'Economics', 'Graphic Novel'];
     const options = this.generateOptions(allCategories, category);
@@ -117,7 +126,7 @@ class update extends Component {
 
         <button onClick={this.buttonHandler}> Submit </button>
         <button>
-          <Link to={`/books/${this.state.sluggid}`}> Til baka</Link>
+          <Link to={url}> Til baka</Link>
         </button>
       </div> :
       (<Redirect
