@@ -37,7 +37,6 @@ class update extends Component {
     }
     this.setState({back:aftur, id:bookId})
   }
-  
   generateOptions(categories, currentCategory) {
     return categories.map((x, i) => {
       return (<option key={i} value={x}>{x}</option>)
@@ -53,8 +52,9 @@ class update extends Component {
   buttonHandler = (e) => {
     const { title, author, category, isbn10, isbn13, released, pageCount, language, description, action } = this.state;
     console.log(title, author, category, isbn10, isbn13, released, pageCount, language, description, action);
-    console.log("pressed");
+   // console.log("pressed");
     this.props.CreateBook(title, author, description, parseInt(isbn10), parseInt(isbn13), released, parseInt(pageCount), language, category)
+    this.props.CreateBook("baldur", "jónas", "skemmtileg bók", 1234564512315, 1234567894125, released, 245, "en", "Fantasy");
   }
 
   render() {
@@ -124,7 +124,6 @@ class update extends Component {
           <label htmlFor="language">Tungumál:</label>
           <input id="language" type="text" name="language" value={language} onChange={this.handleInputChange} />
         </div>
-
         <button onClick={this.buttonHandler}> Submit </button>
         <button>
           <Link to={url}> Til baka</Link>
