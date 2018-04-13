@@ -94,6 +94,8 @@ class Profile extends Component {
         <form onSubmit={this.handleNameChange}> Breyta Nafni
           <input type="nafn" name="name" onChange={this.handleInputChange} />
           <input type="submit" />
+          {message ?
+            <p>{message}</p> : <p></p>}
         </form>
         <form onSubmit={this.handlePassChange}> Breyta Lykilorði
           <input type="password" name="pass" onChange={this.handleInputChange} />
