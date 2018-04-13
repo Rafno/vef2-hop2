@@ -14,14 +14,15 @@ class registerRead extends Component {
     checkText: null,
     seen:false,
   }
-  componentDidMount(){
-    //this.props.readBookByUser(5, "lala", "About a Boy");
+  componentDidMount() {
+    
   }
   generateOptions(categories) {
     return categories.map((x, i) => {
       return (<option key={i} value={x}>{x}</option>)
     });
   }
+  /*
   handleInputChange = (e) => {
     const { einkunn, textinn } = this.state;
     if (e.target.id === 'einkunn') {
@@ -32,11 +33,11 @@ class registerRead extends Component {
       this.setState({ textinn: e.target.value, checkText: true });
     }
   }
+  */
   submitHandler = (e) => {
     const { einkunn, textinn, checkScore, checkText } = this.state;
-    console.log("presed", e);
+    console.log("pressed", e);
     this.confirm();
-    //this.setState({seen:true})
   }
   confirm(title){
     const  { einkunn, textinn} = this.state;
@@ -68,7 +69,7 @@ class registerRead extends Component {
         <select name="category" id="einkunn" onChange={this.handleInputChange}>
           {options}
         </select>
-        <button onClick={this.submitHandler}> vista</button>
+        <button onClick={this.submitHandler}> Lesinn</button>
       </div>
     );
   }
