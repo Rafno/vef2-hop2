@@ -12,6 +12,7 @@ class Profile extends Component {
       confirmPass: ',',
       name: '',
       confirmName: ',',
+      checked:false,
     }
     this.handleSubmit = this.handleSubmit.bind(this);
   }
@@ -28,11 +29,11 @@ class Profile extends Component {
     if (pass === confirmPass) {
       this.props.UpdatePassword(id, username, null, pass);
     }
+    this.setState({pass:"",checked:true})
   }
   handleNameChange = (e) => {
     e.preventDefault();
-    const { pass, confirmPass, name, confirmName } = this.state;
-    console.log(e.target.value)
+    const { pass, confirmPass, name, confirmName, checked } = this.state;
     let breyta = localStorage.getItem('user');
     breyta = JSON.parse(breyta);
     const id = breyta.id;
@@ -42,17 +43,12 @@ class Profile extends Component {
     if(name.length !== 0){
       localStorage.setItem('user', JSON.stringify(user));
     }
-    this.fall();
-  }
-  fall(){
-    console.log("kemstu hingað");
-   
-    this.setState({name:"jónas fór út í búð"});
+    this.setState({name:""});
   }
   handleInputChange = (e) => {
     const name = e.target.name;
     const value = e.target.value;
-    this.setState({ [name]: value });
+    this.setState({ [name]: value, checked:false });
   }
   handleFileSubmit = (e) => {
     e.preventDefault();
@@ -77,8 +73,9 @@ class Profile extends Component {
     delBook(event);
   }
   render() {
-    console.log("fer ég aftur hingað")
     const { user, isAuthenticated, bookItem, book, message, delBook } = this.props;
+    const {checked, name, pass} = this.state;
+    console.log(checked, " þett er state", name);
     let bookReadList = <p>Hleð inn gögnum...</p>
     try {
       bookReadList =
@@ -96,15 +93,19 @@ class Profile extends Component {
           </div>
       } catch (e) { }
     }
+    let password
+    if(checked === true) {
+       password = "";
+    }
     const profile = isAuthenticated ?
       <div>
         <h2>Upplýsingar</h2>
-        <form id="myForm" onSubmit={this.handleFileSubmit} onClick="clearField();">
+        <form onSubmit={this.handleFileSubmit}>
           <input ref={(ref) => { this.uploadInput = ref; }} type="file" />
           <input type="submit" value="Aftengt afþví Cloudinary virkar ekki" />
         </form>
         <form onSubmit={this.handleNameChange}> Breyta Nafni
-          <input type="nafn" name="name" onChange={this.handleInputChange} />
+          <input type="nafn" name="name" onChange={this.handleInputChange} value={name} />
           <input type="submit" />
           {message ?
           <div>
@@ -116,8 +117,8 @@ class Profile extends Component {
              <p></p>}
         </form>
         <form onSubmit={this.handlePassChange}> Breyta Lykilorði
-          <input type="password" name="pass" onChange={this.handleInputChange} />
-          <input type="password" name="confirmPass" onChange={this.handleInputChange} />
+          <input type="password" name="pass" onChange={this.handleInputChange} value={password}/>
+          <input type="password" name="confirmPass" onChange={this.handleInputChange} value={password}/>
           <input type="submit" />
         </form>
         <h2> Lesnar Bækur </h2>
