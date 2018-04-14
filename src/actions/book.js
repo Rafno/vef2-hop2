@@ -1,5 +1,4 @@
-import api from '../api';
-import { FETCH_BOOKS, NEW_BOOK, BOOK_BY_ID } from './types';
+import { FETCH_BOOKS } from './types';
 
 export const fetchBooks = url => dispatch => {
   const baseUrl = `https://verkefni2server.herokuapp.com${url}`;

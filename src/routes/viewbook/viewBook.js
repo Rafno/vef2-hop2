@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Helmet from 'react-helmet';
-import Registerread from '../registerRead';
-import { Route, Link, Switch } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { signReadBook, readBookByUser, delBook } from '../../actions/auth';
 import { fetchBooks } from '../../actions/book';
 import { connect } from 'react-redux';
@@ -78,7 +77,7 @@ class viewBook extends Component {
           <button onClick={this.props.delBook.bind(this, message.books.id)}>Eyða lestri</button>
         </div>
       } catch (e) {
-        console.log("failure");
+        
       }
     }
 

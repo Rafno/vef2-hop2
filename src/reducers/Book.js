@@ -1,4 +1,4 @@
-import { FETCH_BOOKS, NEW_BOOK, BOOK_BY_ID } from '../actions/types';
+import { FETCH_BOOKS, BOOK_BY_ID } from '../actions/types';
 
 const initialState = {
   items: [],
