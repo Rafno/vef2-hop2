@@ -50,14 +50,8 @@ class update extends Component {
   }
 
   buttonHandler = (e) => {
-<<<<<<< HEAD
-    const { title, author, category, isbn10, isbn13, released, pageCount, language, description, action} = this.state;
-    console.log(category)
-    this.props.CreateBook(title, author, description, parseInt(isbn10), parseInt(isbn13), released, parseInt(pageCount), language, category);
-=======
     const { title, author, category, isbn10, isbn13, published, pageCount, language, description, action } = this.state;
     this.props.CreateBook(title, author, description, parseInt(isbn10), parseInt(isbn13), published, parseInt(pageCount), language, category);
->>>>>>> 8c0f272603e845e468c58e682658a3d1ddf08183
   }
 
   render() {
