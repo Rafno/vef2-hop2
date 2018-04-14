@@ -14,7 +14,7 @@ class update extends Component {
     category: '',
     isbn10: '',
     isbn13: '',
-    released: '',
+    published: '',
     pageCount: '',
     language: '',
     initialized: false,
@@ -50,12 +50,12 @@ class update extends Component {
   }
 
   buttonHandler = (e) => {
-    const { title, author, category, isbn10, isbn13, released, pageCount, language, description, action } = this.state;
-    this.props.CreateBook(title, author, description, parseInt(isbn10), parseInt(isbn13), released, parseInt(pageCount), language, category);
+    const { title, author, category, isbn10, isbn13, published, pageCount, language, description, action } = this.state;
+    this.props.CreateBook(title, author, description, parseInt(isbn10), parseInt(isbn13), published, parseInt(pageCount), language, category);
   }
 
   render() {
-    const { title, author, category, isbn10, isbn13, released, pageCount, language, description, action, initialized, back, id } = this.state;
+    const { title, author, category, isbn10, isbn13, published, pageCount, language, description, action, initialized, back, id } = this.state;
     const { isAuthenticated, user, book, message } = this.props;
     const errorMessage = <p>{this.props.message}</p>
     console.log(message);
@@ -66,7 +66,7 @@ class update extends Component {
           category: book.gogn[0].category,
           isbn10: book.gogn[0].isbn10,
           isbn13: book.gogn[0].isbn13,
-          released: book.gogn[0].published,
+          published: book.gogn[0].published,
           pageCount: book.gogn[0].pagecount,
           language: book.gogn[0].language,
           description: book.gogn[0].description,
@@ -110,8 +110,8 @@ class update extends Component {
           <input id="isbn13" type="text" name="isbn13" value={isbn13} onChange={this.handleInputChange} />
         </div>
         <div>
-          <label htmlFor="released">Útgefin:</label>
-          <input id="released" type="text" name="released" value={released} onChange={this.handleInputChange} />
+          <label htmlFor="published">Útgefin:</label>
+          <input id="published" type="text" name="published" value={published} onChange={this.handleInputChange} />
         </div>
         <div>
           <label htmlFor="pageCount">Fjöldi síða:</label>
