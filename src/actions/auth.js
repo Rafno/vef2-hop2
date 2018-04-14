@@ -199,7 +199,7 @@ export const CreateBook = (title, author, about, isbn10, isbn13, published, page
   })
     .then(res => res.json())
     .then(login => {
-      let Error = 'Incorrect format';
+      let Error = 'Þú verður að fylla upp í skyldureiti';
       if (login.data) Error = 'Skráning tókst';
       if (login[0]) Error = login[0].Error;
       if (login.errarray) Error = login.errarray[0].Error;

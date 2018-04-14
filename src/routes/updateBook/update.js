@@ -11,7 +11,7 @@ class update extends Component {
     title: '',
     author: '',
     about: '',
-    category: '',
+    category: 'Science Fiction',
     isbn10: '',
     isbn13: '',
     released: '',
@@ -50,7 +50,8 @@ class update extends Component {
   }
 
   buttonHandler = (e) => {
-    const { title, author, category, isbn10, isbn13, released, pageCount, language, description, action } = this.state;
+    const { title, author, category, isbn10, isbn13, released, pageCount, language, description, action} = this.state;
+    console.log(category)
     this.props.CreateBook(title, author, description, parseInt(isbn10), parseInt(isbn13), released, parseInt(pageCount), language, category);
   }
 
@@ -84,11 +85,11 @@ class update extends Component {
         <h2>{action}</h2>
         <div>
           <label htmlFor="username">Titill:</label>
-          <input id="title" type="text" name="title" value={title} onChange={this.handleInputChange} />
+          <input id="title" type="text" name="title" value={title} onChange={this.handleInputChange} placeholder="Þarf að fylla út"/>
         </div>
         <div>
           <label htmlFor="">Höfundur:</label>
-          <input id="author" type="text" name="author" value={author} onChange={this.handleInputChange} />
+          <input id="author" type="text" name="author" value={author} onChange={this.handleInputChange}/>
         </div>
         <div>
           <legend htmlFor="about">Lýsing</legend>
@@ -107,7 +108,7 @@ class update extends Component {
         </div>
         <div>
           <label htmlFor="isbn13">ISBN13:</label>
-          <input id="isbn13" type="text" name="isbn13" value={isbn13} onChange={this.handleInputChange} />
+          <input id="isbn13" type="text" name="isbn13" value={isbn13} onChange={this.handleInputChange} placeholder="þarf að fylla út"/>
         </div>
         <div>
           <label htmlFor="released">Útgefin:</label>
