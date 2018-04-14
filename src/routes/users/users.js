@@ -41,6 +41,7 @@ class users extends Component {
   }
   updateFall(tala,sida){
     const { token } = this.props;
+    console.log(tala, ' þetta er tala');
     this.props.viewUser(token,tala);
     this.setState({page:tala, pageNumber:sida})
 
@@ -62,7 +63,7 @@ class users extends Component {
                 prev = users.response.links.prev;
                 next = users.response.links.next;
               }
-              id = sidan + index + 1;
+              id = sidan + index+1;
               return (
                 <ul>
                   <Link to={"users/" + id}>
