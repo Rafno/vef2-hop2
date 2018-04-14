@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Helmet from 'react-helmet';
-import { Route, Link, Switch } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import './book.css';
 /**
  * Hér mun þessi compnent sjá um alla listann af bókunum og getur valið spes bók.
@@ -107,7 +107,7 @@ class books extends Component {
   render() {
     let bakkari = true;
     let frammari = true;
-    const { data, loading, error, teljari } = this.state;
+    const { data, loading, error } = this.state;
 
     if (loading) {
       return (
