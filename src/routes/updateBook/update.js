@@ -50,14 +50,8 @@ class update extends Component {
   }
 
   buttonHandler = (e) => {
-<<<<<<< HEAD
-    const { title, author, category, isbn10, isbn13, released, pageCount, language, description, action} = this.state;
-    console.log(category)
-    this.props.CreateBook(title, author, description, parseInt(isbn10), parseInt(isbn13), released, parseInt(pageCount), language, category);
-=======
     const { title, author, category, isbn10, isbn13, published, pageCount, language, description, action } = this.state;
     this.props.CreateBook(title, author, description, parseInt(isbn10), parseInt(isbn13), published, parseInt(pageCount), language, category);
->>>>>>> 8c0f272603e845e468c58e682658a3d1ddf08183
   }
 
   render() {
@@ -98,7 +92,7 @@ class update extends Component {
         </div>
         <div>
           <legend htmlFor="about">Lýsing</legend>
-          <textarea rows="5" cols="50" id="description" type="text" value={description} name="description" onChange={this.handleInputChange}>
+          <textarea rows="5" cols="50" id="description" type="text" value={description} name="description" onChange={this.handleInputChange} placeholder ="Þarf að fylla út">
           </textarea>
         </div>
         <div>
@@ -109,11 +103,11 @@ class update extends Component {
         </div>
         <div>
           <label htmlFor="isbn10">ISBN10:</label>
-          <input id="isbn10" type="text" name="isbn10" value={isbn10} onChange={this.handleInputChange} />
+          <input id="isbn10" type="text" name="isbn10" value={isbn10} onChange={this.handleInputChange} placeholder ="Tölustafir þarf að fylla út" />
         </div>
         <div>
           <label htmlFor="isbn13">ISBN13:</label>
-          <input id="isbn13" type="text" name="isbn13" value={isbn13} onChange={this.handleInputChange} placeholder="þarf að fylla út"/>
+          <input id="isbn13" type="text" name="isbn13" value={isbn13} onChange={this.handleInputChange} placeholder="13 tölustafir þarf að fylla út"/>
         </div>
         <div>
           <label htmlFor="published">Útgefin:</label>
@@ -121,11 +115,11 @@ class update extends Component {
         </div>
         <div>
           <label htmlFor="pageCount">Fjöldi síða:</label>
-          <input id="pageCount" type="text" name="pageCount" value={pageCount} onChange={this.handleInputChange} />
+          <input id="pageCount" type="number" name="pageCount" value={pageCount} onChange={this.handleInputChange} placeholder="þarf að fylla út" />
         </div>
         <div>
           <label htmlFor="language">Tungumál:</label>
-          <input id="language" type="text" name="language" value={language} onChange={this.handleInputChange} />
+          <input id="language" type="text" name="language" value={language} onChange={this.handleInputChange} placeholder="þarf að fylla út"/>
         </div>
         <button onClick={this.buttonHandler}> Submit </button>
         <button>
