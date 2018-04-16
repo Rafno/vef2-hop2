@@ -33,7 +33,7 @@ import './notandi.css';
       try {
         return (
           <div className="userListContainer">
-            <h1> {this.props.notandi.name}</h1>
+            <h1> <img src={require('../../res/profile.jpg')}  /> {this.props.notandi.name}</h1>
             <h1> Lesnar bækur </h1>
             {bookReadList}
           </div>
