@@ -1,0 +1,14 @@
+.userListContainer > h1 {
+    margin-bottom: 0.7em;
+}
+
+.userListContainer div {
+    display: list-item;
+}
+
+.userListContainer div h3:first-child {
+    text-decoration: underline;
+    margin-bottom: 0.5em;
+    margin-top: 0.5em;
+}
+
