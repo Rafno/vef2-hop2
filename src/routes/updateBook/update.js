@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { CreateBook } from '../../actions/auth';
 import { UpdateBookById, getBookById } from '../../actions/auth';
 import { connect } from 'react-redux';
+import './update.css';
 
 
 class update extends Component {
@@ -80,13 +81,14 @@ class update extends Component {
       'Psychology', 'Horror', 'Design', 'Economics', 'Graphic Novel'];
     const options = this.generateOptions(allCategories, category);
     const visible = isAuthenticated ?
-      <div>
-        <h2>{action}</h2>
-        <div>
+      <div className="bookEdit">
+        <h1>{action}</h1>
+        <div className="formContainer">
+        <div className="bookTextContainer">
           <label htmlFor="username">Titill:</label>
           <input id="title" type="text" name="title" value={title} onChange={this.handleInputChange} placeholder="Þarf að fylla út"/>
         </div>
-        <div>
+        <div className="bookTextContainer">
           <label htmlFor="">Höfundur:</label>
           <input id="author" type="text" name="author" value={author} onChange={this.handleInputChange}/>
         </div>
@@ -95,38 +97,40 @@ class update extends Component {
           <textarea rows="5" cols="50" id="description" type="text" value={description} name="description" onChange={this.handleInputChange} placeholder ="Þarf að fylla út">
           </textarea>
         </div>
-        <div>
+        <div className="categoryContainer">
           <lable htmlFor="category" >Flokkur:</lable>
           <select id="category" name="category" value={category} onChange={this.handleInputChange}>
             {options}
           </select>
         </div>
-        <div>
+        <div className="bookTextContainer">
           <label htmlFor="isbn10">ISBN10:</label>
           <input id="isbn10" type="text" name="isbn10" value={isbn10} onChange={this.handleInputChange} placeholder ="Tölustafir þarf að fylla út" />
         </div>
-        <div>
+        <div className="bookTextContainer">
           <label htmlFor="isbn13">ISBN13:</label>
           <input id="isbn13" type="text" name="isbn13" value={isbn13} onChange={this.handleInputChange} placeholder="13 tölustafir þarf að fylla út"/>
         </div>
-        <div>
+        <div className="bookTextContainer">
           <label htmlFor="published">Útgefin:</label>
           <input id="published" type="text" name="published" value={published} onChange={this.handleInputChange} />
         </div>
-        <div>
+        <div className="bookTextContainer">
           <label htmlFor="pageCount">Fjöldi síða:</label>
           <input id="pageCount" type="number" name="pageCount" value={pageCount} onChange={this.handleInputChange} placeholder="þarf að fylla út" />
         </div>
-        <div>
+        <div className="bookTextContainer">
           <label htmlFor="language">Tungumál:</label>
           <input id="language" type="text" name="language" value={language} onChange={this.handleInputChange} placeholder="þarf að fylla út"/>
         </div>
-        <button onClick={this.buttonHandler}> Submit </button>
-        <button>
+        <button onClick={this.buttonHandler}> Vista </button>
+        {errorMessage}
+      </div>
+      <button className="backButton">
           <Link to={url}> Til baka</Link>
         </button>
-        {errorMessage}
-      </div> :
+      </div>
+       :
       (<Redirect
         to={{
           pathname: '/',

@@ -1,0 +1,52 @@
+.bookTextContainer {
+    display: flex;
+    justify-content: space-between;
+    max-width: 25em;
+}
+
+.bookTextContainer input {
+    width: 60%;
+}
+
+.formContainer div{
+    margin-top: 1.3em;
+}
+
+.categoryContainer {
+    display: flex;
+    flex-direction: column;
+    max-width: 5em;
+}
+
+textarea {
+    border: solid 1px rgb(71, 31, 31);
+    border-radius: 0.3em;
+}
+
+.backButton a {
+    color: white;
+    text-decoration: none;
+}
+
+.bookEdit .backButton {
+    margin-top: 2em;
+    padding: 7px 16px;
+    border: 0;
+    border-radius: 5px;
+    color: #fff;
+    background-color: #4e1d04;
+    font-size: 1rem;
+    max-width: 9em;
+}
+
+
+.formContainer > button {
+    margin-top: 2em;
+    padding: 7px 14px;
+    border: 0;
+    border-radius: 5px;
+    color: #fff;
+    background-color: #4e1d04;
+    font-size: 1rem;
+    max-width: 9em;
+}

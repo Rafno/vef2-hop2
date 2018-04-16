@@ -128,8 +128,8 @@ class books extends Component {
         </div>
       );
     }
-    const view1 = bakkari ? <div><button>Aftur um síðu</button></div> : null;
-    const view2 = frammari ? <div> <button>Áfram um síðu</button></div> : null
+    const view1 = bakkari ? <div><button>{'< '}Fyrri síða</button></div> : null;
+    const view2 = frammari ? <div> <button>Næsta síða ></button></div> : null
     return (
       <div className="BookList">
         <h1> Bækur </h1>

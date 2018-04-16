@@ -3,6 +3,7 @@ import { Route, Link, Switch, Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { viewUser } from '../../actions/auth';
 import { connect } from 'react-redux';
+import './users.css';
 
 class users extends Component {
   state = {page:1, pageNumber:-1};
@@ -56,7 +57,7 @@ class users extends Component {
     sidan = sidan*10;
     let id = 0;
       const userList = users ?
-        <div>
+        <div className="usersList">
           {
             users.response.items.map((i, index) => {
               if (index == 0) {
@@ -77,12 +78,12 @@ class users extends Component {
         : isAuthenticated ? < p > Hleð inn gögnum</p> : <p>Vinsamlegast skráðu þig inn</p>
     return (
       <div>
-        <h2> Notendur </h2>
+        <h1> Notendur </h1>
         {userList}
         <div className="takkar">
-          {page > 1 ? <button className="backButton" onClick={this.backwardHandler}>Aftur um síðu</button> : null}
+          {page > 1 ? <button className="backButton" onClick={this.backwardHandler}>{'< '}Fyrri síða</button> : null}
           <p>Síða {pageNumber}</p>
-          {next ? <button className="forwardButton" onClick={this.forwardHandler}>Áfram um síðu </button> : null}
+          {next ? <button className="forwardButton" onClick={this.forwardHandler}>Næsta síða > </button> : null}
         </div>
       </div>
     );
