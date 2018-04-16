@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import { signReadBook, readBookByUser, delBook } from '../../actions/auth';
 import { fetchBooks } from '../../actions/book';
 import { connect } from 'react-redux';
+import './viewBook.css';
 
 /**
  * Get skoðað eina bók
@@ -89,35 +90,42 @@ class viewBook extends Component {
     null;
     const read = this.state.checked ?
     <div className={name}>
-      <form onSubmit={this.handleSubmit} >
+      <form className="reviewForm" onSubmit={this.handleSubmit} >
+        <lable>Um Bók:</lable>
         <textarea value={this.state.text} onChange={this.handleTextChange} rows="5" cols="20">Hvað fannst þér um bókina?</textarea>
-          <input type="number" name ="quantity" min ="1" max="5" value={this.state.grade} onChange={this.handleGradeChange} />
-          <input type="submit" value="Lesinn" />
+          <lable>Einkunn:</lable>
+          <input className="userRating" type="number" name ="quantity" min ="1" max="5" value={this.state.grade} onChange={this.handleGradeChange} />
+          <div className="reviewInputContainer">
+          <input type="submit" value="Vista" />
+          <button onClick={this.buttonHandler}>Hætta við</button>
+          </div>
       </form>
-          <button onClick={this.buttonHandler}> Hætta við </button>
   </div>:
-  <button onClick={this.buttonHandler}> Lesinn </button>
+  <div className="readBookButtonContainer">
+  <button onClick={this.buttonHandler}> Lesin Bók </button>
+  </div>
     const book = bookItem ?
       <div className="skodaBok">
         <ul className="listinnfyirBok">
-          <li>{bookItem.gogn[0].title} </li>
-          <li> {bookItem.gogn[0].author}</li>
-          <li> {bookItem.gogn[0].isbn13} </li>
+          <li className="bookTitle">{bookItem.gogn[0].title} </li>
+          <li> Eftir {bookItem.gogn[0].author}</li>
+          <li> ISBN13: {bookItem.gogn[0].isbn13} </li>
           <li>{bookItem.gogn[0].category} </li>
           <li> {bookItem.gogn[0].description}</li>
           <li> {bookItem.gogn[0].pagecount} Síður </li>
+          <li> Gefin út {bookItem.gogn[0].published}</li>
           <li> Tungumál: {bookItem.gogn[0].language} </li>
+          <li> <Link to={`/books/${bookItem.gogn[0].id}/edit`}> Breyta bók</Link></li>
         </ul>
-        <button>
-          <Link to={`/books/${bookItem.gogn[0].id}/edit`}> Breyta bók</Link>
-        </button>
       </div> : <p>loading...</p>
     return (
       <div>
         {book}
         {read}
         {final}
+        <div className="backButtonContainer">
         <button> <Link to={"/books"}>Til baka </Link> </button>
+        </div>
       </div>
     );
   }

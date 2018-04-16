@@ -33,3 +33,19 @@
 .profileContainer h1 {
     margin-bottom: 0.5em;
 }
+
+.myReadBookContainer {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 2em;
+}
+
+.myReadBookContainer button {
+    padding: 5px 18px;
+     border: 0;
+    border-radius: 5px;
+    color: #fff;
+    background-color: #941111;
+    font-size: 1rem;
+    max-width: 7em;
+}
