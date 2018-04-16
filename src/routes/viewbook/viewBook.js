@@ -76,7 +76,6 @@ class viewBook extends Component {
           <button onClick={this.props.delBook.bind(this, message.books.id)}>Eyða lestri</button>
         </div>
       } catch (e) {
-        
       }
     }
 

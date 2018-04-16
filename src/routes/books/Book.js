@@ -20,6 +20,8 @@ class books extends Component {
       linkur: null,
       next: null,
       count: 1,
+      search:'',
+      searching:false,
     };
 
     this.forwardHandler = this.forwardHandler.bind(this);
@@ -27,10 +29,10 @@ class books extends Component {
   }
 
   getQueryVariable(variable) {
-    var query = window.location.search.substring(1);
-    var vars = query.split("&");
+    let query = window.location.search.substring(1);
+    let vars = query.split("&");
     for (var i = 0; i < vars.length; i++) {
-      var pair = vars[i].split("=");
+      let pair = vars[i].split("=");
       if (pair[0] == variable) { return pair[1]; }
     }
     return (false);
@@ -69,6 +71,14 @@ class books extends Component {
       console.error('Error fetching navigation', e);
       this.setState({ error: true, loading: false });
     }
+    const strengur = this.getQueryVariable("query");
+    let leitari = false;
+    if(strengur === false) {
+      leitari = false;
+    } else {
+      leitari = true;
+    }
+    this.setState({search:strengur, searching: leitari})
   }
 
   async fetchData(url) {
@@ -107,7 +117,7 @@ class books extends Component {
   render() {
     let bakkari = true;
     let frammari = true;
-    const { data, loading, error } = this.state;
+    const { data, loading, error, search, searching } = this.state;
 
     if (loading) {
       return (
@@ -128,11 +138,12 @@ class books extends Component {
         </div>
       );
     }
+    const paragraph = searching? `Bókaleit: ${this.state.search}` :'Bækur'
     const view1 = bakkari ? <div><button>{'< '}Fyrri síða</button></div> : null;
     const view2 = frammari ? <div> <button>Næsta síða ></button></div> : null
     return (
       <div className="BookList">
-        <h1> Bækur </h1>
+        <h1> {paragraph} </h1>
         {data.items.map((i, index) => {
           const slug = i.id
           const url = "/books/" + slug
