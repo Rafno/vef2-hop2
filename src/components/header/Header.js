@@ -28,7 +28,9 @@ class Header extends Component {
       </div>
     return (
       <header className="header">
+      <div className="headTextContainer">
         <h1 className="header__heading"><Link to="/">Bókasafnið</Link></h1>
+      </div>
         <div className="header__searchBar">
           <Search />
         </div>
