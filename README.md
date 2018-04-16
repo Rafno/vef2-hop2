@@ -1,6 +1,6 @@
 # Hópverkefni 2
 
-hsg30@ugla, rao13@hi.is, hgg26@hi.is
+hsg30@hi.is, rao13@hi.is, hgg26@hi.is
 Hinrik Snær Guðmundsson, Rafnar Ólafsson, Helgi Grétar Gunnarsson
 
 Cloudinary var með vesen, sú virkni var ekki útfærð með leyfi frá Óla.
