@@ -9,11 +9,11 @@ import api from '../api';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
-import { VIEW_USER, LOGIN_REQUEST, SIGN_BOOK,BOOK_REQUEST, LOGIN_SUCCESS, READ_REQUEST, BOOK_REGISTER_REQUEST, BOOK_PATCH_REQUEST, LOGIN_FAILURE, USER_PATCH_REQUEST, LOGIN_LOGOUT, VIEW_USERS, UPDATE_USER } from './types';
+import { VIEW_USER, LOGIN_REQUEST, SIGN_BOOK, BOOK_REQUEST, LOGIN_SUCCESS, USER_BOOKS, READ_REQUEST, BOOK_REGISTER_REQUEST, BOOK_PATCH_REQUEST, LOGIN_FAILURE, USER_PATCH_REQUEST, LOGIN_LOGOUT, VIEW_USERS, UPDATE_USER } from './types';
 
 
 export const bookByID = (userID) => dispatch => {
-  fetch(`https://verkefni2server.herokuapp.com/users/${userId}/read`, {
+  fetch(`https://verkefni2server.herokuapp.com/users/${userID}/read`, {
     method: 'GET',
     headers: {
       'content-type': 'application/json',
