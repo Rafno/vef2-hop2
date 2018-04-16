@@ -72,7 +72,7 @@ class viewBook extends Component {
             <li> Einkunn: {einkunn} </li>
             <li> {domur} </li>
           </ul>
-          <button onClick={this.props.delBook.bind(this, message.books.id)}>Eyða lestri</button>
+          <button className="deleteButton" onClick={this.props.delBook.bind(this, message.books.id)}>Eyða lestri</button>
         </div>
       } catch (e) {
       }

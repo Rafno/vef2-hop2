@@ -67,3 +67,13 @@
     font-size: 1rem;
     max-width: 7em;
 }
+
+.deleteButton{
+    padding: 5px 18px;
+    border: 0;
+    border-radius: 5px;
+    color: #fff;
+    background-color: #941111;
+    font-size: 1rem;
+    max-width: 7em;
+}
