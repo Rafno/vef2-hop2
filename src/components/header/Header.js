@@ -34,7 +34,10 @@ class Header extends Component {
         <div className="header__searchBar">
           <Search />
         </div>
+        <div className="userInfo">
+        <img src={require('../../res/profile.jpg')} />
         {visible}
+        </div>
       </header>
     );
   }
