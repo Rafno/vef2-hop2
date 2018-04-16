@@ -55,7 +55,8 @@ class Profile extends Component {
     const { token } = this.props;
     let profilePic = new FormData();
     profilePic.append('Profile', this.uploadInput.files[0]);
-    fetch('https://verkefni2server.herokuapp.com/users/me', {
+    fetch('http://res.cloudinary.com/duvvmlv8t/image/upload/v1523731772/jutr9ov1n8jbo7lxbush.jpg', {
+    //fetch('https://verkefni2server.herokuapp.com/users/me', {
       method: 'POST',
       headers: {
         'content-type': 'application/json',
@@ -101,8 +102,8 @@ class Profile extends Component {
       <div>
         <h2>Upplýsingar</h2>
         <form onSubmit={this.handleFileSubmit}>
-          <input ref={(ref) => { this.uploadInput = ref; }} type="file" />
-          <input type="submit" value="Aftengt afþví Cloudinary virkar ekki" />
+          <input ref={(ref) => { this.uploadInput = ref; }} type="file" placeholder=" óli sagðði a það mátti sleppa"/>
+          <input type="submit"/>
         </form>
         <form onSubmit={this.handleNameChange}> Breyta Nafni
           <input type="nafn" name="name" onChange={this.handleInputChange} value={name} />
