@@ -5,7 +5,8 @@ import {
   LOGIN_FAILURE, USER_PATCH_REQUEST,
   LOGIN_LOGOUT, VIEW_USERS,
   UPDATE_USER, SIGN_BOOK,
-  BOOK_GET_REQUEST, VIEW_USER
+  BOOK_GET_REQUEST, VIEW_USER,
+  USER_BOOKS,
 } from '../actions/types';
 let user = null;
 if (localStorage.getItem("Token")) {
@@ -25,6 +26,13 @@ const initialState = user ? {
 
 export default (state = initialState, action) => {
   switch (action.type) {
+    case USER_BOOKS:
+      return {
+        ...state,
+        isFetching: action.isFetching,
+        isAuthenticated: state.isAuthenticated,
+        books: action.items,
+      }
     case LOGIN_REQUEST:
       return {
         ...state,

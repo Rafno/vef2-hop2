@@ -12,7 +12,23 @@ import { Redirect } from 'react-router-dom';
 import { VIEW_USER, LOGIN_REQUEST, SIGN_BOOK,BOOK_REQUEST, LOGIN_SUCCESS, READ_REQUEST, BOOK_REGISTER_REQUEST, BOOK_PATCH_REQUEST, LOGIN_FAILURE, USER_PATCH_REQUEST, LOGIN_LOGOUT, VIEW_USERS, UPDATE_USER } from './types';
 
 
-
+export const bookByID = (userID) => dispatch => {
+  fetch(`https://verkefni2server.herokuapp.com/users/${userId}/read`, {
+    method: 'GET',
+    headers: {
+      'content-type': 'application/json',
+      'authorization': `bearer ${localStorage.getItem("Token")}`
+    }
+  })
+    .then(res => res.json())
+    .then(items =>
+      dispatch({
+        type: USER_BOOKS,
+        isFetching: false,
+        books: items.items,
+      })
+    )
+}
 export const updateUser = (userId) => dispatch => {
   fetch(`https://verkefni2server.herokuapp.com/users/${userId}`, {
     method: 'GET',
@@ -47,7 +63,8 @@ export const delBook = (id) => dispatch => {
       }))
 }
 export const viewUser = (token, page) => dispatch => {
-  fetch(`https://verkefni2server.herokuapp.com/users?offset=${page}&limit=10&`, {
+  const correctPage = page - 1;
+  fetch(`https://verkefni2server.herokuapp.com/users?offset=${correctPage}&limit=10&`, {
     method: 'GET',
     headers: {
       'content-type': 'application/json',
