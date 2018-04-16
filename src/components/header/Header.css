@@ -2,7 +2,7 @@
   background-color: #dcbe87;
   display:flex;
   justify-content:space-between;
-  padding: 1em
+  padding: 0.5em
 }
 .header__heading a{
     text-decoration:none;
@@ -16,4 +16,8 @@ a{
 
 .loginLink {
     margin-top: 0.7em;
+}
+.profiles {
+    display: flex;
+    flex-direction: column;
 }

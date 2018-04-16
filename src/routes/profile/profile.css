@@ -1,0 +1,35 @@
+.profileContainer form {
+    margin-bottom: 3em;
+}
+
+.passChangeForm {
+    max-width: 20em;
+    display: flex;
+    flex-direction: column;
+}
+
+.passChangeForm .passChangeContainer {
+    margin-bottom: 1em;
+    display: flex;
+    justify-content: space-between;
+}
+
+.nameChangeForm {
+    max-width: 20em;
+    display: flex;
+    flex-direction: column;
+}
+
+.nameChangeForm .nameChangeContainer {
+    margin-bottom: 1em;
+    display: flex;
+    justify-content: space-between;
+}
+.submitErrorMessage{
+    margin-bottom: 1em;
+    margin-top: -2em;
+}
+
+.profileContainer h1 {
+    margin-bottom: 0.5em;
+}

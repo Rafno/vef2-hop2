@@ -4,6 +4,8 @@ import { fetchBooks } from '../../actions/book';
 import { connect } from 'react-redux';
 import {header} from '../../components/header';
 import { Redirect } from 'react-router-dom';
+import './profile.css';
+
 class Profile extends Component {
   constructor() {
     super()
@@ -100,27 +102,36 @@ class Profile extends Component {
     }
     const profile = isAuthenticated ?
       <div>
-        <h2>Upplýsingar</h2>
-        <form onSubmit={this.handleFileSubmit}>
+        <h1>Upplýsingar</h1>
+        <form className="imageUpdateContainer" onSubmit={this.handleFileSubmit}>
           <input ref={(ref) => { this.uploadInput = ref; }} type="file" placeholder=" óli sagðði a það mátti sleppa"/>
-          <input type="submit"/>
+          <input value="Uppfæra mynd" type="submit"/>
         </form>
-        <form onSubmit={this.handleNameChange}> Breyta Nafni
+        <form className="nameChangeForm" onSubmit={this.handleNameChange}> 
+        <div className="nameChangeContainer">
+        <lable for="name">Nafn:</lable>
           <input type="nafn" name="name" onChange={this.handleInputChange} value={name} />
-          <input type="submit" />
-          {message ?
-          <div>
+          </div>
+          <input value="Uppfæra nafn" type="submit" />
+        </form>
+        {message ?
+          <div className="submitErrorMessage">
             <header
             />
             <p>{message}</p>
             </div>
              :
              <p></p>}
-        </form>
-        <form onSubmit={this.handlePassChange}> Breyta Lykilorði
+        <form className="passChangeForm" onSubmit={this.handlePassChange}>
+        <div className="passChangeContainer">
+          <lable for="pass"> Lykilorð:</lable>
           <input type="password" name="pass" onChange={this.handleInputChange} value={password}/>
+        </div>
+        <div className="passChangeContainer">
+          <lable for="confirmPass">Lykilorð aftur:</lable>
           <input type="password" name="confirmPass" onChange={this.handleInputChange} value={password}/>
-          <input type="submit" />
+        </div>
+          <input value="Uppfæra lykilorð" type="submit" />
         </form>
         <h2> Lesnar Bækur </h2>
       </div> : (<Redirect
@@ -132,7 +143,7 @@ class Profile extends Component {
       )
 
     return (
-      <div>
+      <div className="profileContainer">
         {profile}
         <div className="readList">
           {bookReadList}
