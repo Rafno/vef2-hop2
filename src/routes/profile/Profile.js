@@ -56,9 +56,10 @@ class Profile extends Component {
     e.preventDefault();
     const { token } = this.props;
     let profilePic = new FormData();
+    console.log(this.uploadInput.files[0]);
     profilePic.append('Profile', this.uploadInput.files[0]);
-    fetch('http://res.cloudinary.com/duvvmlv8t/image/upload/v1523731772/jutr9ov1n8jbo7lxbush.jpg', {
-    //fetch('https://verkefni2server.herokuapp.com/users/me', {
+   // fetch('http://res.cloudinary.com/duvvmlv8t/image/upload/v1523731772/jutr9ov1n8jbo7lxbush.jpg', {
+    fetch('https://verkefni2server.herokuapp.com/users/me/profile', {
       method: 'POST',
       headers: {
         'content-type': 'application/json',
@@ -66,7 +67,9 @@ class Profile extends Component {
       },
       body: profilePic,
     }).then((response) => {
+      console.log(Response);
       response.json().then((body) => {
+        console.log(body, '  þetta er bodyið');
         this.props.uploadPic(body.file);
       });
     });

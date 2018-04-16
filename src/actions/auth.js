@@ -338,7 +338,7 @@ export const loginOut = () => dispatch => {
   })
 };
 export const uploadPic = (file) => dispatch => {
-  console.log("helloi");
+  console.log(file, ' þetta er file');
   dispatch({
     type: UPDATE_USER,
     picture: file,
