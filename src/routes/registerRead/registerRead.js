@@ -14,9 +14,6 @@ class registerRead extends Component {
     checkText: null,
     seen:false,
   }
-  componentDidMount() {
-    
-  }
   generateOptions(categories) {
     return categories.map((x, i) => {
       return (<option key={i} value={x}>{x}</option>)
@@ -41,8 +38,7 @@ class registerRead extends Component {
   }
   confirm(title){
     const  { einkunn, textinn} = this.state;
-      console.log(einkunn, textinn, title);
-      this.props.readBookByUser(5, "lala", "About a Boy");
+      this.props.readBookByUser(einkunn, textinn, title);
   }
   render() {
     const { einkunn, textinn, checkScore, checkText, seen } = this.state;
