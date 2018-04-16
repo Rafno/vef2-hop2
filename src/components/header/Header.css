@@ -27,7 +27,7 @@ a{
     display: flex;
 }
 
-.userInfo img {
+img {
     border-radius: 2em;
     max-width: 3em;
     max-height: 3em;
