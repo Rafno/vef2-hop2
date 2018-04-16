@@ -1,8 +1,10 @@
 
 import React, { Component } from 'react';
 import { getBooks, updateUser } from '../../actions/auth';
-  import { connect } from 'react-redux';
-  import { Redirect } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
+import './notandi.css';
+
   class Profile extends Component {
       componentDidMount() {
         this.props.getBooks();
@@ -17,7 +19,7 @@ import { getBooks, updateUser } from '../../actions/auth';
           (book.response.items.map(items =>
             <div>
               <h3>{items.booksread_title}</h3>
-            <p>Einkunn {items.booksread_grade} {items.booksread_judge}</p>
+              <h3>Einkunn: {items.booksread_grade} {items.booksread_judge}</h3>
             </div>
           ));
       } catch (e) {
@@ -29,9 +31,9 @@ import { getBooks, updateUser } from '../../actions/auth';
       }
       try {
         return (
-          <div>
-            <h2> {this.props.notandi.name}</h2>
-            <h3> Lesnar bækur </h3>
+          <div className="userListContainer">
+            <h1> {this.props.notandi.name}</h1>
+            <h1> Lesnar bækur </h1>
             {bookReadList}
           </div>
         );
