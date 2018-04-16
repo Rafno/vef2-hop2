@@ -1,5 +1,10 @@
 # Hópverkefni 2
 
+hsg30@ugla, rao13@hi.is, hgg26@hi.is
+Hinrik Snær Guðmundsson, Rafnar Ólafsson, Helgi Grétar Gunnarsson
+
+Cloudinary var með vesen, sú virkni var ekki útfærð með leyfi frá Óla.
+
 Hópverkefni 2 snýst um að útbúa react framenda ofan á vefþjónustu úr hópaverkefni 1. Hægt er að nota eigin lausn áfram eða nýta sýnilausn.
 
 ## Notendaumsjón
