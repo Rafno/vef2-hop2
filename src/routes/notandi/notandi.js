@@ -13,7 +13,6 @@ import './notandi.css';
       }
     render() {
       const { isAuthenticated, bookItem, books, message, delBook, notandi } = this.props;
-      console.log(books);
       let bookReadList = <p> Hleð inn gögnum...</p>;
       try {
         bookReadList =

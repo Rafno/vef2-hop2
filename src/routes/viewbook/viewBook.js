@@ -61,7 +61,6 @@ class viewBook extends Component {
     let agree = null;
     if(this.state.submit === true ){
       try {
-        console.log(message.books.id, ' þetta er einkunnin')
         einkunn = message.books.booksread_grade;
         domur = message.books.booksread_judge
         agree = payload ?

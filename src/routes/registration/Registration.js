@@ -42,7 +42,6 @@ class Registration extends Component {
     }
     const results = await api.post('/register', registrationInfo);
     if (results.result.error) {
-      console.log(results);
       this.setState({ error: results.result.error })
     } else {
       window.location.replace("login");
@@ -52,14 +51,10 @@ class Registration extends Component {
   render() {
     let errors = null;
     if (this.state.error) {
-      console.log("I have errors");
       errors = this.state.error.map((x, i) => {
-        console.log(x.error);
         return (<p>{x.error}</p>)
       });
-      console.log(errors);
     }
-    console.log("errors are" + errors);
     return (
       <form onSubmit={this.handleSubmit} class="registration">
         <h1>Nýskráning</h1>

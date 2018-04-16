@@ -78,7 +78,6 @@ class Profile extends Component {
   render() {
     const { user, isAuthenticated, bookItem, book, message, delBook } = this.props;
     const {checked, name, pass} = this.state;
-    console.log(checked, " þett er state", name);
     let bookReadList = <p>Hleð inn gögnum...</p>
     try {
       bookReadList =

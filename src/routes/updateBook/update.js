@@ -45,7 +45,6 @@ class update extends Component {
   }
   handleInputChange = (e) => {
     const name = e.target.name;
-    console.log(name, e.target.value);
     const value = e.target.value;
     this.setState({ [name]: value });
   }
@@ -59,7 +58,6 @@ class update extends Component {
     const { title, author, category, isbn10, isbn13, published, pageCount, language, description, action, initialized, back, id } = this.state;
     const { isAuthenticated, user, book, message } = this.props;
     const errorMessage = <p>{this.props.message}</p>
-    console.log(message);
     if(!initialized && book){
         this.setState({
           title: book.gogn[0].title,

@@ -42,7 +42,6 @@ class users extends Component {
   }
   updateFall(tala,sida){
     const { token } = this.props;
-    console.log(tala, ' þetta er tala');
     this.props.viewUser(token,tala);
     this.setState({page:tala, pageNumber:sida})
 
