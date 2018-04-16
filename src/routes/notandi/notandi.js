@@ -1,22 +1,23 @@
 
 import React, { Component } from 'react';
-import { getBooks, updateUser } from '../../actions/auth';
+import { updateUser, bookByID } from '../../actions/auth';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import './notandi.css';
 
   class Profile extends Component {
       componentDidMount() {
-        this.props.getBooks();
         const userUrl = this.props.location.pathname.split('/');
         this.props.updateUser(userUrl[2]);
+        this.props.bookByID(userUrl[2]);
       }
     render() {
-      const { isAuthenticated, bookItem, book, message, delBook, notandi } = this.props;
+      const { isAuthenticated, bookItem, books, message, delBook, notandi } = this.props;
+      console.log(books);
       let bookReadList = <p> Hleð inn gögnum...</p>;
       try {
         bookReadList =
-          (book.response.items.map(items =>
+          (books.map(items =>
             <div>
               <h3>{items.booksread_title}</h3>
               <h3>Einkunn: {items.booksread_grade} {items.booksread_judge}</h3>
@@ -25,7 +26,7 @@ import './notandi.css';
       } catch (e) {
         try {
           bookReadList =
-          <div>{book.Empty}
+          <div>{books.Empty}
           </div>
         } catch (e) {}
       }
@@ -55,8 +56,8 @@ import './notandi.css';
       isAuthenticated: state.auth.isAuthenticated,
       token: state.auth.token,
       bookItem: state.books.bookItem,
-      book: state.auth.payload,
+      books: state.auth.books,
       notandi: state.auth.notandi,
     }
   }
-export default connect(mapStateToProps, { getBooks, updateUser})(Profile);
+export default connect(mapStateToProps, { updateUser, bookByID})(Profile);

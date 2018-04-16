@@ -38,7 +38,7 @@ class viewBook extends Component {
     const tala = this.state.grade;
     const numb = parseInt(tala);
     this.props.readBookByUser(numb, this.state.text, bookItem.gogn[0].title);
-    this.setState({checked:false, submit:true});
+    this.setState({checked:false, submit:true, grade:0});
   }
   buttonHandler = () => {
     const {checked} = this.state;
@@ -50,13 +50,10 @@ class viewBook extends Component {
     }
     this.setState({checked:truth});
   }
-  DeleteHandler = () => {
-    console.log("eyða þessari skrá");
-  }
 
   render() {
-    const {checked, submit} = this.state;
-    const { bookItem, message, delBook, payload } = this.props;
+    const { checked, submit, grade } = this.state;
+    const { bookItem, message, delBook, payload, isAuthenticated } = this.props;
     const check = null;
     let name = null;
     let einkunn = 0;
@@ -64,7 +61,8 @@ class viewBook extends Component {
     let agree = null;
     if(this.state.submit === true ){
       try {
-        einkunn = message.books.id
+        console.log(message.books.id, ' þetta er einkunnin')
+        einkunn = message.books.booksread_grade;
         domur = message.books.booksread_judge
         agree = payload ?
           <div>
@@ -88,6 +86,7 @@ class viewBook extends Component {
     </div>
       :
     null;
+
     const read = this.state.checked ?
     <div className={name}>
       <form className="reviewForm" onSubmit={this.handleSubmit} >
@@ -102,7 +101,7 @@ class viewBook extends Component {
       </form>
   </div>:
   <div className="readBookButtonContainer">
-  <button onClick={this.buttonHandler}> Lesin Bók </button>
+        {isAuthenticated ? <button onClick={this.buttonHandler}> Lesin Bók </button> : <p></p>}
   </div>
     const book = bookItem ?
       <div className="skodaBok">
@@ -115,7 +114,7 @@ class viewBook extends Component {
           <li> {bookItem.gogn[0].pagecount} Síður </li>
           <li> Gefin út {bookItem.gogn[0].published}</li>
           <li> Tungumál: {bookItem.gogn[0].language} </li>
-          <li> <Link to={`/books/${bookItem.gogn[0].id}/edit`}> Breyta bók</Link></li>
+          {isAuthenticated ? < li > <Link to={`/books/${bookItem.gogn[0].id}/edit`}> Breyta bók</Link></li>: <li></li>}
         </ul>
       </div> : <p>loading...</p>
     return (
