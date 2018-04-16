@@ -31,7 +31,7 @@ export default (state = initialState, action) => {
         ...state,
         isFetching: action.isFetching,
         isAuthenticated: state.isAuthenticated,
-        books: action.items,
+        books: action.books,
       }
     case LOGIN_REQUEST:
       return {

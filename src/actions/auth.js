@@ -21,13 +21,21 @@ export const bookByID = (userID) => dispatch => {
     }
   })
     .then(res => res.json())
-    .then(items =>
-      dispatch({
-        type: USER_BOOKS,
-        isFetching: false,
-        books: items.items,
-      })
-    )
+    .then(items => {
+      if (items.Empty) {
+        dispatch({
+          type: USER_BOOKS,
+          isFetching: false,
+          books: items,
+        })
+      } else {
+        dispatch({
+          type: USER_BOOKS,
+          isFetching: false,
+          books: items.response.items,
+        })
+      }
+    })
 }
 export const updateUser = (userId) => dispatch => {
   fetch(`https://verkefni2server.herokuapp.com/users/${userId}`, {

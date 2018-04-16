@@ -37,7 +37,21 @@
 .myReadBookContainer {
     display: flex;
     flex-direction: column;
-    margin-bottom: 2em;
+    margin-top: 1em;
+}
+
+.myReadBookContainer h3:first-child {
+    display: list-item;
+    text-decoration: underline;
+}
+
+.myReadBookContainer button {
+    margin-bottom: 1em;
+    margin-top: 0.5em;
+}
+
+.readList {
+    margin-top: 2em;
 }
 
 .myReadBookContainer button {
@@ -49,3 +63,4 @@
     font-size: 1rem;
     max-width: 7em;
 }
+

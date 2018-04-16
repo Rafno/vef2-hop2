@@ -37,9 +37,7 @@ class viewBook extends Component {
     event.preventDefault();
     const tala = this.state.grade;
     const numb = parseInt(tala);
-    console.log(numb , ' þetta er talan í handlesubmit')
     this.props.readBookByUser(numb, this.state.text, bookItem.gogn[0].title);
-    console.log(grade, 'þetta er einkuninn');
     this.setState({checked:false, submit:true, grade:0});
   }
   buttonHandler = () => {
@@ -54,8 +52,8 @@ class viewBook extends Component {
   }
 
   render() {
-    const {checked, submit, grade} = this.state;
-    const { bookItem, message, delBook, payload } = this.props;
+    const { checked, submit, grade } = this.state;
+    const { bookItem, message, delBook, payload, isAuthenticated } = this.props;
     const check = null;
     let name = null;
     let einkunn = 0;
@@ -63,7 +61,7 @@ class viewBook extends Component {
     let agree = null;
     if(this.state.submit === true ){
       try {
-        console.log(message.books.id, ' þetta er einkunin')
+        console.log(message.books.id, ' þetta er einkunnin')
         einkunn = message.books.booksread_grade;
         domur = message.books.booksread_judge
         agree = payload ?
@@ -102,7 +100,7 @@ class viewBook extends Component {
       </form>
   </div>:
   <div className="readBookButtonContainer">
-  <button onClick={this.buttonHandler}> Lesin Bók </button>
+        {isAuthenticated ? <button onClick={this.buttonHandler}> Lesin Bók </button> : <p></p>}
   </div>
     const book = bookItem ?
       <div className="skodaBok">
@@ -115,7 +113,7 @@ class viewBook extends Component {
           <li> {bookItem.gogn[0].pagecount} Síður </li>
           <li> Gefin út {bookItem.gogn[0].published}</li>
           <li> Tungumál: {bookItem.gogn[0].language} </li>
-          <li> <Link to={`/books/${bookItem.gogn[0].id}/edit`}> Breyta bók</Link></li>
+          {isAuthenticated ? < li > <Link to={`/books/${bookItem.gogn[0].id}/edit`}> Breyta bók</Link></li>: <li></li>}
         </ul>
       </div> : <p>loading...</p>
     return (
