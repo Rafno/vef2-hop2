@@ -22,3 +22,14 @@ a{
     display: flex;
     flex-direction: column;
 }
+
+.userInfo {
+    display: flex;
+}
+
+.userInfo img {
+    border-radius: 2em;
+    max-width: 3em;
+    max-height: 3em;
+    margin-right: 1em;
+}
