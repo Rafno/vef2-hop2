@@ -85,7 +85,7 @@ class Profile extends Component {
         (book.response.items.map(items =>
           <div className="myReadBookContainer">
             <h3>{items.booksread_title}</h3>
-            <p>Einkunn {items.booksread_grade} {items.booksread_judge}</p>
+            <h3>Einkunn {items.booksread_grade} {items.booksread_judge}</h3>
           <button onClick={this.props.delBook.bind(this, items.id)}>Eyða lestri</button>
           </div>
         ));
