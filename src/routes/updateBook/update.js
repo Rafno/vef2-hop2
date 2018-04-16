@@ -76,7 +76,8 @@ class update extends Component {
         });
     }
     `/books/${this.state.sluggid}`
-    let url = back ? url= `/books/${id}`: url = '/'
+    let url = back ? url= `/books/${id}`: url = '/';
+    let header = back ? header='Breyta bók': header='Búa til nýja bók';
     const allCategories = ['Science Fiction', 'Fantasy', 'Fiction', 'Computer Science', 'Comic', 'Nonfiction', 'Business',
       'Psychology', 'Horror', 'Design', 'Economics', 'Graphic Novel'];
     const options = this.generateOptions(allCategories, category);
@@ -140,6 +141,7 @@ class update extends Component {
       )
     return (
       <div>
+        <h2> {header} </h2>
         {visible}
       </div>
     );
