@@ -37,8 +37,10 @@ class viewBook extends Component {
     event.preventDefault();
     const tala = this.state.grade;
     const numb = parseInt(tala);
+    console.log(numb , ' þetta er talan í handlesubmit')
     this.props.readBookByUser(numb, this.state.text, bookItem.gogn[0].title);
-    this.setState({checked:false, submit:true});
+    console.log(grade, 'þetta er einkuninn');
+    this.setState({checked:false, submit:true, grade:0});
   }
   buttonHandler = () => {
     const {checked} = this.state;
@@ -50,12 +52,9 @@ class viewBook extends Component {
     }
     this.setState({checked:truth});
   }
-  DeleteHandler = () => {
-    console.log("eyða þessari skrá");
-  }
 
   render() {
-    const {checked, submit} = this.state;
+    const {checked, submit, grade} = this.state;
     const { bookItem, message, delBook, payload } = this.props;
     const check = null;
     let name = null;
@@ -64,7 +63,8 @@ class viewBook extends Component {
     let agree = null;
     if(this.state.submit === true ){
       try {
-        einkunn = message.books.id
+        console.log(message.books.id, ' þetta er einkunin')
+        einkunn = message.books.booksread_grade;
         domur = message.books.booksread_judge
         agree = payload ?
           <div>
@@ -88,6 +88,7 @@ class viewBook extends Component {
     </div>
       :
     null;
+
     const read = this.state.checked ?
     <div className={name}>
       <form className="reviewForm" onSubmit={this.handleSubmit} >
