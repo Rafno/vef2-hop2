@@ -17,7 +17,7 @@ import { getBooks, updateUser } from '../../actions/auth';
           (book.response.items.map(items =>
             <div>
               <h3>{items.booksread_title}</h3>
-            <p>Einkunn {items.booksread_grade} {items.booksread_judge}</p>
+            <p>Einkunn: {items.booksread_grade} {items.booksread_judge}</p>
             </div>
           ));
       } catch (e) {
@@ -31,7 +31,7 @@ import { getBooks, updateUser } from '../../actions/auth';
         return (
           <div>
             <h2> {this.props.notandi.name}</h2>
-            <h3> Lesnar bækur </h3>
+            <h2> Lesnar bækur </h2>
             {bookReadList}
           </div>
         );
